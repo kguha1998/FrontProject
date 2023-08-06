@@ -1,7 +1,7 @@
-import { View, Text, TouchableOpacity, Dimensions, Button } from 'react-native'
+import { View, Text, TouchableOpacity, Dimensions, Button, Image, ScrollView } from 'react-native'
 import React from 'react'
 import LinearGradient from 'react-native-linear-gradient';
-import { ScrollView } from 'react-native-gesture-handler';
+
 
 const ChooseItemView = ({navigation, route}:ChooseItemViewProps) => {
   return (
@@ -22,11 +22,87 @@ const ChooseItemView = ({navigation, route}:ChooseItemViewProps) => {
                Choose Items
           </Text>
       </LinearGradient>
+      {/* Green Capsicum */}
+      <View style={{ flexDirection:'row', marginTop:-30,marginLeft:20,marginRight:20, borderRadius:10, borderWidth: 1, borderColor: 'orange',elevation: 10,
+              backgroundColor: 'white',marginBottom:70}}>
+                <View>
+                <Image
+                    source={{uri: 'https://www.oifood.in/files/products/9f1114e47918b5a7a304cdbb60591a4b.jpg'}}
+                    style={{width: 150, height: 150, resizeMode: 'contain', }}
+                 />
+                </View>
+          
+                <View style={{marginTop:40}}>
+                  <Text style={{fontSize:20 , textAlign:'justify',color:'#Ff8600',paddingLeft:20}}>Green Capsicum</Text>
+                </View>
+      </View>
+      
+      {/* coloured capsicum */}
+      <View style={{ flexDirection:'row', marginTop:-30,marginLeft:20,marginRight:20, borderRadius:10, borderWidth: 1, borderColor: 'orange',elevation: 10,
+              backgroundColor: 'white',marginBottom:70}}>
+                <View>
+                <Image
+                    source={{uri: 'https://t4.ftcdn.net/jpg/02/87/25/37/360_F_287253716_I1seSRet5pt8YGBRRcTbPPV1WesM00n9.jpg'}}
+                    style={{width: 150, height: 150, resizeMode: 'contain', }}
+                 />
+                </View>
+          
+                <View style={{marginTop:40}}>
+                  <Text style={{fontSize:20 , textAlign:'justify',color:'#Ff8600',paddingLeft:20}}>Bell Pepper</Text>
+                </View>
+      </View>
+
+      {/* Mushroom */}
+      <View style={{ flexDirection:'row', marginTop:-30,marginLeft:20,marginRight:20, borderRadius:10, borderWidth: 1, borderColor: 'orange',elevation: 10,
+              backgroundColor: 'white',marginBottom:70}}>
+                <View>
+                <Image
+                    source={{uri: 'https://media.istockphoto.com/id/1276597176/photo/button-mushrooms.jpg?s=612x612&w=0&k=20&c=ilDpArGu1tDBzSAZR8zxr5VXjet7tb7U7Erx-vsRY4E='}}
+                    style={{width: 150, height: 150, resizeMode: 'contain', }}
+                 />
+                </View>
+          
+                <View style={{marginTop:40}}>
+                  <Text style={{fontSize:20 , textAlign:'justify',color:'#Ff8600',paddingLeft:20}}>Mushroom</Text>
+                </View>
+      </View>
+      
+      {/* Tomatoes */}
+      <View style={{ flexDirection:'row', marginTop:-30,marginLeft:20,marginRight:20, borderRadius:10, borderWidth: 1, borderColor: 'orange',elevation: 10,
+              backgroundColor: 'white',marginBottom:70}}>
+                <View>
+                <Image
+                  source={{uri: 'https://img.freepik.com/premium-photo/red-tomatoes-with-cut-isolated-white_80510-576.jpg'}}
+                    style={{width: 150, height: 150, resizeMode: 'contain', }}
+                 />
+                </View>
+          
+                <View style={{marginTop:40}}>
+                  <Text style={{fontSize:20 , textAlign:'justify',color:'#Ff8600',paddingLeft:20}}>Tomato</Text>
+                </View>
+      </View>
+      
+      {/* Carrot */}
+      <View style={{ flexDirection:'row', marginTop:-30,marginLeft:20,marginRight:20, borderRadius:10, borderWidth: 1, borderColor: 'orange',elevation: 10,
+              backgroundColor: 'white',marginBottom:70}}>
+                <View>
+                <Image
+                    source={{uri: 'https://a-i-c.eu/wp-content/uploads/2019/12/p9.jpg'}}
+                    style={{width: 150, height: 150, resizeMode: 'contain', }}
+                 />
+                </View>
+          
+                <View style={{marginTop:40}}>
+                  <Text style={{fontSize:20 , textAlign:'justify',color:'#Ff8600',paddingLeft:20}}>Carrot</Text>
+                </View>
+      </View>
+      
+    
  
-        <View style={{alignContent:'flex-end'}}>
+        <View >
           <TouchableOpacity onPress={() =>navigation.navigate('ChooseBox')}>
-            <View style={{marginLeft:80,marginRight:80,padding:20,elevation:25,backgroundColor:'white',borderRadius:10, borderWidth: 1, borderColor: 'orange'}}>
-             <Text style={{fontWeight:'bold',color:'#Ff8600',textAlign:'center'}}>BACK</Text>
+            <View style={{marginLeft:80,marginRight:80,padding:10,elevation:25,backgroundColor:'#Ff8600',borderRadius:10, borderWidth: 1, borderColor: 'white'}}>
+             <Text style={{fontSize:18,fontWeight:'bold',textAlign:'center',color:'white'}}>BACK</Text>
             </View>
           </TouchableOpacity>
         </View>
