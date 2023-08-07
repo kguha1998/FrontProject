@@ -31,10 +31,16 @@ const ChooseItemView = ({navigation, route}:ChooseItemViewProps) => {
                     style={{width: 150, height: 150, resizeMode: 'contain', }}
                  />
                 </View>
-          
-                <View style={{marginTop:40}}>
-                  <Text style={{fontSize:20 , textAlign:'justify',color:'#Ff8600',paddingLeft:20}}>Green Capsicum</Text>
-                </View>
+                
+                <View style={{flexDirection:'column'}}>
+                 <View style={{marginTop:40}}>
+                  <Text style={{fontSize:20 , textAlign:'right',color:'#Ff8600',paddingLeft:20}}>Green Capsicum</Text>
+                 </View>
+
+                 <View style={{marginLeft:100,marginTop:30}}>
+                  <Button title="Add Item"  color="#f57c00" onPress={() => navigation.navigate('AddOn')}/>
+                 </View>
+                </View> 
       </View>
       
       {/* coloured capsicum */}
@@ -46,9 +52,14 @@ const ChooseItemView = ({navigation, route}:ChooseItemViewProps) => {
                     style={{width: 150, height: 150, resizeMode: 'contain', }}
                  />
                 </View>
-          
-                <View style={{marginTop:40}}>
-                  <Text style={{fontSize:20 , textAlign:'justify',color:'#Ff8600',paddingLeft:20}}>Bell Pepper</Text>
+
+                <View style={{flexDirection:'column'}}>
+                 <View style={{marginTop:40}}>
+                  <Text style={{fontSize:20 , textAlign:'right',color:'#Ff8600',paddingLeft:20}}>Bell Pepper</Text>
+                </View>
+                 <View style={{marginLeft:100,marginTop:30}}>
+                  <Button title="Add Item"  color="#f57c00" />
+                 </View>
                 </View>
       </View>
 
@@ -62,8 +73,13 @@ const ChooseItemView = ({navigation, route}:ChooseItemViewProps) => {
                  />
                 </View>
           
-                <View style={{marginTop:40}}>
-                  <Text style={{fontSize:20 , textAlign:'justify',color:'#Ff8600',paddingLeft:20}}>Mushroom</Text>
+                <View style={{flexDirection:'column'}}>
+                 <View style={{marginTop:40}}>
+                  <Text style={{fontSize:20 , textAlign:'right',color:'#Ff8600',paddingLeft:20}}>Mushroom</Text>
+                </View>
+                 <View style={{marginLeft:100,marginTop:30}}>
+                  <Button title="Add Item"  color="#f57c00" />
+                 </View>
                 </View>
       </View>
       
@@ -77,8 +93,13 @@ const ChooseItemView = ({navigation, route}:ChooseItemViewProps) => {
                  />
                 </View>
           
-                <View style={{marginTop:40}}>
-                  <Text style={{fontSize:20 , textAlign:'justify',color:'#Ff8600',paddingLeft:20}}>Tomato</Text>
+                <View style={{flexDirection:'column'}}>
+                 <View style={{marginTop:40}}>
+                  <Text style={{fontSize:20 , textAlign:'right',color:'#Ff8600',paddingLeft:20}}>Tomato</Text>
+                </View>
+                 <View style={{marginLeft:100,marginTop:30}}>
+                  <Button title="Add Item"  color="#f57c00" />
+                 </View>
                 </View>
       </View>
       
@@ -92,8 +113,13 @@ const ChooseItemView = ({navigation, route}:ChooseItemViewProps) => {
                  />
                 </View>
           
-                <View style={{marginTop:40}}>
-                  <Text style={{fontSize:20 , textAlign:'justify',color:'#Ff8600',paddingLeft:20}}>Carrot</Text>
+                <View style={{flexDirection:'column'}}>
+                 <View style={{marginTop:40}}>
+                  <Text style={{fontSize:20 , textAlign:'right',color:'#Ff8600',paddingLeft:20}}>Carrot</Text>
+                </View>
+                 <View style={{marginLeft:100,marginTop:30}}>
+                  <Button title="Add Item"  color="#f57c00" />
+                 </View>
                 </View>
       </View>
       
