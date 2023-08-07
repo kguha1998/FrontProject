@@ -107,9 +107,13 @@ import {
 import React from 'react';
 import LinearGradient from 'react-native-linear-gradient';
 import { Controller, useForm } from 'react-hook-form';
+import { connect } from 'react-redux';
+import { StoreState } from '../../../Models/reduxModel';
 // import Input from './Input';
 
 const LoginView = ({navigation,route}: LoginViewPorps) => {
+
+    
   const {
           control,
           handleSubmit,
@@ -246,8 +250,24 @@ const LoginView = ({navigation,route}: LoginViewPorps) => {
   );
 };
 
-export default LoginView;
-interface LoginViewPorps{
-      navigation?: any;
-      route?: any;
+// export default LoginView;
+// interface LoginViewPorps{
+//       navigation?: any;
+//       route?: any;
+//   }
+
+const mapStateToProps = (state: StoreState,ownProps:any)=>{
+  return{
+    user: state.user.user_detail
   }
+}
+const mapDispatchToProps ={
+
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(LoginView)
+interface LoginViewPorps{
+  navigation?: any;
+  route?: any;
+
+}

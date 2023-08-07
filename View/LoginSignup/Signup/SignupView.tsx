@@ -167,8 +167,8 @@ const SignupView = ({navigation,route}:SignupViewProps) => {
       {errors.conpassword && <Text>This is required.</Text>}
 
       <TouchableOpacity
-          onPress={handleSubmit(onSubmit)}
-          //onPress={() => navigation.navigate('Home')}
+          //onPress={handleSubmit(onSubmit)}
+          onPress={() => navigation.navigate('Home')}
           //colors={['#FFB900', '#FFE435', '#FFA000',]}
           //start={{x: 0, y: 0}}
           //end={{x: 1, y: 0}}
