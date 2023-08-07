@@ -3,9 +3,6 @@ import React from 'react'
 import ChooseItemView from './ChooseItemView';
 
 const ChooseItem = ({navigation, route}:ChooseItemProps) => {
-  // const GoToChooseBox=(data:string)=>{
-  //   navigation.navigate('ChooseBox');
-  // }
   return (
     <ChooseItemView  navigation={navigation} />
   )

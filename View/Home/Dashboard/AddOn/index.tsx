@@ -1,12 +1,15 @@
 import { View, Text } from 'react-native'
 import React from 'react'
+import AddOnView from './AddOnView';
 
-const AddOn = () => {
+const AddOn = ({navigation, route}: AddOnProps) => {
   return (
-    <View>
-      <Text>AddOn</Text>
-    </View>
+    <AddOnView navigation={navigation} />
   )
 }
 
-export default AddOn
+export default AddOn;
+interface AddOnProps{
+  navigation?: any;
+  route?: any;
+}
