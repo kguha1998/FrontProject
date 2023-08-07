@@ -4,10 +4,11 @@ import { createStackNavigator } from '@react-navigation/stack';
 import LoginView from './LoginView';
 
 
-const Login = ({navigation, route}: LoginPorps) => {
+
+const Login = ({navigation,route}: LoginPorps) => {
   console.log("Navigation", navigation);
   return (
-  <LoginView navigation={navigation} />
+    <LoginView  navigation={navigation} />
   )
 
 }
