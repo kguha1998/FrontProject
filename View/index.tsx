@@ -9,9 +9,9 @@ const MainRoute = () => {
   const Stack = createStackNavigator();
   return (
     <Stack.Navigator screenOptions={{headerShown:false}}>
-     
-      <Stack.Screen name="Home" component={Home} />
       <Stack.Screen name="LoginSignup" component={LoginSignup} />
+      <Stack.Screen name="Home" component={Home} />
+      
       
     </Stack.Navigator> 
   )

@@ -4,13 +4,11 @@ import SignupView from './SignupView';
 
 
 const Signup = ({navigation, route}:SignupProps)  => {
-  const GotoLogin=(data:string)=>{
-    navigation.navigate('Login');
 
-  }
+  
   return (
    
-    <SignupView  GotoLogin={GotoLogin} />   
+    <SignupView  navigation={navigation} />   
   )
   
   }
