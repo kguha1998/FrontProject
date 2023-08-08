@@ -107,9 +107,13 @@ import {
 import React from 'react';
 import LinearGradient from 'react-native-linear-gradient';
 import { Controller, useForm } from 'react-hook-form';
+import { connect } from 'react-redux';
+import { StoreState } from '../../../Models/reduxModel';
 // import Input from './Input';
 
-const LoginView = ({navigation,route}: LoginViewPorps) => {
+const LoginView = ({navigation,route,Login}: LoginViewPorps) => {
+
+    
   const {
           control,
           handleSubmit,
@@ -119,7 +123,8 @@ const LoginView = ({navigation,route}: LoginViewPorps) => {
         } = useForm();
       
         const onSubmit=(data: any)=>{
-          console.log(data);
+          console.log("call1",data)
+          Login(data)
         }
 
         const mobileVerify =()=>{
@@ -146,7 +151,7 @@ const LoginView = ({navigation,route}: LoginViewPorps) => {
       paddingTop: 40,
     }}>
     <Text style={{color: 'white', fontSize: 31, fontWeight: 'bold'}}>
-      KSW
+      TEST
     </Text>
   </LinearGradient>
       <View
@@ -250,4 +255,6 @@ export default LoginView;
 interface LoginViewPorps{
       navigation?: any;
       route?: any;
+      Login?:any;
   }
+
