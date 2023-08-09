@@ -1,11 +1,10 @@
 import { View, Text } from 'react-native'
 import React from 'react'
+import OrderView from './OrderView'
 
 const Order = () => {
   return (
-    <View>
-      <Text>Order</Text>
-    </View>
+    <OrderView/>
   )
 }
 
