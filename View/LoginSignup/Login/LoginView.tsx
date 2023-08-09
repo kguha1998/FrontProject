@@ -150,7 +150,7 @@ const LoginView = ({navigation,route}: LoginViewPorps) => {
       paddingTop: 40,
     }}>
     <Text style={{color: 'white', fontSize: 31, fontWeight: 'bold'}}>
-      KSW
+      TEST
     </Text>
   </LinearGradient>
       <View
@@ -269,5 +269,5 @@ export default connect(mapStateToProps, mapDispatchToProps)(LoginView)
 interface LoginViewPorps{
   navigation?: any;
   route?: any;
-
+  
 }
