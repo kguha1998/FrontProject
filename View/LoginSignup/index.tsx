@@ -3,6 +3,9 @@ import React from 'react'
 import { createStackNavigator } from '@react-navigation/stack';
 import Login from './Login';
 import Signup from './Signup';
+import { StoreState } from '../../Models/reduxModel';
+import { connect } from 'react-redux';
+import { userDetail } from '../../Models/User';
 
 
 const LoginSignup = (porps:any) => {
@@ -16,5 +19,7 @@ const LoginSignup = (porps:any) => {
   
   )
 }
+
+
 
 export default LoginSignup
