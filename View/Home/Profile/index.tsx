@@ -1,10 +1,12 @@
 import { View, Text } from 'react-native'
 import React from 'react'
-import ProfileView from './ProfileView'
+import ProfileView from './ProfileMain/ProfileView'
 
 const Profile = () => {
   return (
-    <ProfileView/>
+    <View>
+      <ProfileView />
+    </View>
   )
 }
 
