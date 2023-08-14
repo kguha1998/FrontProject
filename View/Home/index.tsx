@@ -14,7 +14,7 @@ const Home = () => {
         
     <Tab.Navigator
       screenOptions={{
-        tabBarStyle: {backgroundColor: '#fc8d1e'},
+        tabBarStyle: {backgroundColor: '#fa8b0c'},
         headerShown: false,
         tabBarShowLabel: false,
       }}>
@@ -23,7 +23,7 @@ const Home = () => {
           tabBarIcon: val => {
             return (
               <Icon
-                color={val.focused ? 'red' : 'gray'}
+                color={val.focused ? 'red' : 'black'}
                 name="grid-outline"
                 size={30}
               />
@@ -38,7 +38,7 @@ const Home = () => {
           tabBarIcon: val => {
             return (
               <Icon
-                color={val.focused ? 'red' : 'gray'}
+                color={val.focused ? 'red' : 'black'}
                 name="bag-handle-outline"
                 size={30}
               />
@@ -53,7 +53,7 @@ const Home = () => {
           tabBarIcon: val => {
             return (
               <Icon
-                color={val.focused ? 'red' : 'gray'}
+                color={val.focused ? 'red' : 'black'}
                 name="cart-outline"
                 size={30}
               />
@@ -68,7 +68,7 @@ const Home = () => {
           tabBarIcon: val => {
             return (
               <Icon
-                color={val.focused ? 'red' : 'gray'}
+                color={val.focused ? 'red' : 'black'}
                 name="person-circle-outline"
                 size={30}
               />

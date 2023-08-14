@@ -6,6 +6,7 @@ import {
   TextInput,
   TouchableOpacity,
   ToastAndroid,
+  Image,
 } from 'react-native';
 import React from 'react';
 import LinearGradient from 'react-native-linear-gradient';
@@ -42,7 +43,8 @@ const LoginView = ({navigation,route,Login}: LoginViewPorps) => {
   return (
     <View>
       <LinearGradient
-    colors={['#407e33', '#67de4d','#407e33',]}
+      colors={['#FFB900', '#FFE435', '#FFA000',]}
+    //colors={['#407e33', '#67de4d','#407e33',]}
     start={{x: 1, y: 0}}
     end={{x: 0, y: 0}}
     style={{
@@ -53,9 +55,12 @@ const LoginView = ({navigation,route,Login}: LoginViewPorps) => {
       alignItems: 'center',
       paddingTop: 40,
     }}>
-    <Text style={{color: 'white', fontSize: 31, fontWeight: 'bold'}}>
+      <View>
+        <Image source={require("../../../image/logo.png")} style={{height:50,width:150}} />
+      </View>
+    {/* <Text style={{color: 'white', fontSize: 31, fontWeight: 'bold'}}>
       TEST
-    </Text>
+    </Text> */}
   </LinearGradient>
       <View
         style={{
@@ -151,6 +156,7 @@ const LoginView = ({navigation,route,Login}: LoginViewPorps) => {
         </Text>
       </View>
     </View>
+    
   );
 };
 
