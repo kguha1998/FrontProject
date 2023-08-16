@@ -1,11 +1,13 @@
-import { View, Text } from 'react-native'
+import { View, Text, TouchableOpacity } from 'react-native'
 import React from 'react'
 
-const OrderConfirmation = () => {
+const OrderConfirmation = (props:any) => {
   return (
     <View>
-      <Text>OrderConfirmation</Text>
-    </View>
+    <TouchableOpacity onPress={() => props.setStep(3)}>
+      <Text>Order confirmation</Text>
+    </TouchableOpacity>
+  </View>
   )
 }
 
