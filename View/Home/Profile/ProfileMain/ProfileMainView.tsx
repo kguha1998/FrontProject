@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Dimensions } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Dimensions, Image, ImageBackground } from 'react-native'
 import React from 'react'
 import LinearGradient from 'react-native-linear-gradient';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -7,6 +7,7 @@ const ProfileMainView = ({navigation,route}:ProfileViewProps) => {
   return (
     <View>
   <View>
+
   <LinearGradient
     colors={['#FFB900', '#FFE435', '#FFA000',]}
     start={{x: 0, y: 0}}
@@ -61,11 +62,13 @@ const ProfileMainView = ({navigation,route}:ProfileViewProps) => {
       
         </View> 
         <ScrollView>
+        
+        
           <View>
             <TouchableOpacity onPress={() => navigation.navigate('EditProfile')} style={{backgroundColor: '#f2f7f3',height:70,width:'95%', margin:10,borderRadius:10,marginTop:30,elevation: 10}}>
                <View style={{flexDirection:'row',paddingHorizontal:20,paddingVertical:20,}}>
                <Icon name="create-outline" size={(25)} />
-               <Text style={{fontSize:20, marginLeft:10}}>Edit Profile</Text>
+               <Text style={{fontSize:20, marginLeft:10}}>Manage Profile</Text>
                </View>
             </TouchableOpacity>
             <TouchableOpacity onPress={() => navigation.navigate('AddressList')} style={{backgroundColor: '#f2f7f3',height:70,width:'95%', margin:10,borderRadius:10,elevation: 10}}>
@@ -86,11 +89,10 @@ const ProfileMainView = ({navigation,route}:ProfileViewProps) => {
                <Text style={{fontSize:20, marginLeft:10}}>Log Out</Text>
                </View>
             </TouchableOpacity>
-          
-          
+      
           </View>
           </ScrollView>
-          </View>
+    </View>
           
           
           

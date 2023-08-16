@@ -28,7 +28,7 @@ const OrderHistoryView = ({navigation,route}:OrderHistoryViewProps) => {
     style={{
       borderBottomLeftRadius: 15,
       borderBottomRightRadius: 15,
-      marginBottom:-70,
+      marginBottom:-90,
       height: Dimensions.get('window').height * 0.2,
       width: '100%',
       paddingTop: 20,
@@ -44,12 +44,19 @@ const OrderHistoryView = ({navigation,route}:OrderHistoryViewProps) => {
    </LinearGradient>
  
    <ScrollView>
+   <View
+        style={{
+          elevation: 10,
+          backgroundColor: 'white',
+          marginTop: 10,
+          paddingVertical: 20,
+          paddingHorizontal: 15,}}>
         {
           orderhis.map((m:any)=> (
             <OrderHisNew key={m.order_id} item={m}/>
           ))
         }
-     
+     </View>
      </ScrollView>
     
   
@@ -66,31 +73,31 @@ interface OrderHistoryViewProps{
   const OrderHisNew =({item}: any)=>{ 
     return(
        
-        <View
+      <View
         style={{
           elevation: 10,
-          backgroundColor: 'white',
-          borderRadius: 10,
-          margin: 20,
+          backgroundColor: '#f5eee1',
+          borderColor: 'orange',
+          borderWidth:0.5,
           marginTop: 10,
+          borderBottomColor:'red',
           paddingVertical: 20,
           paddingHorizontal: 15,}}>
-     
-        <View>
-          <Text style={{fontWeight: '500', fontSize: 18}}>Order No {item.order_id}</Text>
-        </View>
-        <View>
-          <Text style={{fontWeight: '500', fontSize: 18}}>Box Size : {item.boxSize}</Text>
-        </View>
-        <View>
-          <Text style={{fontWeight: '500', fontSize: 18}}>Quantity : {item.Items_Quantity}</Text>
-        </View>
-        <View>
-          <Text style={{fontWeight: '500', fontSize: 18}}>Total : {item.order_total}</Text>
-        </View>
-        <View>
-          <Text style={{fontWeight: '500', fontSize: 18}}>Date : {item.date}</Text>
-        </View>
+          <View>
+            <Text style={{fontWeight: '500', fontSize: 18}}>Order No : {item.order_id}</Text>
+          </View>
+          <View>
+            <Text style={{fontWeight: '500', fontSize: 18}}>Box Size : {item.boxSize}</Text>
+          </View>
+          <View>
+            <Text style={{fontWeight: '500', fontSize: 18}}>Quantity : {item.Items_Quantity}</Text>
+          </View>
+          <View>
+            <Text style={{fontWeight: '500', fontSize: 18}}>Total : {item.order_total}</Text>
+          </View>
+          <View>
+            <Text style={{fontWeight: '500', fontSize: 18}}>Date : {item.date}</Text>
+          </View>
       </View>
     
     )
