@@ -7,7 +7,7 @@ import LinearGradient from 'react-native-linear-gradient'
 const ChooseBoxView = ({navigation, route}: ChooseBoxViewPorps) => {
     
   return (
-    <ScrollView >
+     <View>
       <LinearGradient
          colors={['#FFB900', '#FFE435', '#FFA000',]}
          start={{x: 0, y: 0}}
@@ -15,6 +15,7 @@ const ChooseBoxView = ({navigation, route}: ChooseBoxViewPorps) => {
          style={{
           borderBottomLeftRadius: 20,
           borderBottomRightRadius: 20,
+          marginBottom:-50,
           height: Dimensions.get('window').height * 0.2,
           width: '100%',
           alignItems: 'center',
@@ -24,10 +25,10 @@ const ChooseBoxView = ({navigation, route}: ChooseBoxViewPorps) => {
                Choose Box
           </Text>
       </LinearGradient>
-      
+      <ScrollView >
           
             {/* firstBox */}
-            <View style={{ marginTop:-30,marginLeft:20,marginRight:20, borderRadius:10, borderWidth: 1, borderColor: 'orange',elevation: 10,
+            <View style={{ marginTop:10,marginLeft:20,marginRight:20, borderRadius:10, borderWidth: 1, borderColor: 'orange',elevation: 10,
               backgroundColor: 'white',marginBottom:70}}>
               <TouchableOpacity onPress={() =>navigation.navigate('ChooseItem')}>
                 <View style={{flexDirection:'row'}}>
@@ -53,7 +54,7 @@ const ChooseBoxView = ({navigation, route}: ChooseBoxViewPorps) => {
             </View>
 
             {/* SecondBox */}
-            <View style={{ marginTop:-30,marginLeft:20,marginRight:20, borderRadius:10, borderWidth: 1, borderColor: 'orange',elevation: 10,
+            <View style={{ marginTop:10,marginLeft:20,marginRight:20, borderRadius:10, borderWidth: 1, borderColor: 'orange',elevation: 10,
               backgroundColor: 'white',marginBottom:70}}>
               <TouchableOpacity onPress={() =>navigation.navigate('ChooseItem')}>
                 <View style={{flexDirection:'row'}}>
@@ -79,7 +80,7 @@ const ChooseBoxView = ({navigation, route}: ChooseBoxViewPorps) => {
             </View>
 
             {/* ThirdBox */}
-            <View style={{ marginTop:-30,marginLeft:20,marginRight:20, borderRadius:10, borderWidth: 1, borderColor: 'orange',elevation: 10,
+            <View style={{ marginTop:10,marginLeft:20,marginRight:20, borderRadius:10, borderWidth: 1, borderColor: 'orange',elevation: 10,
               backgroundColor: 'white',marginBottom:70}}>
               <TouchableOpacity onPress={() =>navigation.navigate('ChooseItem')}>
                 <View style={{flexDirection:'row'}}>
@@ -105,6 +106,7 @@ const ChooseBoxView = ({navigation, route}: ChooseBoxViewPorps) => {
             </View>
           
         </ScrollView>
+        </View>
         
   )
 }

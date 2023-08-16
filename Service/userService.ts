@@ -1,5 +1,6 @@
 import axios from 'axios';
-import {environment, BaseUrl} from '../Environment';
+import { BaseUrl, environment } from '../environment';
+
 
 export const UserLogin = (data: any) => {
   return axios.get(BaseUrl + environment.url.loginUrl, data);

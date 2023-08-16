@@ -1,100 +1,3 @@
-// import { View, Text, TextInput } from 'react-native'
-// import React from 'react'
-// import { TouchableOpacity } from 'react-native-gesture-handler'
-// import { Controller, useForm } from 'react-hook-form';
-
-// const LoginView = ({navigation}: LoginViewPorps) => {
-//     // console.log("Nav",navigation)
-//     const {
-//       control,
-//       handleSubmit,
-//       setValue,
-//       getValues,
-//       formState: {errors},
-//     } = useForm();
-  
-//     const onSubmit=(data: any)=>{
-//       console.log(data);
-//     }
-  
-//     return (
-//       <View>
-//       <Text style={{ fontSize: 30, marginTop: 50, textAlign: 'center', color: 'orange' }}>Login</Text>
-//       <Controller
-//           control={control}
-//           rules={{
-//             required: true,
-//           }}
-//           render={({field: {onChange, onBlur, value}}) => (
-//             <View style={{borderWidth: 0.2, margin: 10,borderRadius:4, borderColor: errors.mobile_Number ?'red': 'gray'}}>
-//               <TextInput
-//                 placeholder="Mobile Number"
-//                 onBlur={onBlur}
-//                 onChangeText={onChange}
-//                 value={value}
-//               />
-//             </View>
-//           )}
-//           name="mobile_Number"
-//         />
-//         {errors.mobile_Number && <Text>This is required.</Text>}
-//         <Controller
-//           control={control}
-//           rules={{
-//             required: true,
-//           }}
-//           render={({field: {onChange, onBlur, value}}) => (
-//             <View style={{borderWidth: 0.2, margin: 10,borderRadius:4, borderColor: errors.Password ?'red': 'gray'}}>
-//               <TextInput
-//                 placeholder="Password"
-//                 onBlur={onBlur}
-//                 onChangeText={onChange}
-//                 value={value}
-//               />
-//             </View>
-//           )}
-//           name="Password"
-//         />
-//         {errors.Password && <Text>This is required.</Text>}
-  
-//         <TouchableOpacity
-//          onPress={handleSubmit(onSubmit)}
-//           style={{
-//             margin: 10,
-//             marginTop:30,
-//             backgroundColor: '#f77d02',
-//             padding: 10,
-//             justifyContent: 'center',
-//             alignItems: 'center',
-          
-            
-//           }}>
-//           <Text>Save Details</Text>
-//         </TouchableOpacity>
-
-//         <TouchableOpacity onPress={()=> navigation.navigate('Home')} >
-//         <Text style={{
-//             margin: 10,
-//             marginTop:30,
-//             padding: 10,
-//             color:'blue',
-//             justifyContent: 'center',
-//             alignItems: 'center'}}
-//           >
-//             Go to Signup
-//         </Text>
-//       </TouchableOpacity>
-//       </View>
-        
-       
-//     )
-//   }
-// export default LoginView;
-// interface LoginViewPorps{
-//     navigation?: any;
-//     route?: any;
-// }
-
 
 import {
   View,
@@ -103,13 +6,14 @@ import {
   TextInput,
   TouchableOpacity,
   ToastAndroid,
+  Image,
 } from 'react-native';
 import React from 'react';
 import LinearGradient from 'react-native-linear-gradient';
 import { Controller, useForm } from 'react-hook-form';
 import { connect } from 'react-redux';
 import { StoreState } from '../../../Models/reduxModel';
-// import Input from './Input';
+
 
 const LoginView = ({navigation,route,Login}: LoginViewPorps) => {
 
@@ -139,9 +43,10 @@ const LoginView = ({navigation,route,Login}: LoginViewPorps) => {
   return (
     <View>
       <LinearGradient
-    colors={['#FFB900', '#FFE435', '#FFA000',]}
-    start={{x: 0, y: 0}}
-    end={{x: 1, y: 0}}
+      colors={['#FFB900', '#FFE435', '#FFA000',]}
+    //colors={['#407e33', '#67de4d','#407e33',]}
+    start={{x: 1, y: 0}}
+    end={{x: 0, y: 0}}
     style={{
       borderBottomLeftRadius: 15,
       borderBottomRightRadius: 15,
@@ -150,9 +55,12 @@ const LoginView = ({navigation,route,Login}: LoginViewPorps) => {
       alignItems: 'center',
       paddingTop: 40,
     }}>
-    <Text style={{color: 'white', fontSize: 31, fontWeight: 'bold'}}>
+      <View>
+        <Image source={require("../../../image/logo.png")} style={{height:50,width:150}} />
+      </View>
+    {/* <Text style={{color: 'white', fontSize: 31, fontWeight: 'bold'}}>
       TEST
-    </Text>
+    </Text> */}
   </LinearGradient>
       <View
         style={{
@@ -168,7 +76,7 @@ const LoginView = ({navigation,route,Login}: LoginViewPorps) => {
           style={{
             fontSize: 30,
             fontWeight: 'bold',
-            color: '#FFB900',
+            color: '#2c711f',
             textAlign: 'center',
           }}>
           LOGIN
@@ -183,7 +91,7 @@ const LoginView = ({navigation,route,Login}: LoginViewPorps) => {
             pattern: /^(\+\d{1,3}[- ]?)?\d{10}$/
           }}
           render={({field: {onChange, onBlur, value}}) => (
-            <View style={{borderBottomWidth: 1, margin: 10,marginTop:20,borderRadius:4, borderColor: errors.mobile_Number ?'red': '#FFB900'}}>
+            <View style={{borderBottomWidth: 1, margin: 10,marginTop:20,borderRadius:4, borderColor: errors.mobile_Number ?'red': '#2c711f'}}>
               <TextInput
                 placeholder="Mobile Number"
                 onBlur={onBlur}
@@ -201,7 +109,7 @@ const LoginView = ({navigation,route,Login}: LoginViewPorps) => {
             required: true,
           }}
           render={({field: {onChange, onBlur, value}}) => (
-            <View style={{borderBottomWidth: 1, margin: 10,marginTop:20,borderRadius:4, borderColor: errors.password ?'red': '#FFB900'}}>
+            <View style={{borderBottomWidth: 1, margin: 10,marginTop:20,borderRadius:4, borderColor: errors.password ?'red': '#2c711f'}}>
               <TextInput
                 placeholder="Password" secureTextEntry
                 onBlur={onBlur}
@@ -219,7 +127,7 @@ const LoginView = ({navigation,route,Login}: LoginViewPorps) => {
         
 
         /> */}
-        <Text style={{color: '#FFB900', fontSize: 16, textAlign: 'right'}}>
+        <Text style={{color: '#2c711f', fontSize: 16, textAlign: 'right'}}>
           Forgot Password?
         </Text>
         <TouchableOpacity
@@ -236,11 +144,11 @@ const LoginView = ({navigation,route,Login}: LoginViewPorps) => {
             paddingVertical: 5,
             marginTop: 50,
             marginBottom: 30,
-            backgroundColor:'#fa8b0c'
+            backgroundColor:'#2c711f'
           }}>
           <Text style={{color: 'white', fontSize: 19}}>LOGIN</Text>
         </TouchableOpacity>
-        <Text style={{color: '#FFB900', fontSize: 16, textAlign: 'center'}}>
+        <Text style={{color: '#2c711f', fontSize: 16, textAlign: 'center'}}>
           Dont't have an account?{' '}
           <Text
            onPress={() => navigation.navigate('Signup')} style={{fontWeight:'bold'}}
@@ -248,6 +156,7 @@ const LoginView = ({navigation,route,Login}: LoginViewPorps) => {
         </Text>
       </View>
     </View>
+    
   );
 };
 
