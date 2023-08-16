@@ -12,10 +12,16 @@ const MainRoute = ({user}: MainProps) => {
   return (
     <Stack.Navigator screenOptions={{headerShown: false}}>
       {!user ? (
-        // <Stack.Screen name="LoginSignup" component={LoginSignup}
-        <Stack.Screen name="Home" component={Home} />
+   
+       <Stack.Screen name="LoginSignup" component={LoginSignup} />
       ) : (
+       
+       //<Stack.Screen name="LoginSignup" component={LoginSignup} />
+
         <Stack.Screen name="Home" component={Home} />
+        
+    
+
       )}
     </Stack.Navigator>
   );

@@ -7,11 +7,13 @@ import {
   Image,
   ScrollView,
 } from 'react-native';
-import React from 'react';
+import React, { useState } from 'react';
 import LinearGradient from 'react-native-linear-gradient';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 const ChooseItemView = ({navigation, route}: ChooseItemViewProps) => {
+  const[listDataSource, setlistDataSource] = useState(false);
+
   const Items: any = [
     {
       id: 1,
@@ -67,6 +69,7 @@ const ChooseItemView = ({navigation, route}: ChooseItemViewProps) => {
           Choose Items
         </Text>
       </LinearGradient>
+      <VegType/>
       <ScrollView>
         <View>
           <TouchableOpacity onPress={() => navigation.navigate('ChooseBox')}>
@@ -103,6 +106,42 @@ interface ChooseItem {
   item?: any;
 }
 
+//Vegetable Type
+const VegType = () => {
+
+  const ItemTypeList=[
+    {
+    TypeNo:1,
+    Type:'Exotic'
+    },
+    {
+    TypeNo:2,
+    Type:'Leafy' 
+    },
+    {
+    TypeNo:3,
+    Type:'Regular' 
+    },
+    {
+    TypeNo:4,
+    Type:'Seasonal' 
+    }  
+  ]
+  return(
+    <ScrollView>
+      {
+        ItemTypeList.map(item =>(
+          <View key={item.TypeNo}>
+            <Text>{item.Type}</Text>
+          </View>
+        ))}
+      
+
+    </ScrollView>
+  )
+}
+
+//Items Component
 const Veg = ({navigation, item}: ChooseItem) => {
   return (
     /* Green Capsicum */
@@ -127,45 +166,64 @@ const Veg = ({navigation, item}: ChooseItem) => {
         />
       </View>
 
-      <View style={{flexDirection: 'column', alignItems:'baseline'}}>
-        <View style={{marginTop: 40,alignItems:'baseline' }}>
+      <View style={{flexDirection: 'column', alignItems: 'baseline'}}>
+        <View style={{marginTop: 40, alignItems: 'baseline'}}>
           <Text style={{fontSize: 16, textAlign: 'right', color: '#Ff8600'}}>
             {item.ItemName}
           </Text>
         </View>
 
-        <View style={{flexDirection: 'row',marginTop: 10,marginRight:30,alignItems:'center'}}>
+        <View
+          style={{
+            flexDirection: 'row',
+            marginTop: 10,
+            marginRight: 30,
+            alignItems: 'center',
+          }}>
           {/* <Button title="Add To Cart"  color="#f57c00" onPress={()=> navigation.navigate('AddOn')}/> */}
+          {item.qty == 0 ? (
+            <TouchableOpacity
+              style={{
+                backgroundColor: '#f57c00',
+                height: 27,
+                paddingHorizontal: 10,
+                borderRadius: 5,
+              }}>
+              <Text style={{color: 'white'}}>Add to Cart</Text>
+            </TouchableOpacity>
+          ) : null}
+
+          {item.qty == 0 ? null : (
           <TouchableOpacity
             style={{
               backgroundColor: '#f57c00',
               height: 27,
               paddingHorizontal: 10,
-              borderRadius:5
-            }}>
-            <Text style={{color: 'white'}}>Add to Cart</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={{
-              backgroundColor: '#f57c00',
-              height: 27,
-              paddingHorizontal: 10,
-              borderRadius:5,
-              marginLeft:10
+              borderRadius: 5,
+              marginLeft: 10,
             }}>
             <Text style={{color: 'white'}}>-</Text>
           </TouchableOpacity>
-          <Text style={{marginLeft:10,fontSize:16,fontWeight:'600'}}>{'0'}</Text>
+          )}
+
+          {item.qty == 0 ? null : (
+          <Text style={{marginLeft: 10, fontSize: 16, fontWeight: '600'}}>
+            {'0'}
+          </Text>
+          )}
+
+          {item.qty == 0 ? null : (          
           <TouchableOpacity
             style={{
               backgroundColor: '#f57c00',
               height: 27,
               paddingHorizontal: 8,
-              borderRadius:5,
-              marginLeft:10
+              borderRadius: 5,
+              marginLeft: 10,
             }}>
             <Text style={{color: 'white'}}>+</Text>
           </TouchableOpacity>
+          )}
         </View>
       </View>
     </View>

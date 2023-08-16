@@ -10,28 +10,35 @@ import Icon from 'react-native-vector-icons/Ionicons';
 const Home = () => {
   const Tab = createBottomTabNavigator();
   return (
+
+
+
+
     // <Tab.Navigator screenOptions={{tabBarStyle:{backgroundColor:'#fc8d1e'},headerShown:false,tabBarShowLabel:false,tabBarActiveTintColor: 'tomato',
     // tabBarInactiveTintColor: 'gray',}}  >
     //     <Tab.Screen options={{tabBarIcon:()=><Icon name="grid-outline" size={(30)} />}}  name="Dashboard" component={Dashboard} />
     //     <Tab.Screen options={{tabBarIcon:()=><Icon name="bag-handle-outline" size={(30)} />}}  name="Order" component={Order} />
     //     <Tab.Screen options={{tabBarIcon:()=><Icon name="cart-outline" size={(30)} />}}  name="Cart" component={Cart} />
     //     <Tab.Screen options={{tabBarIcon:()=><Icon name="person-circle-outline" size={(30)} />}}  name="Profile" component={Profile} />
+
+
+
    
         
+
     <Tab.Navigator
       screenOptions={{
         tabBarStyle: {backgroundColor: '#fa8b0c'},
         headerShown: false,
-        tabBarShowLabel: false,
-      }}>
+        tabBarShowLabel: false,      }}>
       <Tab.Screen
         options={{
           tabBarIcon: val => {
             return (
               <Icon
-                color={val.focused ? 'red' : 'black'}
+                color={val.focused ? 'white' : '#262424'}
                 name="grid-outline"
-                size={30}
+                size={28}
               />
             );
           },
@@ -44,7 +51,7 @@ const Home = () => {
           tabBarIcon: val => {
             return (
               <Icon
-                color={val.focused ? 'red' : 'black'}
+                color={val.focused ? 'white' : '#262424'}
                 name="bag-handle-outline"
                 size={30}
               />
@@ -59,7 +66,7 @@ const Home = () => {
           tabBarIcon: val => {
             return (
               <Icon
-                color={val.focused ? 'red' : 'black'}
+                color={val.focused ? 'white' : '#262424'}
                 name="cart-outline"
                 size={30}
               />
@@ -74,7 +81,7 @@ const Home = () => {
           tabBarIcon: val => {
             return (
               <Icon
-                color={val.focused ? 'red' : 'black'}
+                color={val.focused ? 'white' : '#262424'}
                 name="person-circle-outline"
                 size={30}
               />
@@ -84,6 +91,9 @@ const Home = () => {
         name="Profile"
         component={Profile}
       />
+
+
+
 
     </Tab.Navigator>
   );
