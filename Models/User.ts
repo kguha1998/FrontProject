@@ -1,9 +1,13 @@
-export interface UserMain{
-    user_detail?: userDetail
+export interface UserMain {
+  user_detail?: userDetail;
 }
 
-export interface userDetail{
-    user_id :number,
-    user_name:string,
-    user_email:string
+export interface userDetail {
+  customer_id: number;
+  customer_email: string;
+  customer_name: string;
+  customer_phone: string;
+  reset_flag: number;
+  status: number;
+  token: string;
 }

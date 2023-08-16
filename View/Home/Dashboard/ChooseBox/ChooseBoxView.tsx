@@ -29,7 +29,7 @@ const ChooseBoxView = ({navigation, route}: ChooseBoxViewPorps) => {
           
             {/* firstBox */}
             <View style={{ marginTop:10,marginLeft:20,marginRight:20, borderRadius:10, borderWidth: 1, borderColor: 'orange',elevation: 10,
-              backgroundColor: 'white',marginBottom:70}}>
+              backgroundColor: 'white',marginBottom:50}}>
               <TouchableOpacity onPress={() =>navigation.navigate('ChooseItem')}>
                 <View style={{flexDirection:'row'}}>
                   <View >
@@ -55,7 +55,7 @@ const ChooseBoxView = ({navigation, route}: ChooseBoxViewPorps) => {
 
             {/* SecondBox */}
             <View style={{ marginTop:10,marginLeft:20,marginRight:20, borderRadius:10, borderWidth: 1, borderColor: 'orange',elevation: 10,
-              backgroundColor: 'white',marginBottom:70}}>
+              backgroundColor: 'white',marginBottom:50}}>
               <TouchableOpacity onPress={() =>navigation.navigate('ChooseItem')}>
                 <View style={{flexDirection:'row'}}>
                   <View >
@@ -81,7 +81,7 @@ const ChooseBoxView = ({navigation, route}: ChooseBoxViewPorps) => {
 
             {/* ThirdBox */}
             <View style={{ marginTop:10,marginLeft:20,marginRight:20, borderRadius:10, borderWidth: 1, borderColor: 'orange',elevation: 10,
-              backgroundColor: 'white',marginBottom:70}}>
+              backgroundColor: 'white',marginBottom:50}}>
               <TouchableOpacity onPress={() =>navigation.navigate('ChooseItem')}>
                 <View style={{flexDirection:'row'}}>
                   <View >
