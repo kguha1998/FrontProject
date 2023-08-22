@@ -3,6 +3,8 @@ import React from 'react'
 import LinearGradient from 'react-native-linear-gradient'
 import AddressPage from './AddressPage';
 import { NavigationContainer } from '@react-navigation/native';
+import AddressListView from '../../Profile/AddressList/AddressListView';
+import AddressList from './AddressList';
 
 
 const Address = (props: any) => {
@@ -26,7 +28,9 @@ const Address = (props: any) => {
     </Text>
   </LinearGradient>
     <View>
-    <AddressPage />
+      <AddressList />
+    {/* <AddressPage /> */}
+    {/* <AddressListView /> */}
     {/* <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen name="AddressSelection" component={AddressPage} />

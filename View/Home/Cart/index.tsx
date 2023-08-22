@@ -16,7 +16,7 @@ const Cart = () => {
   const [step, setStep] = useState<number>(0);
   console.log(step);
 
-  const labels = ['Cart', 'Delivery Address', 'Order Confirmation', 'Order Summary'];
+  const labels = ['Cart', 'Delivery Address', 'Order Confirmation'];
   const customStyles = {
     stepIndicatorSize: 25,
     currentStepIndicatorSize: 30,
@@ -46,17 +46,15 @@ const Cart = () => {
         customStyles={customStyles}
         currentPosition={step}
         labels={labels}
-        stepCount={4}
+        stepCount={3}
         onPress={val => setStep(val)}
       />
       {step == 0 ? (
         <CartScreen setStep={setStep} />
       ) : step == 1 ? (
         <Address setStep={setStep}/>
-      ) : step == 2 ? (
-        <OrderConfirmation setStep={setStep}   />
       ) : (
-        <OrderSummary/>
+        <OrderConfirmation setStep={setStep}   />
       )}
     </View>
   );
