@@ -53,19 +53,21 @@ const CartScreen = (props: any) => {
           <View>
             <Text style={{marginTop:30,color:'black',fontSize:20}}>Small Box</Text>
           </View>
-         <View style={{marginLeft:40}}>
-         <TouchableOpacity style={{backgroundColor:'green',height:20,width:20,borderRadius:9,margin:35}}>
+         <View style={{marginLeft:30}}>
+         <TouchableOpacity style={{backgroundColor:'green',height:20,width:20,borderRadius:9,margin:20,marginTop:35}}>
           <Text style={{color:'white',textAlign:'center',fontWeight:'600'}}>-</Text>
          </TouchableOpacity>
           </View> 
-          <View><Text style={{marginTop:35,color:'black'}}>1</Text></View>
-         <View style={{marginRight:20}}>
-         <TouchableOpacity style={{backgroundColor:'green',height:20,width:20,borderRadius:9,margin:35}}>
+          <View><Text style={{marginTop:35,color:'black',marginRight:10}}>1</Text></View>
+         <View style={{marginRight:10}}>
+         <TouchableOpacity style={{backgroundColor:'green',height:20,width:20,borderRadius:9,margin:10,marginTop:35}}>
          <Text style={{color:'white',textAlign:'center',fontWeight:'600'}}>+</Text>
          </TouchableOpacity>
-
-          </View> 
+         </View> 
+         <View><Text style={{marginTop:35,color:'black',marginLeft:7}}>₹200</Text></View>
         </View>
+        </View>
+      <View>
         <View
           style={{
             height: 80,
@@ -82,19 +84,21 @@ const CartScreen = (props: any) => {
           <View>
             <Text style={{marginTop:30,color:'black',fontSize:20}}>Medium Box</Text>
           </View>
-         <View style={{marginLeft:17}}>
-         <TouchableOpacity style={{backgroundColor:'green',height:20,width:20,borderRadius:9,margin:35}}>
+         <View style={{marginLeft:7}}>
+         <TouchableOpacity style={{backgroundColor:'green',height:20,width:20,borderRadius:9,margin:20,marginTop:35}}>
           <Text style={{color:'white',textAlign:'center',fontWeight:'600'}}>-</Text>
          </TouchableOpacity>
           </View> 
-          <View><Text style={{marginTop:35,color:'black'}}>2</Text></View>
-         <View style={{marginRight:20}}>
-         <TouchableOpacity style={{backgroundColor:'green',height:20,width:20,borderRadius:9,margin:35}}>
+          <View><Text style={{marginTop:35,color:'black',marginRight:10}}>2</Text></View>
+         <View style={{marginRight:10}}>
+         <TouchableOpacity style={{backgroundColor:'green',height:20,width:20,borderRadius:9,margin:10,marginTop:35}}>
          <Text style={{color:'white',textAlign:'center',fontWeight:'600'}}>+</Text>
          </TouchableOpacity>
-
-          </View> 
+         </View> 
+         <View><Text style={{marginTop:35,color:'black',marginLeft:7}}>₹600</Text></View>
         </View>
+        </View>
+      <View>
         <View
           style={{
             height: 80,
@@ -111,59 +115,42 @@ const CartScreen = (props: any) => {
           <View>
             <Text style={{marginTop:30,color:'black',fontSize:20}}>Large Box</Text>
           </View>
-         <View style={{marginLeft:40}}>
-         <TouchableOpacity style={{backgroundColor:'green',height:20,width:20,borderRadius:9,margin:35}}>
+         <View style={{marginLeft:28}}>
+         <TouchableOpacity style={{backgroundColor:'green',height:20,width:20,borderRadius:9,margin:20,marginTop:35}}>
           <Text style={{color:'white',textAlign:'center',fontWeight:'600'}}>-</Text>
          </TouchableOpacity>
           </View> 
-          <View><Text style={{marginTop:35,color:'black'}}>3</Text></View>
-         <View style={{marginRight:20}}>
-         <TouchableOpacity style={{backgroundColor:'green',height:20,width:20,borderRadius:9,margin:35}}>
+          <View><Text style={{marginTop:35,color:'black',marginRight:10}}>3</Text></View>
+         <View style={{marginRight:10}}>
+         <TouchableOpacity style={{backgroundColor:'green',height:20,width:20,borderRadius:9,margin:10,marginTop:35}}>
          <Text style={{color:'white',textAlign:'center',fontWeight:'600'}}>+</Text>
          </TouchableOpacity>
-
-          </View> 
+         </View> 
+         <View><Text style={{marginTop:35,color:'black',marginLeft:2}}>₹1500</Text></View>
         </View>
-      </View>
+        </View>
 
-      {/* <View style={{flexDirection:'row',width:'100%',elevation:10,marginTop:10,borderRadius:10,height:100,justifyContent:'flex-start',alignItems:'flex-start'}}>
-      
-                  <View style={{paddingVertical:25,paddingHorizontal:5}} >
-                  <Image
-                 source={{uri: 'https://cdn2.iconfinder.com/data/icons/shopping-378/100/shopping-cart-full-shopping-carts-goods-bag-box-product-512.png'}}
-                 style={{width: 50, height: 50, resizeMode: 'contain', }}/>
-                 </View>
-                 <View style={{flexDirection:'row',alignItems:'center'}}>
-                  <TouchableOpacity style={{backgroundColor:'green',padding:10,borderRadius:10}}></TouchableOpacity>
+        <View style={{
+            height: 140,
+            width: '95%',
+            backgroundColor: 'white',
+            margin: 10,flexDirection:'column'
+          }}>
+          <View><Text style={{marginTop:5,color:'black',fontSize:23,fontWeight:'bold'}}>Bill Details</Text></View>
+          <View style={{flexDirection:'row'}}>
+            <Text style={{marginTop:7,color:'black',fontSize:17}}>Total Price</Text>
+            <Text style={{marginTop:7,color:'black',fontSize:17,marginLeft:240}}>₹2300</Text>
+            </View>
+          <View style={{flexDirection:'row'}}>
+            <Text style={{marginTop:7,color:'black',fontSize:17}}>Discount</Text>
+            <Text style={{marginTop:7,color:'black',fontSize:17,marginLeft:270}}>20%</Text></View>
+          <View style={{flexDirection:'row'}}>
+            <Text style={{marginTop:7,color:'black',fontSize:17}}>Final Price</Text>
+            <Text style={{marginTop:7,color:'black',fontSize:17,marginLeft:240}}>₹1840</Text>
+            </View>
+        </View>
 
-                 
-                 </View>
-                 
-      <Text style={{color: 'black', fontSize: 25,marginTop:35}}>Small Box</Text>
-      </View> */}
-
-      {/* <View style={{flexDirection:'row',width:'100%',elevation:10,borderRadius:10,height:100,justifyContent:'flex-start',alignItems:'flex-start'}}>
-                  <View style={{paddingVertical:25,paddingHorizontal:5}} >
-                  <Image
-                 source={{uri: 'https://cdn2.iconfinder.com/data/icons/shopping-378/100/shopping-cart-full-shopping-carts-goods-bag-box-product-512.png'}}
-                 style={{width: 50, height: 50, resizeMode: 'contain', }}
-                 />
-                 </View>
-                 
-      <Text style={{color: 'black', fontSize: 25,marginTop:35}}>Medium Box</Text>
-      </View>
-
-    <View style={{flexDirection:'row',width:'100%',elevation:10,borderRadius:10,height:100,marginBottom:10,justifyContent:'flex-start',alignItems:'flex-start'}}>
-                  <View style={{paddingVertical:25,paddingHorizontal:5}} >
-                  <Image
-                 source={{uri: 'https://cdn2.iconfinder.com/data/icons/shopping-378/100/shopping-cart-full-shopping-carts-goods-bag-box-product-512.png'}}
-                 style={{width: 50, height: 50, resizeMode: 'contain', }}
-                 />
-                 </View>
-                 
-      <Text style={{color: 'black', fontSize: 25,marginTop:35}}>Large Box</Text>
-      
-      </View> */}
+     
 
       <View>
         <TouchableOpacity
