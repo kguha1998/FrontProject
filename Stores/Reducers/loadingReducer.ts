@@ -24,6 +24,8 @@ export default function LoadingReducer(
       return {...state, count: 0};
     case UserActionTypes.Login_Success_Action:
       return {...state, count: state.count > 0 ? state.count - 1 : 0};
+      case UserActionTypes.Address_Add_Sucess_Action:
+        return {...state, count: state.count > 0 ? state.count - 1 : 0};
     case UserActionTypes.Logout_Success_Action:
       return initialState;
     default:

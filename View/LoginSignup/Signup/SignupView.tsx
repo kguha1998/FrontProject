@@ -308,23 +308,4 @@ interface SignupViewProps{
 }
 
 
-    //  <LinearGradient
-    //       onPress={() => {}}
-    //       colors={['#42a1f5', '#03bafc', '#42c5f5']}
-    //       start={{x: 0, y: 0}}
-    //       end={{x: 1, y: 0}}
-    //       style={{
-    //         borderRadius: 100,
-    //         width: 150,
-    //         alignSelf: 'center',
-    //         alignItems: 'center',
-    //         paddingVertical: 5,
-    //         marginTop: 50,
-    //         marginBottom: 10,
-    //       }}>
-    //       <Text style={{color: 'white', fontSize: 19}}>SIGNUP</Text>
-    //     </LinearGradient>
-        // <Text style={{color: '#03bafc', fontSize: 16, textAlign: 'center'}}>
-        //   Already have an account?{' '}
-        //   <Text onPress={() => navigation.navigate('Login')}>Login</Text>
-        // </Text> 
+

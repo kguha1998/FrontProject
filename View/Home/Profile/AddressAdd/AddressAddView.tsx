@@ -52,7 +52,7 @@ const AddressAddView = ({navigation,route}:AddressAddViewProps) => {
         </Text>
     </View>
   </LinearGradient>
-  <ScrollView>
+  <ScrollView style={{paddingBottom:30}}>
    <View
    style={{
      elevation: 10,

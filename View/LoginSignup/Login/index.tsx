@@ -14,11 +14,7 @@ const Login = ({navigation, route, LoginAction, user}: LoginPorps) => {
   return <LoginView navigation={navigation} Login={Login} />;
 };
 
-// export default Login;
-// interface LoginPorps{
-//   navigation?: any;
-//   route?: any;
-// }
+
 const mapStateToProps = (state: StoreState, ownProps: any) => {
   return {
     user: state.user.user_detail,
