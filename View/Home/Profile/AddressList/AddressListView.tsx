@@ -5,22 +5,22 @@ import Icon from 'react-native-vector-icons/Ionicons'
 import axios from 'axios'
 
 
-const AddressListView = ({navigation,route}:AddressListViewProps) => {
+const AddressListView = ({navigation,route,address}:AddressListViewProps) => {
 
     
     
-    const[address,updateaddress]=useState<any>([])
-    useEffect(()=>{
-      try{
-        axios.get('https://mocki.io/v1/bbd1d68e-8d74-4a73-9c9b-12ded889e19e').then((response: { data: any; })=>{
-          updateaddress(response.data);
-        }).catch((err:any)=>{
-          console.log(err);
-        })
-      }catch(err){
-        console.log(err);
-      }
-    },[])
+    // const[address,updateaddress]=useState<any>([])
+    // useEffect(()=>{
+      // try{
+      //   axios.get('http://192.168.1.8:3000/api/v1/addresses/cust/2').then((response: { data: any; })=>{
+      //     updateaddress(response.data);
+      //   }).catch((err:any)=>{
+      //     console.log(err);
+      //   })
+      // }catch(err){
+      //   console.log(err);
+      // }
+   // },[])
     
   return (
     <View>
@@ -65,7 +65,7 @@ const AddressListView = ({navigation,route}:AddressListViewProps) => {
       </View> 
         {
           address.map((m:any)=> (
-            <AddressNew key={m.name} item={m}/>
+            <AddressNew key={m.address_id} item={m}/>
           ))
         }
          
@@ -79,6 +79,7 @@ export default AddressListView
 interface AddressListViewProps{ 
     navigation?:any;
     route?:any;
+    address?:any
 
     
    
@@ -86,6 +87,7 @@ interface AddressListViewProps{
   
 
   const AddressNew =({item}: any)=>{ 
+    console.log(item)
     return(
       <View
    style={{
@@ -97,26 +99,28 @@ interface AddressListViewProps{
      paddingVertical: 20,
      paddingHorizontal: 15,}}>
 
-      <View>
-         <Text style={{fontWeight: '500', fontSize: 18}}>Name: {item.name}</Text>
+
+
+<View>
+         <Text style={{fontWeight: '500', fontSize: 18}}>House No: {item.house_no}</Text>
        </View>
        <View>
-         <Text style={{fontWeight: '500', fontSize: 18}}>Mobile No : {item.MobileNo}</Text>
+         <Text style={{fontWeight: '500', fontSize: 18}}>Address : {item.address_line1}</Text>
        </View>
        <View>
-         <Text style={{fontWeight: '500', fontSize: 18}}>Society Name: {item.Society}</Text>
+         <Text style={{fontWeight: '500', fontSize: 18}}>Society Name: {item.address_line2}</Text>
        </View>
        <View>
-         <Text style={{fontWeight: '500', fontSize: 18}}>Flat/Tower No : {item.Address}</Text>
+         <Text style={{fontWeight: '500', fontSize: 18}}>City : {item.city}</Text>
        </View>
        <View>
-         <Text style={{fontWeight: '500', fontSize: 18}}>Landmark : {item.Landmark}</Text>
+         <Text style={{fontWeight: '500', fontSize: 18}}>State : {item.state}</Text>
        </View>
        <View>
-         <Text style={{fontWeight: '500', fontSize: 18}}>City : {item.City}</Text>
+         <Text style={{fontWeight: '500', fontSize: 18}}>Country : {item.country}</Text>
        </View>
        <View>
-         <Text style={{fontWeight: '500', fontSize: 18}}>Pincode : {item.Pin}</Text>
+         <Text style={{fontWeight: '500', fontSize: 18}}>Pincode : {item.pin}</Text>
        </View>
        <View style={{justifyContent:'center',alignItems:'center',marginTop:20}}>
        <TouchableOpacity style={{width:'30%',height:30,backgroundColor:'#fa8b0c', borderRadius: 20}}>

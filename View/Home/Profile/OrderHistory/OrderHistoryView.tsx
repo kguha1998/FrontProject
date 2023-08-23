@@ -43,7 +43,7 @@ const OrderHistoryView = ({navigation,route}:OrderHistoryViewProps) => {
     </View>
    </LinearGradient>
  
-   <ScrollView>
+   <ScrollView style={{paddingBottom:30}}>
    <View
         style={{
           elevation: 10,
