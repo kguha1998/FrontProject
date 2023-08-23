@@ -1,9 +1,7 @@
 import { View, Text, TouchableOpacity, Dimensions, ScrollView } from 'react-native'
 import React from 'react'
 import LinearGradient from 'react-native-linear-gradient'
-import AddressPage from './AddressPage';
-import { NavigationContainer } from '@react-navigation/native';
-import AddressListView from '../../Profile/AddressList/AddressListView';
+
 import AddressList from './AddressList';
 
 
@@ -29,13 +27,7 @@ const Address = (props: any) => {
   </LinearGradient>
     <View>
       <AddressList />
-    {/* <AddressPage /> */}
-    {/* <AddressListView /> */}
-    {/* <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="AddressSelection" component={AddressPage} />
-      </Stack.Navigator>
-    </NavigationContainer> */}
+   
   
     </View>
     <View>
