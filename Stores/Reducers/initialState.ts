@@ -11,6 +11,11 @@ const InitialState: StoreState = {
     count: 0,
     message: '',
   },
+  product:{
+    product_detail:[],
+  }
+
+  
 };
 
 export default InitialState;
