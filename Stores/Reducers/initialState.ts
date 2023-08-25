@@ -3,6 +3,7 @@ import {StoreState} from '../../Models/reduxModel';
 const InitialState: StoreState = {
   user: {
     user_detail: undefined,
+    address_list: [],
   },
   error: {
     error: undefined,
@@ -16,6 +17,6 @@ const InitialState: StoreState = {
   }
 
   
-};
+}
 
 export default InitialState;

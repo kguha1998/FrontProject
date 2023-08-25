@@ -10,6 +10,8 @@ export default function UserReducer(
   switch (action.type) {
     case UserActionTypes.Login_Success_Action:
       return {...state, user_detail: action.payload};
+    case UserActionTypes.Address_List_Action:
+        return {...state, address_list: action.payload};
     case UserActionTypes.Logout_Success_Action:
       return InitialState;
     default:

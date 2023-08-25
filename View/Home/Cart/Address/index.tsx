@@ -1,11 +1,20 @@
 import { View, Text, TouchableOpacity, Dimensions, ScrollView } from 'react-native'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import LinearGradient from 'react-native-linear-gradient'
-import AddressPage from './AddressPage';
-import { NavigationContainer } from '@react-navigation/native';
+import { connect } from 'react-redux';
+import { StoreState } from '../../../../Models/reduxModel';
+import { AddressListAction } from '../../../../Stores/Actions/userAction';
+import { addressList, userDetail } from '../../../../Models/User';
+import CartAddressList from './CartAddressList';
 
 
-const Address = (props: any) => {
+const Address = ({route,user,address,AddressListAction,props,setStep}:AddressListProps) => {
+  const[address1,updateaddress]=useState<any>([])
+  useEffect(()=>{
+    AddressListAction(user?.customer_id);
+    console.log(user?.customer_id)
+  },[])
+  
   return (
   <ScrollView>
     <LinearGradient
@@ -26,16 +35,12 @@ const Address = (props: any) => {
     </Text>
   </LinearGradient>
     <View>
-    <AddressPage />
-    {/* <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="AddressSelection" component={AddressPage} />
-      </Stack.Navigator>
-    </NavigationContainer> */}
+      <CartAddressList address={address} />
+   
   
     </View>
     <View>
-      <TouchableOpacity onPress={() => props.setStep(2)} 
+      <TouchableOpacity onPress={() => setStep(2)} 
       style={{
             borderRadius: 100,
             width: 150,
@@ -53,4 +58,23 @@ const Address = (props: any) => {
   )
 };
 
-export default Address
+const mapStateToProps = (state: StoreState, ownProps: any) => {
+  return {
+    user: state.user.user_detail,
+    address: state.user.address_list
+  };
+};
+const mapDispatchToProps = {
+  AddressListAction 
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Address);
+interface AddressListProps {
+  navigation?: any;
+  route?: any;
+  address?: addressList[];
+  user?:userDetail,
+  AddressListAction?: any;
+  props?:any;
+  setStep:(step :2) =>void;
+}
