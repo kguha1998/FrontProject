@@ -10,48 +10,176 @@ import {
 import React, { useState } from 'react';
 import LinearGradient from 'react-native-linear-gradient';
 import Icon from 'react-native-vector-icons/Ionicons';
+import Collapsible from 'react-native-collapsible';
 
-const ChooseItemView = ({navigation, route}: ChooseItemViewProps) => {
-  const[listDataSource, setlistDataSource] = useState(false);
 
-  const Items: any = [
-    {
-      id: 1,
-      ItemName: 'Green capsicum',
-      qty: 0,
-      ImageLink:
-        'https://www.oifood.in/files/products/9f1114e47918b5a7a304cdbb60591a4b.jpg',
-    },
-    {
-      id: 2,
-      ItemName: 'Bellpepper',
-      qty: 0,
-      ImageLink:
-        'https://t4.ftcdn.net/jpg/02/87/25/37/360_F_287253716_I1seSRet5pt8YGBRRcTbPPV1WesM00n9.jpg',
-    },
-    {
-      id: 3,
-      ItemName: 'Mushroom',
-      qty: 0,
-      ImageLink:
-        'https://media.istockphoto.com/id/1276597176/photo/button-mushrooms.jpg?s=612x612&w=0&k=20&c=ilDpArGu1tDBzSAZR8zxr5VXjet7tb7U7Erx-vsRY4E=',
-    },
-    {
-      id: 4,
-      ItemName: 'Tomato',
-      qty: 0,
-      ImageLink:
-        'https://img.freepik.com/premium-photo/red-tomatoes-with-cut-isolated-white_80510-576.jpg',
-    },
-    {
-      id: 5,
-      ItemName: 'Carrot',
-      qty: 0,
-      ImageLink: 'https://a-i-c.eu/wp-content/uploads/2019/12/p9.jpg',
-    },
-  ];
+const ChooseItemView = ({navigation, route,order}: ChooseItemViewProps) => {
+
+  // const ItemTypeList=[
+  //       {
+  //       TypeNo:1,
+  //       Type:'Exotic',
+  //       commdity: [
+  //         {
+  //           id: 1,
+  //           ItemName: 'Green capsicum',
+  //           qty: 0,
+  //           ImageLink:
+  //             'https://www.oifood.in/files/products/9f1114e47918b5a7a304cdbb60591a4b.jpg',
+  //         },
+  //         {
+  //           id: 2,
+  //           ItemName: 'Bellpepper',
+  //           qty: 0,
+  //           ImageLink:
+  //             'https://t4.ftcdn.net/jpg/02/87/25/37/360_F_287253716_I1seSRet5pt8YGBRRcTbPPV1WesM00n9.jpg',
+  //         },
+  //         {
+  //           id: 3,
+  //           ItemName: 'Mushroom',
+  //           qty: 0,
+  //           ImageLink:
+  //             'https://media.istockphoto.com/id/1276597176/photo/button-mushrooms.jpg?s=612x612&w=0&k=20&c=ilDpArGu1tDBzSAZR8zxr5VXjet7tb7U7Erx-vsRY4E=',
+  //         },
+  //         {
+  //           id: 4,
+  //           ItemName: 'Tomato',
+  //           qty: 0,
+  //           ImageLink:
+  //             'https://img.freepik.com/premium-photo/red-tomatoes-with-cut-isolated-white_80510-576.jpg',
+  //         },
+  //         {
+  //           id: 5,
+  //           ItemName: 'Carrot',
+  //           qty: 0,
+  //           ImageLink: 'https://a-i-c.eu/wp-content/uploads/2019/12/p9.jpg',
+  //         },
+  //       ]
+  //       },
+  //       {
+  //       TypeNo:2,
+  //       Type:'Leafy',
+  //       commdity: [
+  //         {
+  //           id: 1,
+  //           ItemName: 'Green capsicum',
+  //           qty: 0,
+  //           ImageLink:
+  //             'https://www.oifood.in/files/products/9f1114e47918b5a7a304cdbb60591a4b.jpg',
+  //         },
+  //         {
+  //           id: 2,
+  //           ItemName: 'Bellpepper',
+  //           qty: 0,
+  //           ImageLink:
+  //             'https://t4.ftcdn.net/jpg/02/87/25/37/360_F_287253716_I1seSRet5pt8YGBRRcTbPPV1WesM00n9.jpg',
+  //         },
+  //         {
+  //           id: 3,
+  //           ItemName: 'Mushroom',
+  //           qty: 0,
+  //           ImageLink:
+  //             'https://media.istockphoto.com/id/1276597176/photo/button-mushrooms.jpg?s=612x612&w=0&k=20&c=ilDpArGu1tDBzSAZR8zxr5VXjet7tb7U7Erx-vsRY4E=',
+  //         },
+  //         {
+  //           id: 4,
+  //           ItemName: 'Tomato',
+  //           qty: 0,
+  //           ImageLink:
+  //             'https://img.freepik.com/premium-photo/red-tomatoes-with-cut-isolated-white_80510-576.jpg',
+  //         },
+  //         {
+  //           id: 5,
+  //           ItemName: 'Carrot',
+  //           qty: 0,
+  //           ImageLink: 'https://a-i-c.eu/wp-content/uploads/2019/12/p9.jpg',
+  //         },
+  //       ]
+  //       },
+  //       {
+  //       TypeNo:3,
+  //       Type:'Regular',
+  //       commdity: [
+  //         {
+  //           id: 1,
+  //           ItemName: 'Green capsicum',
+  //           qty: 0,
+  //           ImageLink:
+  //             'https://www.oifood.in/files/products/9f1114e47918b5a7a304cdbb60591a4b.jpg',
+  //         },
+  //         {
+  //           id: 2,
+  //           ItemName: 'Bellpepper',
+  //           qty: 0,
+  //           ImageLink:
+  //             'https://t4.ftcdn.net/jpg/02/87/25/37/360_F_287253716_I1seSRet5pt8YGBRRcTbPPV1WesM00n9.jpg',
+  //         },
+  //         {
+  //           id: 3,
+  //           ItemName: 'Mushroom',
+  //           qty: 0,
+  //           ImageLink:
+  //             'https://media.istockphoto.com/id/1276597176/photo/button-mushrooms.jpg?s=612x612&w=0&k=20&c=ilDpArGu1tDBzSAZR8zxr5VXjet7tb7U7Erx-vsRY4E=',
+  //         },
+  //         {
+  //           id: 4,
+  //           ItemName: 'Tomato',
+  //           qty: 0,
+  //           ImageLink:
+  //             'https://img.freepik.com/premium-photo/red-tomatoes-with-cut-isolated-white_80510-576.jpg',
+  //         },
+  //         {
+  //           id: 5,
+  //           ItemName: 'Carrot',
+  //           qty: 0,
+  //           ImageLink: 'https://a-i-c.eu/wp-content/uploads/2019/12/p9.jpg',
+  //         },
+  //       ]
+  //       },
+  //       {
+  //       TypeNo:4,
+  //       Type:'Seasonal' ,
+  //       commdity: [
+  //         {
+  //           id: 1,
+  //           ItemName: 'Green capsicum',
+  //           qty: 0,
+  //           ImageLink:
+  //             'https://www.oifood.in/files/products/9f1114e47918b5a7a304cdbb60591a4b.jpg',
+  //         },
+  //         {
+  //           id: 2,
+  //           ItemName: 'Bellpepper',
+  //           qty: 0,
+  //           ImageLink:
+  //             'https://t4.ftcdn.net/jpg/02/87/25/37/360_F_287253716_I1seSRet5pt8YGBRRcTbPPV1WesM00n9.jpg',
+  //         },
+  //         {
+  //           id: 3,
+  //           ItemName: 'Mushroom',
+  //           qty: 0,
+  //           ImageLink:
+  //             'https://media.istockphoto.com/id/1276597176/photo/button-mushrooms.jpg?s=612x612&w=0&k=20&c=ilDpArGu1tDBzSAZR8zxr5VXjet7tb7U7Erx-vsRY4E=',
+  //         },
+  //         {
+  //           id: 4,
+  //           ItemName: 'Tomato',
+  //           qty: 0,
+  //           ImageLink:
+  //             'https://img.freepik.com/premium-photo/red-tomatoes-with-cut-isolated-white_80510-576.jpg',
+  //         },
+  //         {
+  //           id: 5,
+  //           ItemName: 'Carrot',
+  //           qty: 0,
+  //           ImageLink: 'https://a-i-c.eu/wp-content/uploads/2019/12/p9.jpg',
+  //         },
+  //       ]
+  //       }  
+  //     ]
+
   return (
-    <View>
+    <View style={{flex:1}}>
       <LinearGradient
         colors={['#FFB900', '#FFE435', '#FFA000']}
         start={{x: 0, y: 0}}
@@ -59,90 +187,67 @@ const ChooseItemView = ({navigation, route}: ChooseItemViewProps) => {
         style={{
           borderBottomLeftRadius: 20,
           borderBottomRightRadius: 20,
-          marginBottom: -50,
+          marginBottom: 30,
           height: Dimensions.get('window').height * 0.2,
           width: '100%',
           alignItems: 'center',
-          paddingTop: 40,
+          paddingTop: 50,
         }}>
         <Text style={{color: 'white', fontSize: 27, fontWeight: 'bold'}}>
           Choose Items
         </Text>
+        <View style={{marginRight:320, marginTop:22}}>
+        <TouchableOpacity onPress={() => navigation.navigate('ChooseBox')}>
+          <Icon name="arrow-back-circle" size={50} color={'white'} />
+        </TouchableOpacity>
+        </View>
       </LinearGradient>
-      <VegType/>
-      <ScrollView>
-        <View>
-          <TouchableOpacity onPress={() => navigation.navigate('ChooseBox')}>
-            <Icon name="arrow-back-outline" size={30} color={'white'} />
-          </TouchableOpacity>
-          {/* <TouchableOpacity onPress={() =>navigation.navigate('ChooseBox')}>
-            <View style={{marginTop:10,marginBottom:30,marginLeft:80,marginRight:80,padding:10,elevation:25,backgroundColor:'#Ff8600',borderRadius:10, borderWidth: 1, borderColor: 'white'}}>
-             <Text style={{fontSize:18,fontWeight:'bold',textAlign:'center',color:'white',}}>BACK</Text>
-            </View>
-          </TouchableOpacity> */}
-        </View>
-
-        {Items.map((item: any) => (
-          <Veg navigation={navigation} item={item} key={item.id} />
-        ))}
-        <View>
-          <Text style={{fontSize: 20}}> here</Text>
-        </View>
+      <ScrollView style={{height: '50%'}}>
+      <View style={{flex: 1}}>
+      
+      {/* {
+        ItemTypeList.map((item, index)=>(
+          <ComodityType item={item} key={index}/>
+        ))
+      } */}
+      {
+        order.map((m:any)=>(
+          <ComodityType item={m.commodity_type_id} key={m}/>
+        ))
+      }
+       </View>
       </ScrollView>
+      
+     
     </View>
-  );
-};
-
+    
+    );
+  };
+      
 export default ChooseItemView;
 interface ChooseItemViewProps {
   navigation?: any;
   route?: any;
+  order?: any;
 }
 interface ChooseItem {
-  navigation?: any;
+  // navigation?: any;
   id?: any;
   Itemname?: any;
   ImageLink?: any;
   item?: any;
 }
 
-//Vegetable Type
-const VegType = () => {
-
-  const ItemTypeList=[
-    {
-    TypeNo:1,
-    Type:'Exotic'
-    },
-    {
-    TypeNo:2,
-    Type:'Leafy' 
-    },
-    {
-    TypeNo:3,
-    Type:'Regular' 
-    },
-    {
-    TypeNo:4,
-    Type:'Seasonal' 
-    }  
-  ]
-  return(
-    <ScrollView>
-      {
-        ItemTypeList.map(item =>(
-          <View key={item.TypeNo}>
-            <Text>{item.Type}</Text>
-          </View>
-        ))}
-      
-
-    </ScrollView>
-  )
+interface ChooseItemType {
+  navigation?: any;
+  TypeNo?: any;
+  Type?: any;
+  itemType?: any;
 }
 
-//Items Component
-const Veg = ({navigation, item}: ChooseItem) => {
+
+// //Items Component
+const Veg = ({item}: ChooseItem) => {
   return (
     /* Green Capsicum */
     <View
@@ -158,18 +263,18 @@ const Veg = ({navigation, item}: ChooseItem) => {
         backgroundColor: 'white',
         marginBottom: 30,
       }}>
-      <View style={{width: 150, height: 150}}>
+      {/* <View style={{width: 150, height: 150}}>
         <Image
           // source={require(item.ImageLink)}
           source={{uri: item.ImageLink}}
           style={{width: 150, height: 150, resizeMode: 'contain'}}
         />
-      </View>
+      </View> */}
 
       <View style={{flexDirection: 'column', alignItems: 'baseline'}}>
         <View style={{marginTop: 40, alignItems: 'baseline'}}>
           <Text style={{fontSize: 16, textAlign: 'right', color: '#Ff8600'}}>
-            {item.ItemName}
+            {item.commodity_name}
           </Text>
         </View>
 
@@ -229,3 +334,40 @@ const Veg = ({navigation, item}: ChooseItem) => {
     </View>
   );
 };
+
+
+// const ComodityType = (props: any)=>{
+  const ComodityType = ({item}: any)=>{
+  const [step, SetStep]= useState<boolean>(false)
+  return(
+    <View>
+    <TouchableOpacity onPress={()=> SetStep(!step)} style={{
+      flexDirection:'row',
+      marginTop:20,
+      height:60,
+      width:380,
+      borderRadius:12,
+      backgroundColor:'#FFA500',
+      justifyContent:'center',
+      alignItems:'center',
+      elevation:10
+    }}>
+
+     {/* <Text style={{color:'white',fontWeight:'bold',fontSize:25}}>{props.item.Type}</Text> */}
+     <Text style={{color:'white',fontWeight:'bold',fontSize:25}}>{item.commodity_type_name}</Text>
+    <Icon name="chevron-down-circle-outline" style={{color:'white'}} size={(30)} /> 
+
+    </TouchableOpacity>
+    <ScrollView>
+
+    
+     <Collapsible collapsed={!step}>
+
+      {item.commodities.map((item: any) => (
+        <Veg  item={item} key={item.id} />
+      ))}
+    </Collapsible>
+    </ScrollView>
+    </View>
+  )
+}
