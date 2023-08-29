@@ -9,8 +9,8 @@ import { addressList, userDetail } from '../../../../Models/User'
 const AddressList = ({navigation,route,user,address,AddressListAction}:AddressListProps) => {
   const[address1,updateaddress]=useState<any>([])
   useEffect(()=>{
-    AddressListAction(user?.customer_id);
-    console.log(user?.customer_id)
+        AddressListAction(user?.customer_id);
+   console.log(user?.customer_id)
   },[])
    
   return (
@@ -19,7 +19,6 @@ const AddressList = ({navigation,route,user,address,AddressListAction}:AddressLi
     </View>
   )
 }
-
 const mapStateToProps = (state: StoreState, ownProps: any) => {
   return {
     user: state.user.user_detail,
@@ -36,6 +35,8 @@ interface AddressListProps {
   navigation?: any;
   route?: any;
   address?: addressList[];
-  user?:userDetail,
+  user?:userDetail;
   AddressListAction?: any;
+  addr?:any;
+ 
 }

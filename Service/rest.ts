@@ -2,6 +2,7 @@ import axios, {AxiosRequestConfig, AxiosInstance} from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default class RestService {
+  [x: string]: any;
   client: AxiosInstance;
   constructor(config: AxiosRequestConfig) {
     this.client = axios.create(config);
@@ -61,6 +62,10 @@ export default class RestService {
 
   post(endpoint: string, payload: any) {
     return this.client.post<any>(endpoint, payload);
+  }
+
+  put(endpoint: string, payload: any) {
+    return this.client.put<any>(endpoint, payload);
   }
 }
 

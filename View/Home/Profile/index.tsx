@@ -8,7 +8,7 @@ import AddressEdit from './AddressEdit';
 import AddressAdd from './AddressAdd';
 import EditProfile from './EditProfile';
 import OrderHistory from './OrderHistory';
-import Login from '../../LoginSignup/Login';
+
 
 const Profile = () => {
   const Stack = createStackNavigator();
@@ -20,7 +20,6 @@ const Profile = () => {
        <Stack.Screen name="AddressEdit" component={AddressEdit} />
        <Stack.Screen name="AddressAdd" component={AddressAdd} />
        <Stack.Screen name="OrderHistory" component={OrderHistory} />
-       <Stack.Screen name="Login" component={Login} />
     </Stack.Navigator>
   )
 }

@@ -1,6 +1,7 @@
 export interface UserMain {
   user_detail?: userDetail;
   address_list: addressList[];
+  single_address?: SingleAddress;
 }
 
 
@@ -25,3 +26,17 @@ export interface addressList {
   status: number;
   customer_id: number;
 }
+export interface SingleAddress{
+  address_id: number;
+  house_no: string;
+  address_line1: string;
+  address_line2: string;
+  city: string;
+  state: string;
+  country: string;
+  pin: number;
+  status: number;
+  customer_id: number;
+}
+
+

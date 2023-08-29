@@ -1,5 +1,4 @@
 import axios from 'axios';
-
 import RestService from './rest';
 import { BaseUrl, environment } from '../environment';
 
@@ -14,4 +13,10 @@ export const AddressAdd = (data: any) => {
 };
 export const AddressList = (data: any) => {
   return serviceClient.get(environment.url.addressListUrl+'/'+ data);
+};
+export const AddressFetch = (data: any) => {
+  return serviceClient.get(environment.url.addressFetchUrl+'/'+ data);
+};
+export const AddressEdit = (data: any) => {
+  return serviceClient.put(environment.url.addressEditUrl, data);
 };
