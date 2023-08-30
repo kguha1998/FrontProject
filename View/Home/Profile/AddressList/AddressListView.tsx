@@ -117,7 +117,7 @@ interface AddressListViewProps{
        <TouchableOpacity style={{width:'30%',height:30,backgroundColor:'#fa8b0c', borderRadius: 20}}
        onPress={() => navigation.navigate('Delete')}>
        <Text style={{textAlign:'center',marginTop:5}}>Remove</Text>
-        </TouchableOpacity>
+       </TouchableOpacity>
        </View> 
   
      </View>
