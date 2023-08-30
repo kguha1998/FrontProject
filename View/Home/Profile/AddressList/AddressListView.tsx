@@ -1,11 +1,14 @@
-import { View, Text, TouchableOpacity, Dimensions, ScrollView } from 'react-native'
+import { View, Text, TouchableOpacity, Dimensions, ScrollView, Modal, Alert, StyleSheet, Pressable } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import LinearGradient from 'react-native-linear-gradient'
 import Icon from 'react-native-vector-icons/Ionicons'
 import axios from 'axios'
 
 
+
+
 const AddressListView = ({navigation,route,address}:AddressListViewProps) => {
+  
 
   return (
     <View>
@@ -71,6 +74,24 @@ interface AddressListViewProps{
   
 
   const AddressNew =({item,navigation,route}: AddressNewProps )=>{ 
+    // const [modalVisible, setModalVisible] = useState(false);
+    const [isPopoverVisible, setPopoverVisible] = useState(false);
+
+    const handleRemovePress = () => {
+      setPopoverVisible(true);
+    };
+  
+    const handleCancel = () => {
+      setPopoverVisible(false);
+    };
+  
+    const handleConfirm = () => {
+      // Perform the actual delete action here
+      setPopoverVisible(false);
+    };
+
+     
+
     //const address_id = item.address_id;
      //console.log(address_id)
     return(
@@ -113,16 +134,87 @@ interface AddressListViewProps{
        onPress={() => navigation.navigate('AddressEdit',{ address_id: item.address_id })}>
        <Text style={{textAlign:'center',marginTop:5}}>Edit</Text>
        </TouchableOpacity>
-       
-       <TouchableOpacity style={{width:'30%',height:30,backgroundColor:'#fa8b0c', borderRadius: 20}}
-       onPress={() => navigation.navigate('Delete')}>
+
+       <TouchableOpacity
+        style={styles.button}
+        onPress={handleRemovePress}>
        <Text style={{textAlign:'center',marginTop:5}}>Remove</Text>
-        </TouchableOpacity>
+       </TouchableOpacity>
+       <Modal
+        animationType="slide"
+        transparent={true}
+        visible={isPopoverVisible}>
+        <View style={styles.modalContainer}>
+          <View style={styles.modalContent}>
+            <Text>Are you sure you want to delete?</Text>
+            <View style={styles.modalButtons}>
+            <TouchableOpacity
+                style={[styles.modalButton, styles.confirmButton]}
+                onPress={handleConfirm}>
+                <Text style={styles.modalButtonText}>Delete</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={[styles.modalButton, styles.cancelButton]}
+                onPress={handleCancel}>
+                <Text style={styles.modalButtonText}>Cancel</Text>
+              </TouchableOpacity>
+              
+            </View>
+          </View>
+        </View>
+      </Modal>
+    
        </View> 
   
      </View>
     )
   }
+ 
+  const styles = StyleSheet.create({
+    button: {
+      width: '30%', 
+      height: 30, 
+      backgroundColor: '#fa8b0c', 
+      borderRadius: 20
+    
+    },
+    buttonText: {
+      color: 'white',
+      textAlign: 'center',
+    },
+    modalContainer: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+      backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    },
+    modalContent: {
+      backgroundColor: 'white',
+      padding: 30,
+      borderRadius: 10,
+      alignItems: 'center',
+    },
+    modalButtons: {
+      flexDirection: 'row',
+      marginTop: 20,
+    },
+    modalButton: {
+      paddingVertical: 10,
+      paddingHorizontal: 20,
+      borderRadius: 25,
+      marginHorizontal: 10,
+    },
+    cancelButton: {
+      backgroundColor: 'gray',
+    },
+    confirmButton: {
+      backgroundColor: '#fa8b0c',
+    },
+    modalButtonText: {
+      color: 'white',
+    },
+  });
+  
 
 
   interface AddressNewProps{ 

@@ -4,9 +4,9 @@ import { Controller, useForm } from 'react-hook-form'
 import LinearGradient from 'react-native-linear-gradient'
 import Icon from 'react-native-vector-icons/Ionicons'
 import { SingleAddress } from '../../../../Models/User'
+import { AddressEdit } from '../../../../Service/userService'
 
-const AddressEditView = ({navigation,address,AddressFetchAction,singleaddress}:AddressEditViewProps) => {
-  //console.log(address);
+const AddressEditView = ({navigation,singleaddress,AddressEdit}:AddressEditViewProps) => {
 
   const {
     control,
@@ -17,19 +17,21 @@ const AddressEditView = ({navigation,address,AddressFetchAction,singleaddress}:A
   } = useForm();
 
   const onSubmit=(data: any)=>{
-   //AddressEdit(data)
+    AddressEdit(data)
   }
   useEffect(()=>{
-if(!!address){
-  setValue('house_no',address.house_no)
-  setValue('address_line1',address.address_line1)
-  setValue('address_line2',address.address_line2)
-  setValue('city',address.city)
-  setValue('state',address.state)
-  setValue('country',address.country)
-  setValue('pin',address.pin)
+if(!!singleaddress){
+  setValue('house_no',singleaddress.house_no)
+  setValue('address_line1',singleaddress.address_line1)
+  setValue('address_line2',singleaddress.address_line2)
+  setValue('city',singleaddress.city)
+  setValue('state',singleaddress.state)
+  setValue('country',singleaddress.country)
+  setValue('pin',singleaddress.pin)
+
+  
 }
-  },[address])
+  },[singleaddress])
   return (
     <View>
     <LinearGradient
@@ -71,7 +73,7 @@ if(!!address){
         render={({field: {onChange, onBlur, value}}) => (
           <View style={{margin: 10,borderBottomWidth:1, borderColor: errors.house_no ?'red': '#fa8b0c'}}>
             <TextInput
-              placeholder="Flat No"
+             placeholder="Flat No"
               onBlur={onBlur}
               onChangeText={onChange}
               value={value}
@@ -228,7 +230,6 @@ export default AddressEditView
 interface AddressEditViewProps{ 
   navigation?:any;
   route?:any;
-  address?:any;
-  AddressFetchAction?: any;
   singleaddress?:SingleAddress;
+  AddressEdit?:any
 }

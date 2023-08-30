@@ -120,7 +120,7 @@ export const AddressListAction = (payload: any) => {
       message: 'Please Wait...'}))
     return AddressList(payload)
       .then(response => {
-        console.log(response.data)
+       // console.log(response.data)
         if (response.status != 200) {
           dispatch(ApiCallErrorAction(response.data));
         } else {
@@ -168,7 +168,9 @@ export const AddressFetchAction = (payload: any) => {
       count: 1,
       message: 'Please Wait...'}))
     return AddressFetch(payload)
+   
       .then(response => {
+       // console.log(response.data)
         if (response.status != 200) {
           dispatch(ApiCallErrorAction(response.data));
         } else {
@@ -212,16 +214,22 @@ export const AddressFetchActionSuccessAction = (payload: any) => {
 };
 
 export const AddressEditAction = (payload: any) => {
+   const{address_id,data}=payload;
+   console.log('inside user action ',address_id)
+  console.log('inside action call',payload)
+  // console.log(data)
   return (dispatch: any, getState: any) => {
     dispatch(BeginApiCallAction({
       count: 1,
       message: 'Please Wait...'}))
-    return AddressEdit(payload)
+    return AddressEdit(address_id,data)
       .then(response => {
+        console.log(response.data)
         if (response.status != 200) {
           dispatch(ApiCallErrorAction(response.data));
         } else {
-          dispatch(AddressEditSuccessAction(response.data));
+          payload.navigation.navigate('AddressList')
+          dispatch(AddressEditSuccessAction());
         }
       })
       .catch(error => {
@@ -252,10 +260,10 @@ export const AddressEditAction = (payload: any) => {
       });
   };
 };
-export const AddressEditSuccessAction = (payload: any) => {
+export const AddressEditSuccessAction = () => {
   return {
     type: UserActionTypes.Address_Edit_Success_Action,
-    payload: payload,
+  
 
   };
 };
