@@ -11,7 +11,7 @@ const MainRoute = ({user}: MainProps) => {
   const Stack = createStackNavigator();
   return (
     <Stack.Navigator screenOptions={{headerShown: false,gestureEnabled:true}}>
-      {user ? (
+      {!user ? (
    
        <Stack.Screen name="LoginSignup" component={LoginSignup} />
       ) : (
