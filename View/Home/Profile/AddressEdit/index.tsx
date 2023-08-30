@@ -7,22 +7,33 @@ import { StoreState } from '../../../../Models/reduxModel'
 import { SingleAddress, addressList, userDetail } from '../../../../Models/User'
 
 
-  const AddressEdit = ({navigation,route,user,address,AddressFetchAction,singleaddress}:AddressEditProps) => {
+  const AddressEdit = ({navigation,route,address,AddressFetchAction,singleaddress,AddressEditAction}:AddressEditProps) => {
+   // console.log(singleaddress)
     const { address_id } = route.params;
-    console.log(singleaddress);
-   // const[address1,updateaddress]=useState<any>([])
+
     useEffect(()=>{
-    
-       AddressFetchAction(singleaddress?.address_id) 
-       console.log(AddressFetchAction)
+        AddressFetchAction(address_id) 
        
     },[])
-   // const AdreessEdit =(data: any) =>{
-      //data.address_id = abc.address_id
-    //}
+    const AddressEdit = (data: any) => {
+        //data.address_id = address_id
+        const payload={
+          address_id:address_id,
+          data:data,
+          navigation:navigation
+
+        }
+   
+    AddressEditAction(payload);
+};
+
+  //  const AdreessEdit =(data: any) =>{
+  //     data.address_id = abc.address_id
+   
+  //   }
   return (
     <View>
-          <AddressEditView navigation={navigation} address={address} singleaddress={singleaddress} /> 
+          <AddressEditView navigation={navigation} singleaddress={singleaddress} AddressEdit={AddressEdit}  /> 
           
     </View>
   )
@@ -30,7 +41,7 @@ import { SingleAddress, addressList, userDetail } from '../../../../Models/User'
 }
 const mapStateToProps = (state: StoreState, ownProps: any) => {
   return {
-    user: state.user.user_detail,
+
     address: state.user.address_list,
     singleaddress:state.user.single_address,
 
@@ -39,6 +50,7 @@ const mapStateToProps = (state: StoreState, ownProps: any) => {
 };
 const mapDispatchToProps = {
   AddressFetchAction,
+  AddressEditAction,
 
 };
 
@@ -47,9 +59,13 @@ interface AddressEditProps {
   navigation?: any;
   route?: any;
   address?: addressList[];
-  user?:userDetail;
   AddressFetchAction?: any;
   singleaddress?:SingleAddress;
+  AddressEditAction?:any
+ 
+ 
+
+
   
 
   
