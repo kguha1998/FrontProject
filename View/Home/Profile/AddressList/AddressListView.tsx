@@ -48,7 +48,7 @@ const AddressListView = ({navigation,route,address}:AddressListViewProps) => {
       </TouchableOpacity>
       </View> 
         {
-          address.map((m:any)=> (
+          address.map((m:any) => (
             <AddressNew key={m.address_id} item={m} navigation={navigation}/>
           ))
         }

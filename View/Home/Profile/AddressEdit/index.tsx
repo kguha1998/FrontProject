@@ -43,7 +43,7 @@ const mapStateToProps = (state: StoreState, ownProps: any) => {
   return {
 
     address: state.user.address_list,
-    singleaddress:state.user.single_address,
+    singleaddress: state.user.single_address,
 
 
   };

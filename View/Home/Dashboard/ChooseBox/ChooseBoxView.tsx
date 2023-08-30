@@ -44,8 +44,6 @@ interface ChooseBoxViewPorps{
 }
 
 const ProductBox =({navigation,item}: any)=>{ 
-  console.log("item:.............", item);
-  console.log("product_name:", item.product_name);
   return(
     
     <View style={{ marginTop:10,marginLeft:20,marginRight:20, borderRadius:10, borderWidth: 1, borderColor: 'orange',elevation: 10,

@@ -11,22 +11,7 @@ const ChooseBox = ({navigation, route,product,ProductListAction}: ChooseBoxProps
   const[productBox,setproductBox] =useState<any>([])
   useEffect(()=>{
     ProductListAction();
-    console.log("product..............",product)
-    // if (product) {
-    //   const extractedProductData = product.map((item: ProductDetail) => {
-    //     console.log(item.product_id)
-    //     return {
-    //       product_id: item.product_id,
-    //       // product_name: item.product_name,
-
-    //     };
-       
-  //     });
-
-  //     updateproductBox(extractedProductData);
-  //   }
-
-  // ProductListAction();
+  
   }, []);
 
   return(
