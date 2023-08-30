@@ -190,7 +190,7 @@ interface AddressListViewProps{
     },
     modalContent: {
       backgroundColor: 'white',
-      padding: 20,
+      padding: 30,
       borderRadius: 10,
       alignItems: 'center',
     },
@@ -201,7 +201,7 @@ interface AddressListViewProps{
     modalButton: {
       paddingVertical: 10,
       paddingHorizontal: 20,
-      borderRadius: 5,
+      borderRadius: 25,
       marginHorizontal: 10,
     },
     cancelButton: {
