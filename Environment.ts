@@ -5,5 +5,7 @@ export const environment = {
     addressAddUrl: '/addresses',
     addressListUrl: '/addresses/cust',
     productUrl: '/products',
+    addressFetchUrl: '/addresses',
+    addressEditUrl: '/addresses',
   },
 };
