@@ -4,16 +4,20 @@ import AddressAddView from './AddressAddView'
 import { StoreState } from '../../../../Models/reduxModel'
 import { connect } from 'react-redux'
 import { AddressAddAction } from '../../../../Stores/Actions/userAction'
-import { addressList } from '../../../../Models/User'
+import { addressList, userDetail } from '../../../../Models/User'
 
 
 const AddressAdd = ({navigation,route,AddressAddAction,user}:AddressAddProps) => {
   const AddressAdd = (data: any) => {
-    AddressAddAction(data);
+        data.customer_id= user?.customer_id
+    AddressAddAction({
+      data:data,
+      navigation: navigation,
+    });
   };
   return (
     <View>
-    <AddressAddView navigation={navigation} />
+    <AddressAddView navigation={navigation} AddressAdd={AddressAdd} />
    </View>
  )
   
@@ -21,7 +25,7 @@ const AddressAdd = ({navigation,route,AddressAddAction,user}:AddressAddProps) =>
 
 const mapStateToProps = (state: StoreState, ownProps: any) => {
   return {
-    user: state.user.address_list
+    user: state.user.user_detail
   };
 };
 const mapDispatchToProps = {
@@ -32,7 +36,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(AddressAdd);
 interface AddressAddProps {
   navigation?: any;
   route?: any;
-  user?: addressList[];
+  user?: userDetail;
   AddressAddAction?: any;
 
  

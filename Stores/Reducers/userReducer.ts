@@ -12,6 +12,8 @@ export default function UserReducer(
       return {...state, user_detail: action.payload};
     case UserActionTypes.Address_List_Action:
         return {...state, address_list: action.payload};
+    case UserActionTypes.Address_Edit_Success_Action:
+        return {...state, single_address: action.payload};
     case UserActionTypes.Logout_Success_Action:
       return InitialState;
     default:

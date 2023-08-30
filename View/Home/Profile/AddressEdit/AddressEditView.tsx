@@ -1,34 +1,35 @@
-import { View, Text, TouchableOpacity, Dimensions, ToastAndroid, TextInput } from 'react-native'
-import React from 'react'
-
+import { View, Text, TouchableOpacity, ScrollView, TextInput, Dimensions } from 'react-native'
+import React, { useEffect } from 'react'
+import { Controller, useForm } from 'react-hook-form'
 import LinearGradient from 'react-native-linear-gradient'
 import Icon from 'react-native-vector-icons/Ionicons'
-import { Controller, useForm } from 'react-hook-form'
-import { ScreenStackHeaderSubview } from 'react-native-screens'
-import { ScrollView } from 'react-native-gesture-handler'
+import { SingleAddress } from '../../../../Models/User'
 
-const AddressAddView = ({navigation,route,AddressAdd}:AddressAddViewProps) => {
-    const {
-        control,
-        handleSubmit,
-        setValue,
-        getValues,
-        formState: {errors},
-      } = useForm();
-    
-      const onSubmit=(data: any)=>{
-        AddressAdd(data);
-      }
-    
-    //   const pinVerify =()=>{
-    //     if(!!getValues('pin') && getValues('pin').length == 6){
-    //       console.log("service call");
-          
-    //     }else{
-    //       ToastAndroid.show('Please Enter Pin', 3000)
-    //     }
-        
-    //  }
+const AddressEditView = ({navigation,address,AddressFetchAction,singleaddress}:AddressEditViewProps) => {
+  //console.log(address);
+
+  const {
+    control,
+    handleSubmit,
+    setValue,
+    getValues,
+    formState: {errors},
+  } = useForm();
+
+  const onSubmit=(data: any)=>{
+   //AddressEdit(data)
+  }
+  useEffect(()=>{
+if(!!address){
+  setValue('house_no',address.house_no)
+  setValue('address_line1',address.address_line1)
+  setValue('address_line2',address.address_line2)
+  setValue('city',address.city)
+  setValue('state',address.state)
+  setValue('country',address.country)
+  setValue('pin',address.pin)
+}
+  },[address])
   return (
     <View>
     <LinearGradient
@@ -44,11 +45,11 @@ const AddressAddView = ({navigation,route,AddressAdd}:AddressAddViewProps) => {
       paddingTop: 20,
     }}>
     <View style={{flexDirection:'row',marginLeft:10}}>
-        <TouchableOpacity onPress={() => navigation.navigate('ProfileMain')}>
+        <TouchableOpacity onPress={() => navigation.navigate('AddressList')}>
             <Icon name="arrow-back-outline" size={(30)}color={'white'}/>
         </TouchableOpacity>
-        <Text style={{color: 'white', fontSize: 25,textAlign:'center',marginLeft:40}}>
-                Add New Address
+        <Text style={{color: 'white', fontSize: 25,textAlign:'center',marginLeft:60}}>
+                Edit Your Address
         </Text>
     </View>
   </LinearGradient>
@@ -220,10 +221,14 @@ const AddressAddView = ({navigation,route,AddressAdd}:AddressAddViewProps) => {
     </View>
   )
 }
+   
+ 
 
-export default AddressAddView
-interface AddressAddViewProps{ 
-    navigation?:any;
-    route?:any;
-    AddressAdd?: any
-  }
+export default AddressEditView
+interface AddressEditViewProps{ 
+  navigation?:any;
+  route?:any;
+  address?:any;
+  AddressFetchAction?: any;
+  singleaddress?:SingleAddress;
+}

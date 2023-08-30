@@ -7,25 +7,9 @@ import axios from 'axios'
 
 const AddressListView = ({navigation,route,address}:AddressListViewProps) => {
 
-    
-    
-    // const[address,updateaddress]=useState<any>([])
-    // useEffect(()=>{
-      // try{
-      //   axios.get('http://192.168.1.8:3000/api/v1/addresses/cust/2').then((response: { data: any; })=>{
-      //     updateaddress(response.data);
-      //   }).catch((err:any)=>{
-      //     console.log(err);
-      //   })
-      // }catch(err){
-      //   console.log(err);
-      // }
-   // },[])
-    
   return (
     <View>
       <LinearGradient
-    
     colors={['#FFB900', '#FFE435', '#FFA000',]}
     start={{x: 0, y: 0}}
     end={{x: 1, y: 0}}
@@ -49,7 +33,7 @@ const AddressListView = ({navigation,route,address}:AddressListViewProps) => {
     </View>
    
   </LinearGradient>
-  <ScrollView>
+  <ScrollView style={{paddingBottom:100,marginBottom:220}}>
   <View style={{
      elevation: 10,
      backgroundColor: '#e2e82c',
@@ -65,7 +49,7 @@ const AddressListView = ({navigation,route,address}:AddressListViewProps) => {
       </View> 
         {
           address.map((m:any)=> (
-            <AddressNew key={m.address_id} item={m}/>
+            <AddressNew key={m.address_id} item={m} navigation={navigation}/>
           ))
         }
          
@@ -86,8 +70,9 @@ interface AddressListViewProps{
   }
   
 
-  const AddressNew =({item}: any)=>{ 
-    console.log(item)
+  const AddressNew =({item,navigation,route}: AddressNewProps )=>{ 
+    //const address_id = item.address_id;
+     //console.log(address_id)
     return(
       <View
    style={{
@@ -101,7 +86,8 @@ interface AddressListViewProps{
 
 
 
-<View>
+
+        <View>
          <Text style={{fontWeight: '500', fontSize: 18}}>House No: {item.house_no}</Text>
        </View>
        <View>
@@ -122,10 +108,16 @@ interface AddressListViewProps{
        <View>
          <Text style={{fontWeight: '500', fontSize: 18}}>Pincode : {item.pin}</Text>
        </View>
-       <View style={{justifyContent:'center',alignItems:'center',marginTop:20}}>
-       <TouchableOpacity style={{width:'30%',height:30,backgroundColor:'#fa8b0c', borderRadius: 20}}>
+       <View style={{flexDirection:'row',justifyContent:'center',alignItems:'center',marginTop:20}}>
+       <TouchableOpacity style={{width:'30%',height:30,backgroundColor:'#fa8b0c', borderRadius: 20,marginRight:10}}
+       onPress={() => navigation.navigate('AddressEdit',{ address_id: item.address_id })}>
        <Text style={{textAlign:'center',marginTop:5}}>Edit</Text>
        </TouchableOpacity>
+       
+       <TouchableOpacity style={{width:'30%',height:30,backgroundColor:'#fa8b0c', borderRadius: 20}}
+       onPress={() => navigation.navigate('Delete')}>
+       <Text style={{textAlign:'center',marginTop:5}}>Remove</Text>
+        </TouchableOpacity>
        </View> 
   
      </View>
@@ -133,6 +125,14 @@ interface AddressListViewProps{
   }
 
 
+  interface AddressNewProps{ 
+    navigation?:any;
+    route?:any;
+    item?:any
+
+    
+   
+  }
 
 
 

@@ -10,8 +10,8 @@ import {userDetail} from '../Models/User';
 const MainRoute = ({user}: MainProps) => {
   const Stack = createStackNavigator();
   return (
-    <Stack.Navigator screenOptions={{headerShown: false,gestureEnabled:true}}>
-      {!user ? (
+    <Stack.Navigator screenOptions={{headerShown: false}}>
+      {!!user ? (
    
        <Stack.Screen name="LoginSignup" component={LoginSignup} />
       ) : (
