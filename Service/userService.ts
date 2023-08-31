@@ -15,8 +15,18 @@ export const AddressList = (data: any) => {
   return serviceClient.get(environment.url.addressListUrl+'/'+ data);
 };
 export const AddressFetch = (data: any) => {
+  console.log(data)
   return serviceClient.get(environment.url.addressFetchUrl+'/'+ data);
 };
-export const AddressEdit = (data: any) => {
-  return serviceClient.put(environment.url.addressEditUrl, data);
+// export const AddressEdit = (data: any) => {
+//  //console.log('inside service ',data)
+//   return serviceClient.put(environment.url.addressEditUrl, data);
+// };
+
+export const AddressEdit = (address_id: any,data: any) => {
+  console.log('inside service call',address_id);
+  console.log('inside service call',data)
+  const url = `${environment.url.addressEditUrl}/${address_id}`;
+  console.log('inside servicecall ',url)
+  return serviceClient.put(url, data);
 };

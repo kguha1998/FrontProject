@@ -54,7 +54,7 @@ const Cart = () => {
       ) : step == 1 ? (
         <Address setStep={setStep}/>
       ) : (
-        <OrderConfirmation setStep={setStep}   />
+        <OrderConfirmation/>
       )}
     </View>
   );
