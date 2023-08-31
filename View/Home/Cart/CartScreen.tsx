@@ -83,7 +83,7 @@ const CartScreen = (props: any) => {
 
   const [modalVisible, setModalVisible] = useState(false);
 
-  const renderCartItem = ({item}) => (
+  const renderCartItem = ({item}:any) => (
     <View
       style={{
         height: 100,
