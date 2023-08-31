@@ -11,11 +11,7 @@ const MainRoute = ({user}: MainProps) => {
   const Stack = createStackNavigator();
   return (
     <Stack.Navigator screenOptions={{headerShown: false}}>
-<<<<<<< HEAD
       {!user ? (
-=======
-      {user ? (
->>>>>>> a6e3013c3f14a0ea7f01908d3bb6910670c8d3a3
    
        <Stack.Screen name="LoginSignup" component={LoginSignup} />
       ) : (
