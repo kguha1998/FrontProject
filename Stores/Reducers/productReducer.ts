@@ -10,8 +10,8 @@ export default function ProductReducer(
   switch (action.type) {
     case ProductActionTypes.ProductList_Success_Action:
       return {...state, product_detail: action.payload};
-    // case UserActionTypes.Logout_Success_Action:
-    //   return InitialState;
+    case ProductActionTypes.CommodityList_Success_Action:
+      return {...state, commodity_detail: action.payload};
     default:
       return state;
   }
