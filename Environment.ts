@@ -6,6 +6,7 @@ export const environment = {
     addressAddUrl: '/addresses',
     addressListUrl: '/addresses/cust',
     productUrl: '/products',
+    commodityUrl:'/products/65',
     addressFetchUrl: '/addresses',
     addressEditUrl: '/addresses',
     addressDeleteUrl:'/addresses/delete',

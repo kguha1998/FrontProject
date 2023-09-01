@@ -4,7 +4,6 @@ import LoadingReducer from './loadingReducer';
 import ErrorReducer from './errorReducer';
 import productReducer from './productReducer';
 
-
 const rootReducer = combineReducers({
   user: UserReducer,
   loading: LoadingReducer,
