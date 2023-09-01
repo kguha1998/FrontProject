@@ -4,10 +4,9 @@ import React from 'react'
 import LinearGradient from 'react-native-linear-gradient'
 import Icon from 'react-native-vector-icons/Ionicons'
 import { Controller, useForm } from 'react-hook-form'
-import { ScreenStackHeaderSubview } from 'react-native-screens'
 import { ScrollView } from 'react-native-gesture-handler'
 
-const AddressAddView = ({navigation,route,AddressAdd}:AddressAddViewProps) => {
+const AddressAddView = ({navigation,AddressAdd}:AddressAddViewProps) => {
     const {
         control,
         handleSubmit,
@@ -224,6 +223,5 @@ const AddressAddView = ({navigation,route,AddressAdd}:AddressAddViewProps) => {
 export default AddressAddView
 interface AddressAddViewProps{ 
     navigation?:any;
-    route?:any;
     AddressAdd?: any
   }

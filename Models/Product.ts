@@ -1,6 +1,6 @@
 export interface ProductListMain {
     product_detail?: ProductDetail[];
-    comodity_Item?:ComodityItem[];
+    commodity_detail?:Commoditydetail[];
     commodities?:Commodities[];
   }
   
@@ -18,11 +18,11 @@ export interface ProductListMain {
     product_code:string;
   }
 
-  export interface ComodityItem {
+  export interface Commoditydetail {
     commodity_type_id: number;
     commodity_type_name: string;
     allowed_items: number;
-    commodities:  Commodities[];
+    
   }
 
   export interface Commodities {

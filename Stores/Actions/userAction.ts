@@ -1,5 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {AddressAdd, AddressEdit, AddressFetch, AddressList, UserLogin} from '../../Service/userService';
+import {AddressAdd, AddressDelete, AddressEdit, AddressFetch, AddressList, UserLogin} from '../../Service/userService';
 import {ApiCallErrorAction, BeginApiCallAction} from './apiStatusActions';
 import { ErrorModel } from '../../Models/errorModels';
 
@@ -9,7 +9,9 @@ export enum UserActionTypes {
   Address_Add_Sucess_Action = '[USER] Address Add Success Action',
   Address_List_Action = '[USER] Address List Action',
   Address_Edit_Success_Action = '[USER] Address Edit Success Action',
-  Address_Fetch_Success_Action = '[USER] Address Fetch Success Action'
+  Address_Fetch_Success_Action = '[USER] Address Fetch Success Action',
+  Address_Delete_Success_Action = '[USER] Address Delete Success Action',
+
 }
 export const LoginAction = (payload: any) => {
   return (dispatch: any, getState: any) => {
@@ -59,9 +61,11 @@ export const LoginSuccess = (payload: any) => {
   };
 };
 
+
 export const UserLogoutSuccess = () => {
   return {type: UserActionTypes.Logout_Success_Action};
 };
+
 
 export const AddressAddAction = (payload: any) => {
   return (dispatch: any, getState: any) => {
@@ -70,7 +74,7 @@ export const AddressAddAction = (payload: any) => {
       message: 'Please Wait...'}))
     return AddressAdd(payload.data)
       .then(response => {
-        console.log(response.status);
+        //console.log(response.status);
         if (response.status != 200) {
           dispatch(ApiCallErrorAction(response.data));
         } else {
@@ -265,6 +269,56 @@ export const AddressEditSuccessAction = () => {
     type: UserActionTypes.Address_Edit_Success_Action,
   
 
+  };
+};
+
+export const AddressDeleteAction = (payload: any) => {
+  return (dispatch: any, getState: any) => {
+    dispatch(BeginApiCallAction({
+      count: 1,
+      message: 'Please Wait...'}))
+    return AddressDelete(payload.address_id)
+      .then(response => {
+        //console.log(response.status);
+        if (response.status != 200) {
+          dispatch(ApiCallErrorAction(response.data));
+        } else {
+          dispatch(AddressListAction(payload.customer_id))
+          dispatch(AddressDeleteSuccessAction());
+        }
+      })
+      .catch(error => {
+        if (error?.response?.status === 403) {
+          dispatch(
+            ApiCallErrorAction({
+              errorCode: '',
+              message: 'Please Login again to continue.',
+            }),
+          );
+          AsyncStorage.multiRemove(['token'])
+          dispatch(UserLogoutSuccess());
+        } else if (error?.response?.status === 500) {
+          dispatch(
+            ApiCallErrorAction({
+              errorCode: '',
+              message: error?.response?.data?.message,
+            }),
+          );
+        } else {
+          dispatch(
+            ApiCallErrorAction({
+              errorCode: '',
+              message: 'Error encountered please try again later',
+            }),
+          );
+        }
+      });
+  };
+};
+export const AddressDeleteSuccessAction = () => {
+  return {
+    type: UserActionTypes.Address_Delete_Success_Action,
+   
   };
 };
 
