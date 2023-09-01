@@ -7,5 +7,7 @@ export const environment = {
     productUrl: '/products',
     addressFetchUrl: '/addresses',
     addressEditUrl: '/addresses',
+    productInput: '/Calculateorderprice',
+    paymentModeUrl: '/paymentmethods'
   },
 };

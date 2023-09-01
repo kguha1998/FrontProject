@@ -3,6 +3,7 @@ import UserReducer from './userReducer';
 import LoadingReducer from './loadingReducer';
 import ErrorReducer from './errorReducer';
 import productReducer from './productReducer';
+import CartReducer from './cartReducer';
 
 
 const rootReducer = combineReducers({
@@ -10,5 +11,6 @@ const rootReducer = combineReducers({
   loading: LoadingReducer,
   error: ErrorReducer,
   product:productReducer,
+  cart: CartReducer
 });
 export default rootReducer;
