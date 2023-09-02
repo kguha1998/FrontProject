@@ -15,7 +15,7 @@ const InitialState: StoreState = {
   },
   product:{
     product_detail:[],
-    commodity_detail:[]
+    commodity_detail:undefined
   }
 
   

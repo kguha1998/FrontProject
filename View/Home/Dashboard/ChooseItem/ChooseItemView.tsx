@@ -274,7 +274,7 @@ const Veg = ({navigation,item}: ChooseItem) => {
       <View style={{flexDirection: 'column', alignItems: 'baseline'}}>
         <View style={{marginTop: 40, alignItems: 'baseline'}}>
           <Text style={{fontSize: 16, textAlign: 'right', color: '#Ff8600'}}>
-            {item.commodity_name}
+            {item.ItemName}
           </Text>
         </View>
 
@@ -322,7 +322,7 @@ const ComodityType = (props: any)=>{
     
      <Collapsible collapsed={!step}>
 
-      {props.ItemTypeList.commodity.map((item: any) => (
+      {props.item.commodity.map((item: any) => (
         <Veg  item={item} key={item.id} />
       ))}
     </Collapsible>
