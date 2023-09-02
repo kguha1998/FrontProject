@@ -12,5 +12,5 @@ export const ProductList = (data: any) => {
 
 export const CommodityList = (data: any) => {
   console.log('DATA;;;;;;;',data)
-  return serviceClient.get(environment.url.commodityUrl);
+  return serviceClient.get(environment.url.commodityUrl+'/'+ data);
 };

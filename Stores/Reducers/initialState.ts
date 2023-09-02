@@ -15,8 +15,16 @@ const InitialState: StoreState = {
   },
   product:{
     product_detail:[],
-    commodity_detail:[]
+    commodity_detail:undefined
+  },
+  cart:{
+    cart_item:[],
+    payment_mode:undefined
+
   }
+
+    
+  
 
   
 }
