@@ -10,5 +10,8 @@ export const environment = {
     commodityUrl:'/products',
     addressFetchUrl: '/addresses',
     addressEditUrl: '/addresses',
+    productInput: '/Calculateorderprice',
+    paymentModeUrl: '/paymentmethods',
+    addressDeleteUrl:'/addresses/delete',
   },
 };

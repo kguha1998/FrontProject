@@ -9,7 +9,12 @@ import Icon from 'react-native-vector-icons/Ionicons';
 
 const Home = () => {
   const Tab = createBottomTabNavigator();
-  return (   
+  return (
+
+
+
+   
+        
 
     <Tab.Navigator
       screenOptions={{

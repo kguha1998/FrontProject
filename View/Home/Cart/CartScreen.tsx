@@ -11,14 +11,23 @@ import {
   Alert,
   Pressable,
 } from 'react-native';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import LinearGradient from 'react-native-linear-gradient';
-import {SafeAreaView} from 'react-native-safe-area-context';
 import Collapsible from 'react-native-collapsible';
 import {BlurView} from '@react-native-community/blur';
+import Icon from 'react-native-vector-icons/Ionicons';
+import { StoreState } from '../../../Models/reduxModel';
+import { userDetail } from '../../../Models/User';
+import { cart_page } from '../../../Models/Cart';
+import { CartItemAction } from '../../../Stores/Actions/cartAction';
+import { connect } from 'react-redux';
 
 
-const CartScreen = (props: any) => {
+const CartScreen = ({user,cart,props,setStep,CartItemAction }: CartItemProps) => {
+  useEffect(()=>{
+    CartItemAction(user?.customer_id);
+    console.log(user?.customer_id)
+  },[])
   const [cartItems, setCartItems] = useState([
     {id: '1', name: 'KSW Mini Box', price: 250, quantity: 1},
     {id: '2', name: 'KSW Small Box', price: 350, quantity: 2},
@@ -83,10 +92,10 @@ const CartScreen = (props: any) => {
 
   const [modalVisible, setModalVisible] = useState(false);
 
-  const renderCartItem = ({item}:any) => (
+  const renderCartItem = ({item}:any)=> (
     <View
       style={{
-        height: 100,
+        height: 140,
         width: '95%',
         backgroundColor: 'white',
         margin: 10,
@@ -112,7 +121,7 @@ const CartScreen = (props: any) => {
               </TouchableOpacity>
        
 
-      </View> */}
+      </View>
 
       <View style={styles.centeredView}>
         <Modal
@@ -167,7 +176,7 @@ const CartScreen = (props: any) => {
           </View>
         </Collapsible>
       </View>
-    </View>
+    </View> */}
 
                 {/* <View><TouchableOpacity onPress={toggleExpand}>
                         <Text style ={ styles.modalText}> Exotic</Text>
@@ -204,7 +213,7 @@ const CartScreen = (props: any) => {
             <Text  style={styles.modalText}>Red Amaranthus</Text>
             <Text  style={styles.modalText}>Pumpkin Red</Text>
             <Text  style={styles.modalText}>Kundru</Text> */}
-                <Pressable
+                {/* <Pressable
                   style={[styles.button, styles.buttonClose]}
                   onPress={() => setModalVisible(!modalVisible)}>
                   <Text style={styles.textStyle}>Hide </Text>
@@ -224,7 +233,7 @@ const CartScreen = (props: any) => {
             Show Items{' '}
           </Text>
         </Pressable>
-      </View>
+      </View> */}
 
       <View
         style={{
@@ -288,7 +297,7 @@ const CartScreen = (props: any) => {
           </Text>
         </View>
 
-        <View style={{marginTop: 15, marginLeft: 10}}>
+        <View style={{ marginLeft: 10,marginTop:9}}>
           <TouchableOpacity
             onPress={() => removeFromCart(item.id)}
             style={{
@@ -297,13 +306,16 @@ const CartScreen = (props: any) => {
               alignSelf: 'center',
               alignItems: 'center',
               paddingVertical: 5,
+              paddingHorizontal:10,
               marginLeft: 5,
-              backgroundColor: '#f72314',
             }}>
-            <Text style={{color: 'black'}}>Remove</Text>
+          
+            <Icon name="trash-outline" style={{color:'black'}} size={(30)} />
           </TouchableOpacity>
         </View>
+        
       </View>
+      <View style={{flexDirection:'column'}}><Text>Show Items</Text></View>
     </View>
   );
   return (
@@ -374,7 +386,7 @@ const CartScreen = (props: any) => {
 
       <View>
         <TouchableOpacity
-          onPress={() => props.setStep(1)}
+          onPress={() => setStep(1)}
           style={{
             borderRadius: 100,
             width: 150,
@@ -448,4 +460,24 @@ const styles = StyleSheet.create({
   },
 });
 
-export default CartScreen;
+
+const mapStateToProps = (state: StoreState, ownProps: any) => {
+  return {
+    // user: state.user.user_detail,
+    cart: state.cart.cart_item
+  };
+};
+const mapDispatchToProps = {
+  CartItemAction 
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(CartScreen)
+
+interface CartItemProps{
+  props?:any;
+  setStep:(step :1) =>void;
+  user?: userDetail;
+  cart?: cart_page[];
+  CartItemAction?:any;
+
+}
