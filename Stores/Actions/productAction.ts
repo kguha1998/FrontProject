@@ -14,7 +14,6 @@ export enum ProductActionTypes {
         message: 'Please Wait...'}))
       return ProductList(payload)
         .then(response => {
-          console.log(response.data)
           if (response.status != 200) {
             dispatch(ApiCallErrorAction(response.data));
           } else {
@@ -41,18 +40,15 @@ export enum ProductActionTypes {
   };
  
   export const CommodityListAction = (payload: any) => {
-    console.log("action........",payload)
     return (dispatch: any, getState: any) => {
       dispatch(BeginApiCallAction({
         count: 1,
         message: 'Please Wait...'}))
       return CommodityList(payload)
         .then(response => {
-          console.log(response.data)
           if (response.status != 200) {
             dispatch(ApiCallErrorAction(response.data));
           } else {
-            console.log("api",response.data)
             dispatch(CommodityListSuccessAction(response.data));
           }
         })

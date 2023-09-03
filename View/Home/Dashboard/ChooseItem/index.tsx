@@ -7,12 +7,11 @@ import ChooseItemView from './ChooseItemView';
 import ChooseItemView1 from './ChooseItemView1';
 
 
-const ChooseItem = ({navigation, route,productDetails}:ChooseItemProps) => {
+const ChooseItem = ({navigation, route,productDetails,CommodityListAction}:ChooseItemProps) => {
  
+  const { product_id } = route.params;
   useEffect(() => {
-      // const { product } = route.params;
-      const { product_id } = route.params;
-      console.log("kkkkkkkkkkkkk",product_id)
+    CommodityListAction(product_id)
     }, []);
   // const onChildValue =(data:any)=>{
   //   console.log("from commodityId.....................",data)
@@ -20,14 +19,13 @@ const ChooseItem = ({navigation, route,productDetails}:ChooseItemProps) => {
   //  }
   return (
     <View style={{flex: 1}}>
-    {/* <ChooseItemView  navigation={navigation} /> */}
+    {/* <ChooseItemView  navigation={navigation} route={route}  productDetails={productDetails}/> */}
     <ChooseItemView1  navigation={navigation} route={route}  productDetails={productDetails}/>
     {/* commodityId={onChildValue} */}
     </View>
   )
 }
 const mapStateToProps = (state: StoreState, ownProps: any) => {
-  console.log("from props",state.product.commodity_detail)
   return {
     productDetails: state.product.commodity_detail
   };
