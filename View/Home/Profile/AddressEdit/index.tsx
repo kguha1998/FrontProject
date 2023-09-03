@@ -21,8 +21,7 @@ import { SingleAddress, addressList, userDetail } from '../../../../Models/User'
           address_id:address_id,
           data:data,
           navigation:navigation
-
-        }
+           }
    
     AddressEditAction(payload);
 };
