@@ -6,7 +6,7 @@ import LinearGradient from 'react-native-linear-gradient';
 
 
 
-const SignupView = ({navigation,route}:SignupViewProps) => {
+const SignupView = ({navigation,route,Signup}:SignupViewProps) => {
   const {
     control,
     handleSubmit,
@@ -16,7 +16,7 @@ const SignupView = ({navigation,route}:SignupViewProps) => {
   } = useForm();
 
   const onSubmit=(data: any)=>{
-    console.log(data);
+   Signup(data);
   }
 
   const mobileVerify =()=>{
@@ -73,7 +73,7 @@ const SignupView = ({navigation,route}:SignupViewProps) => {
           required: true,
         }}
         render={({field: {onChange, onBlur, value}}) => (
-          <View style={{margin: 10,borderBottomWidth:1, borderColor: errors.Name ?'red': '#fa8b0c'}}>
+          <View style={{margin: 10,borderBottomWidth:1, borderColor: errors.customer_name ?'red': '#fa8b0c'}}>
             <TextInput
               placeholder="Name"
               onBlur={onBlur}
@@ -82,7 +82,7 @@ const SignupView = ({navigation,route}:SignupViewProps) => {
             />
           </View>
         )}
-        name="Name"
+        name="customer_name"
       />
       {errors.Name && <Text>This is required.</Text>}
 
@@ -102,9 +102,28 @@ const SignupView = ({navigation,route}:SignupViewProps) => {
         />
         </View>
       )}
-      name="email"
+      name="customer_email"
     />
-
+    
+    <Controller
+        control={control}
+        rules={{
+          required: true,
+          
+        }}
+        render={({field: {onChange, onBlur, value}}) => (
+          <View style={{borderBottomWidth:1, margin: 10,marginTop:20,borderColor: errors.customer_password ?'red': '#fa8b0c'}}>
+            <TextInput
+              placeholder="Password" secureTextEntry
+              onBlur={onBlur}
+              onChangeText={onChange}
+              value={value}
+            />
+          </View>
+        )}
+        name="customer_password"
+      />
+      {errors.password && <Text>This is required.</Text>}
     <Controller
         control={control}
         rules={{
@@ -114,7 +133,7 @@ const SignupView = ({navigation,route}:SignupViewProps) => {
           pattern: /^(\+\d{1,3}[- ]?)?\d{10}$/
         }}
         render={({field: {onChange, onBlur, value}}) => (
-          <View style={{borderBottomWidth:1, margin: 10,marginTop:20, borderColor: errors.mobile_Number ?'red': '#fa8b0c'}}>
+          <View style={{borderBottomWidth:1, margin: 10,marginTop:20, borderColor: errors.customer_phone ?'red': '#fa8b0c'}}>
             <TextInput
               placeholder="Mobile Number"
               onBlur={onBlur}
@@ -123,31 +142,12 @@ const SignupView = ({navigation,route}:SignupViewProps) => {
             />
           </View>
         )}
-        name="mobile_Number"
+        name="customer_phone"
       />
       {errors.mobile_Number && <Text>This is required.</Text>}
 
-      <Controller
-        control={control}
-        rules={{
-          required: true,
-          
-        }}
-        render={({field: {onChange, onBlur, value}}) => (
-          <View style={{borderBottomWidth:1, margin: 10,marginTop:20,borderColor: errors.password ?'red': '#fa8b0c'}}>
-            <TextInput
-              placeholder="Password" secureTextEntry
-              onBlur={onBlur}
-              onChangeText={onChange}
-              value={value}
-            />
-          </View>
-        )}
-        name="password"
-      />
-      {errors.password && <Text>This is required.</Text>}
 
-      <Controller
+      {/* <Controller
         control={control}
         rules={{
           required: true,
@@ -164,7 +164,7 @@ const SignupView = ({navigation,route}:SignupViewProps) => {
         )}
         name="conpassword"
       />
-      {errors.conpassword && <Text>This is required.</Text>}
+      {errors.conpassword && <Text>This is required.</Text>} */}
 
       <TouchableOpacity
           onPress={handleSubmit(onSubmit)}
@@ -189,113 +189,9 @@ const SignupView = ({navigation,route}:SignupViewProps) => {
           Already have an account?{' '}
           <Text onPress={()=> navigation.navigate('Login')} style={{fontWeight:'bold'}}>Login</Text>
         </Text> 
-
-    
-   
       </View>
   </ScrollView>
-//     <View>
-    //   <Text style={{fontSize:35,textAlign:'center',marginTop:30}}>
-    //     Sign Up
-    //   </Text>
-    // <Controller
-    //     control={control}
-    //     rules={{
-    //       required: true,
-    //     }}
-    //     render={({field: {onChange, onBlur, value}}) => (
-    //       <View style={{borderWidth: 1, margin: 10, marginTop:30,borderRadius:12, borderColor: errors.firstName ?'red': '#454040'}}>
-    //         <TextInput
-    //           placeholder="First name"
-    //           onBlur={onBlur}
-    //           onChangeText={onChange}
-    //           value={value}
-    //         />
-    //       </View>
-    //     )}
-    //     name="firstName"
-    //   />
-    //   {errors.firstName && <Text>This is required.</Text>}
 
-//       <Controller
-//         control={control}
-//         rules={{
-//           required: true,
-//         }}
-//         render={({field: {onChange, onBlur, value}}) => (
-//           <View style={{borderWidth: 1, margin: 10,marginTop:20, borderRadius:12, borderColor: errors.last_name ?'red': '#454040'}}>
-//             <TextInput
-//               placeholder="Last name"
-//               onBlur={onBlur}
-//               onChangeText={onChange}
-//               value={value}
-//             />
-//           </View>
-//         )}
-//         name="last_name"
-//       />
-//       {errors.last_name && <Text>This is required.</Text>} 
-
-// <Controller
-//       control={control}
-//       rules={{
-//         required: true,
-//       }}
-//       render={({ field: { onChange, onBlur, value } }) => (
-//         <View style={{borderWidth: 1, margin: 10,marginTop:20,borderRadius:12,borderColor:'#454040'}}>
-//         <TextInput
-//           placeholder="Email(Optional)"
-//           onBlur={onBlur}
-//           onChangeText={onChange}
-//           value={value}
-//         />
-//         </View>
-//       )}
-//       name="email"
-//     />
-
-//     <Controller
-//         control={control}
-//         rules={{
-//           required: true,
-//         }}
-//         render={({field: {onChange, onBlur, value}}) => (
-//           <View style={{borderWidth: 1, margin: 10,marginTop:20,borderRadius:12, borderColor: errors.mobile_Number ?'red': '#454040'}}>
-//             <TextInput
-//               placeholder="Mobile Number"
-//               onBlur={onBlur}
-//               onChangeText={onChange}
-//               value={value}
-//             />
-//           </View>
-//         )}
-//         name="mobile_Number"
-//       />
-//       {errors.mobile_Number && <Text>This is required.</Text>}
-
-//       <TouchableOpacity
-//        onPress={handleSubmit(onSubmit)}
-//         style={{
-//           margin: 30,
-//           marginLeft:'25%',
-//           backgroundColor: '#f77d02',
-//           padding: 10,
-//           justifyContent: 'center',
-//           alignItems: 'center',
-//           borderRadius:12,
-//           width:180
-        
-          
-//         }}>
-//         <Text>Save Details</Text>
-//       </TouchableOpacity>
-
-
-
-//       <TouchableOpacity onPress={()=>GotoLogin('LoginAgain')}>
-//         <Text style={{fontSize:15,color:'blue'}}>Go to Login</Text>
-//       </TouchableOpacity>
-//     </View>
       
      
   )
@@ -305,6 +201,7 @@ export default SignupView;
 interface SignupViewProps{ 
     navigation?:any;
     route?:any;
+    Signup?:any;
 }
 
 

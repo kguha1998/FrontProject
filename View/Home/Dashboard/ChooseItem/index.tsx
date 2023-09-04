@@ -4,38 +4,42 @@ import { connect } from 'react-redux';
 import { StoreState } from '../../../../Models/reduxModel';
 import { CommodityListAction} from '../../../../Stores/Actions/productAction';
 import ChooseItemView from './ChooseItemView';
+import ChooseItemView1 from './ChooseItemView1';
 
 
-const ChooseItem = ({navigation, route}:ChooseItemProps) => {
+const ChooseItem = ({navigation, route,productDetails,CommodityListAction}:ChooseItemProps) => {
  
-  // const commodityId =(data:any)=>{
-  //   console.log("from commodityId.....................")
+  const { product_id } = route.params;
+  useEffect(() => {
+    CommodityListAction(product_id)
+    }, []);
+  // const onChildValue =(data:any)=>{
+  //   console.log("from commodityId.....................",data)
   //   CommodityListAction(data)
   //  }
   return (
-    <View>
-    <ChooseItemView  navigation={navigation} />
-    {/* <ChooseItemView1  navigation={navigation} route={route} commodityId={commodityId} productDetails={productDetails}/> */}
-    
+    <View style={{flex: 1}}>
+    {/* <ChooseItemView  navigation={navigation} route={route}  productDetails={productDetails}/> */}
+    <ChooseItemView1  navigation={navigation} route={route}  productDetails={productDetails}/>
+    {/* commodityId={onChildValue} */}
     </View>
   )
 }
-// const mapStateToProps = (state: StoreState, ownProps: any) => {
-//   console.log("from props",state.product.commodity_detail)
-//   return {
-//     productDetails: state.product.commodity_detail
-//   };
-// };
-// const mapDispatchToProps = {
-//   CommodityListAction   
-// };
+const mapStateToProps = (state: StoreState, ownProps: any) => {
+  return {
+    productDetails: state.product.commodity_detail
+  };
+};
+const mapDispatchToProps = {
+  CommodityListAction   
+};
 
-// export default connect(mapStateToProps, mapDispatchToProps)(ChooseItem);
-export default (ChooseItem);
+export default connect(mapStateToProps, mapDispatchToProps)(ChooseItem);
+// export default (ChooseItem);
 interface ChooseItemProps{
   navigation?: any;
   route?: any;
-  // commodity?:any;
-  // CommodityListAction?:any;
-  // productDetails?:any;
+  commodity?:any;
+  CommodityListAction?:any;
+  productDetails?:any;
 }

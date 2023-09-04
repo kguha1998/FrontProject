@@ -1,5 +1,5 @@
-import { CartMain } from "../../Models/Cart";
-import { CartItemsActionTypes } from "../Actions/cartAction";
+ import { CartMain } from "../../Models/Cart";
+ import { CartItemsActionTypes } from "../Actions/cartAction";
 import InitialState from "./initialState";
 
 const initialState: CartMain = InitialState.cart;

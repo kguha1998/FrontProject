@@ -11,11 +11,6 @@ const Home = () => {
   const Tab = createBottomTabNavigator();
   return (
 
-
-
-   
-        
-
     <Tab.Navigator
       screenOptions={{
         tabBarStyle: {backgroundColor: '#fa8b0c'},
