@@ -43,12 +43,12 @@ interface ChooseBoxViewPorps{
     product?:any;
 }
 
-const ProductBox =({navigation,item}: any)=>{ 
-  return(
-    
-    <View style={{ marginTop:10,marginLeft:20,marginRight:20, borderRadius:10, borderWidth: 1, borderColor: 'orange',elevation: 10,
+const ProductBox =({navigation,route,item}: ProductBoxporps)=>{ 
+  console.log(navigation)
+  return( 
+      <View style={{ marginTop:10,marginLeft:20,marginRight:20, borderRadius:10, borderWidth: 1, borderColor: 'orange',elevation: 10,
               backgroundColor: 'white',marginBottom:50,}}>
-              <TouchableOpacity onPress={() =>navigation.navigate('ChooseItem')}>
+              <TouchableOpacity onPress={() =>navigation.navigate('ChooseItem',{product_id:item.product_id})}>
                 <View style={{flexDirection:'row'}}>
                   <View >
                   <Image
@@ -83,6 +83,7 @@ interface ProductBoxporps{
   Item?: any;
   item?:any;
   product?:any;
+  route?:any;
 }
 
   

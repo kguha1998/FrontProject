@@ -11,7 +11,6 @@ const ChooseBox = ({navigation, route,product,ProductListAction}: ChooseBoxProps
   const[productBox,setproductBox] =useState<any>([])
   useEffect(()=>{
     ProductListAction();
-  
   }, []);
 
   return(

@@ -9,3 +9,7 @@ export const serviceClient = new RestService({
 export const ProductList = (data: any) => {
   return serviceClient.get(environment.url.productUrl);
 };
+
+export const CommodityList = (data: any) => {
+  return serviceClient.get(environment.url.commodityUrl+'/'+ data);
+};

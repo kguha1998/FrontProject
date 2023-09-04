@@ -2,12 +2,11 @@ import { View, Text, TouchableOpacity, Dimensions, ScrollView, Modal, Alert, Sty
 import React, { useEffect, useState } from 'react'
 import LinearGradient from 'react-native-linear-gradient'
 import Icon from 'react-native-vector-icons/Ionicons'
-import axios from 'axios'
 
 
 
 
-const AddressListView = ({navigation,route,address}:AddressListViewProps) => {
+const AddressListView = ({navigation,address,AddressDelete}:AddressListViewProps) => {
   
 
   return (
@@ -51,8 +50,8 @@ const AddressListView = ({navigation,route,address}:AddressListViewProps) => {
       </TouchableOpacity>
       </View> 
         {
-          address.map((m:any) => (
-            <AddressNew key={m.address_id} item={m} navigation={navigation}/>
+          address.map((m:any)=> (
+            <AddressNew key={m.address_id} item={m} navigation={navigation} AddressDelete={AddressDelete}  />
           ))
         }
          
@@ -67,15 +66,15 @@ interface AddressListViewProps{
     navigation?:any;
     route?:any;
     address?:any
-
-    
+    AddressDelete?: any
    
   }
   
 
-  const AddressNew =({item,navigation,route}: AddressNewProps )=>{ 
-    // const [modalVisible, setModalVisible] = useState(false);
+  const AddressNew =({item,navigation,AddressDelete}: AddressNewProps )=>{ 
     const [isPopoverVisible, setPopoverVisible] = useState(false);
+
+   
 
     const handleRemovePress = () => {
       setPopoverVisible(true);
@@ -86,14 +85,11 @@ interface AddressListViewProps{
     };
   
     const handleConfirm = () => {
-      // Perform the actual delete action here
-      setPopoverVisible(false);
+      console.log('i am in handlefunction of child',item.address_id)
+      AddressDelete(item.address_id);
+     // setPopoverVisible(false);
     };
 
-     
-
-    //const address_id = item.address_id;
-     //console.log(address_id)
     return(
       <View
    style={{
@@ -104,9 +100,6 @@ interface AddressListViewProps{
      marginTop: 10,
      paddingVertical: 20,
      paddingHorizontal: 15,}}>
-
-
-
 
         <View>
          <Text style={{fontWeight: '500', fontSize: 18}}>House No: {item.house_no}</Text>
@@ -164,7 +157,7 @@ interface AddressListViewProps{
         </View>
       </Modal>
     
-       </View> 
+      </View> 
   
      </View>
     )
@@ -190,7 +183,7 @@ interface AddressListViewProps{
     },
     modalContent: {
       backgroundColor: 'white',
-      padding: 20,
+      padding: 30,
       borderRadius: 10,
       alignItems: 'center',
     },
@@ -201,7 +194,7 @@ interface AddressListViewProps{
     modalButton: {
       paddingVertical: 10,
       paddingHorizontal: 20,
-      borderRadius: 5,
+      borderRadius: 25,
       marginHorizontal: 10,
     },
     cancelButton: {
@@ -219,11 +212,9 @@ interface AddressListViewProps{
 
   interface AddressNewProps{ 
     navigation?:any;
-    route?:any;
-    item?:any
-
-    
-   
+    item?:any;
+    AddressDelete?: any;
+ 
   }
 
 
@@ -235,4 +226,3 @@ interface AddressListViewProps{
 
 
    
-

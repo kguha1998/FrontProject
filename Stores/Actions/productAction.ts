@@ -1,14 +1,10 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { ProductList } from "../../Service/productService";
+import { CommodityList, ProductList } from "../../Service/productService";
 import { ApiCallErrorAction, BeginApiCallAction } from "./apiStatusActions";
-import { UserActionTypes } from "./userAction";
-
-
 
 
 export enum ProductActionTypes {
     ProductList_Success_Action = '[ORDER] ProductList Success Action',
-    // Logout_Success_Action = '[USER] Logout Success Action',
+    CommodityList_Success_Action = '[ORDER] CommodityList Success Action'
 }
  
   export const ProductListAction = (payload: any) => {
@@ -18,11 +14,9 @@ export enum ProductActionTypes {
         message: 'Please Wait...'}))
       return ProductList(payload)
         .then(response => {
-          console.log(response.data)
           if (response.status != 200) {
             dispatch(ApiCallErrorAction(response.data));
           } else {
-            console.log("api",response.data)
             dispatch(ProductListSuccessAction(response.data));
           }
         })
@@ -34,23 +28,7 @@ export enum ProductActionTypes {
                 message: 'Please Start Again.',
               }),
              );
-            // AsyncStorage.multiRemove(['token'])
-          //   dispatch(UserLogoutSuccess());
-          // } else if (error?.response?.status === 500) {
-          //   dispatch(
-          //     ApiCallErrorAction({
-          //       errorCode: '',
-          //       message: error?.response?.data?.message,
-          //     }),
-          //   );
-          // } else {
-          //   dispatch(
-          //     ApiCallErrorAction({
-          //       errorCode: '',
-          //       message: 'Error encountered please try again later',
-          //     }),
-          //   );
-          // }
+            
         });
     };
   };
@@ -60,7 +38,36 @@ export enum ProductActionTypes {
       payload: payload,
     };
   };
+ 
+  export const CommodityListAction = (payload: any) => {
+    return (dispatch: any, getState: any) => {
+      dispatch(BeginApiCallAction({
+        count: 1,
+        message: 'Please Wait...'}))
+      return CommodityList(payload)
+        .then(response => {
+          if (response.status != 200) {
+            dispatch(ApiCallErrorAction(response.data));
+          } else {
+            dispatch(CommodityListSuccessAction(response.data));
+          }
+        })
+        .catch(error => {
+            dispatch(
+              ApiCallErrorAction({
+                errorCode: '',
+                message: 'Please Start Again.',
+              }),
+             );
+            
+        });
+    };
+  };
+  export const CommodityListSuccessAction = (payload: any) => {
+    return {
+      type:ProductActionTypes.CommodityList_Success_Action,
+      payload: payload,
+    };
+  };
   
-  // export const UserLogoutSuccess = () => {
-  //   return {type: UserActionTypes.Logout_Success_Action};
-  // };
+  

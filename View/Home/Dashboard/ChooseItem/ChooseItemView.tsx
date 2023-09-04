@@ -13,13 +13,13 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import Collapsible from 'react-native-collapsible';
 
 
-const ChooseItemView = ({navigation, route,order}: ChooseItemViewProps) => {
+const ChooseItemView = ({navigation, route,productDetails,props}: ChooseItemViewProps) => {
 
   // const ItemTypeList=[
   //       {
   //       TypeNo:1,
   //       Type:'Exotic',
-  //       commdity: [
+  //       commodity: [
   //         {
   //           id: 1,
   //           ItemName: 'Green capsicum',
@@ -59,7 +59,7 @@ const ChooseItemView = ({navigation, route,order}: ChooseItemViewProps) => {
   //       {
   //       TypeNo:2,
   //       Type:'Leafy',
-  //       commdity: [
+  //       commodity: [
   //         {
   //           id: 1,
   //           ItemName: 'Green capsicum',
@@ -99,7 +99,7 @@ const ChooseItemView = ({navigation, route,order}: ChooseItemViewProps) => {
   //       {
   //       TypeNo:3,
   //       Type:'Regular',
-  //       commdity: [
+  //       commodity: [
   //         {
   //           id: 1,
   //           ItemName: 'Green capsicum',
@@ -139,7 +139,7 @@ const ChooseItemView = ({navigation, route,order}: ChooseItemViewProps) => {
   //       {
   //       TypeNo:4,
   //       Type:'Seasonal' ,
-  //       commdity: [
+  //       commodity: [
   //         {
   //           id: 1,
   //           ItemName: 'Green capsicum',
@@ -205,16 +205,17 @@ const ChooseItemView = ({navigation, route,order}: ChooseItemViewProps) => {
       <ScrollView style={{height: '50%'}}>
       <View style={{flex: 1}}>
       
-      {/* {
-        ItemTypeList.map((item, index)=>(
+      {
+        productDetails.comodity_item.map(({item, index}:any)=>(
+        // ItemTypeList.map((item, index)=>(
           <ComodityType item={item} key={index}/>
         ))
-      } */}
-      {
+      }
+      {/* {
         order.map((m:any)=>(
           <ComodityType item={m.commodity_type_id} key={m}/>
         ))
-      }
+      } */}
        </View>
       </ScrollView>
       
@@ -229,25 +230,30 @@ interface ChooseItemViewProps {
   navigation?: any;
   route?: any;
   order?: any;
+  productDetails?:any
+  item?:any
+  index?:any
+  props?:any
+
 }
 interface ChooseItem {
-  // navigation?: any;
+  navigation?: any;
   id?: any;
   Itemname?: any;
   ImageLink?: any;
   item?: any;
 }
 
-interface ChooseItemType {
-  navigation?: any;
-  TypeNo?: any;
-  Type?: any;
-  itemType?: any;
-}
+// interface ChooseItemType {
+//   navigation?: any;
+//   TypeNo?: any;
+//   Type?: any;
+//   itemType?: any;
+// }
 
 
-// //Items Component
-const Veg = ({item}: ChooseItem) => {
+ //Items Component
+const Veg = ({navigation,item}: ChooseItem) => {
   return (
     /* Green Capsicum */
     <View
@@ -274,7 +280,8 @@ const Veg = ({item}: ChooseItem) => {
       <View style={{flexDirection: 'column', alignItems: 'baseline'}}>
         <View style={{marginTop: 40, alignItems: 'baseline'}}>
           <Text style={{fontSize: 16, textAlign: 'right', color: '#Ff8600'}}>
-            {item.commodity_name}
+          {item.commodity_name}
+            {/* {item.ItemName} */}
           </Text>
         </View>
 
@@ -285,59 +292,18 @@ const Veg = ({item}: ChooseItem) => {
             marginRight: 30,
             alignItems: 'center',
           }}>
-          {/* <Button title="Add To Cart"  color="#f57c00" onPress={()=> navigation.navigate('AddOn')}/> */}
-          {item.qty == 0 ? (
-            <TouchableOpacity
-              style={{
-                backgroundColor: '#f57c00',
-                height: 27,
-                paddingHorizontal: 10,
-                borderRadius: 5,
-              }}>
-              <Text style={{color: 'white'}}>Add to Cart</Text>
-            </TouchableOpacity>
-          ) : null}
-
-          {item.qty == 0 ? null : (
-          <TouchableOpacity
-            style={{
-              backgroundColor: '#f57c00',
-              height: 27,
-              paddingHorizontal: 10,
-              borderRadius: 5,
-              marginLeft: 10,
-            }}>
-            <Text style={{color: 'white'}}>-</Text>
-          </TouchableOpacity>
-          )}
-
-          {item.qty == 0 ? null : (
-          <Text style={{marginLeft: 10, fontSize: 16, fontWeight: '600'}}>
-            {'0'}
-          </Text>
-          )}
-
-          {item.qty == 0 ? null : (          
-          <TouchableOpacity
-            style={{
-              backgroundColor: '#f57c00',
-              height: 27,
-              paddingHorizontal: 8,
-              borderRadius: 5,
-              marginLeft: 10,
-            }}>
-            <Text style={{color: 'white'}}>+</Text>
-          </TouchableOpacity>
-          )}
+          <Button title="Add To Cart"  color="#f57c00" onPress={()=> navigation.navigate('AddOn')}/>
+          
         </View>
       </View>
+
     </View>
   );
 };
 
 
-// const ComodityType = (props: any)=>{
-  const ComodityType = ({item}: any)=>{
+const ComodityType = (props: any)=>{
+  // const ComodityType = ({item}: any)=>{
   const [step, SetStep]= useState<boolean>(false)
   return(
     <View>
@@ -354,7 +320,7 @@ const Veg = ({item}: ChooseItem) => {
     }}>
 
      {/* <Text style={{color:'white',fontWeight:'bold',fontSize:25}}>{props.item.Type}</Text> */}
-     <Text style={{color:'white',fontWeight:'bold',fontSize:25}}>{item.commodity_type_name}</Text>
+     <Text style={{color:'white',fontWeight:'bold',fontSize:25}}>{props.item.commodity_type_name}</Text>
     <Icon name="chevron-down-circle-outline" style={{color:'white'}} size={(30)} /> 
 
     </TouchableOpacity>
@@ -362,9 +328,10 @@ const Veg = ({item}: ChooseItem) => {
 
     
      <Collapsible collapsed={!step}>
-
-      {item.commodities.map((item: any) => (
-        <Veg  item={item} key={item.id} />
+      {/* {props.item.commodity.map((item: any) => ( */}
+       {props.item.commodities.map((item: any) => (
+        <Veg  item={item} key={item.commodity_id} />
+        // <Veg  item={item} key={item.id} />
       ))}
     </Collapsible>
     </ScrollView>

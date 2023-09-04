@@ -1,7 +1,6 @@
 export interface ProductListMain {
     product_detail?: ProductDetail[];
-    comodity_Item?:ComodityItem[];
-    commodities?:Commodities[];
+    commodity_detail?:chooseItem;
   }
   
   export interface ProductDetail {
@@ -18,17 +17,23 @@ export interface ProductListMain {
     product_code:string;
   }
 
+  export interface chooseItem {
+    product_name: string
+    product_desc: string
+    max_allowed_items: number
+    comodity_item: ComodityItem[]
+  }
+  
   export interface ComodityItem {
-    commodity_type_id: number;
-    commodity_type_name: string;
-    allowed_items: number;
-    commodities:  Commodities[];
+    commodity_type_id: number
+    commodity_type_name: string
+    allowed_items: number
+    commodities: Commodity[]
   }
-
-  export interface Commodities {
-    commodity_id: number;
-    commodity_name: string;
-    quantity: number;
-    measurement_unit: string;
+  
+  export interface Commodity {
+    commodity_id: number
+    commodity_name: string
+    quantity: number
+    measurement_unit: string
   }
- 
