@@ -7,9 +7,9 @@ import { StoreState } from '../../Models/reduxModel';
 import { connect } from 'react-redux';
 import { userDetail } from '../../Models/User';
 
-
+const Stack = createStackNavigator();
 const LoginSignup = (porps:any) => {
-  const Stack = createStackNavigator();
+
   return (
  
       <Stack.Navigator screenOptions={{headerShown:false}}>

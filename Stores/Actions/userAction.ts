@@ -1,10 +1,11 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {AddressAdd, AddressDelete, AddressEdit, AddressFetch, AddressList, UserLogin} from '../../Service/userService';
+import {AddressAdd, AddressDelete, AddressEdit, AddressFetch, AddressList, UserLogin, UserSignup} from '../../Service/userService';
 import {ApiCallErrorAction, BeginApiCallAction} from './apiStatusActions';
 import { ErrorModel } from '../../Models/errorModels';
 
 export enum UserActionTypes {
   Login_Success_Action = '[USER] Login Success Action',
+  Signup_Success_Action = '[USER] Sign Success Action',
   Logout_Success_Action = '[USER] Logout Success Action',
   Address_Add_Sucess_Action = '[USER] Address Add Success Action',
   Address_List_Action = '[USER] Address List Action',
@@ -61,11 +62,58 @@ export const LoginSuccess = (payload: any) => {
   };
 };
 
+export const SignupAction = (payload: any) => {
+  return (dispatch: any, getState: any) => {
+    dispatch(BeginApiCallAction({
+      count: 1,
+      message: 'Please Wait...'}))
+    return UserSignup(payload)
+      .then(response => {
+        console.log('Action:',response.data);
+        if (response.status != 200) {
+          dispatch(ApiCallErrorAction(response.data));
+        } else {
+          //payload.navigation.navigate('Login')
+          dispatch(SignupSuccessAction());
+        }
+      })
+      .catch(error => {
+        if (error?.response?.status === 403) {
+          dispatch(
+            ApiCallErrorAction({
+              errorCode: '',
+              message: 'Please Login again to continue.',
+            }),
+          );
+          AsyncStorage.multiRemove(['token'])
+          dispatch(UserLogoutSuccess());
+        } else if (error?.response?.status === 500) {
+          dispatch(
+            ApiCallErrorAction({
+              errorCode: '',
+              message: error?.response?.data?.message,
+            }),
+          );
+        } else {
+          dispatch(
+            ApiCallErrorAction({
+              errorCode: '',
+              message: 'Error encountered please try again later',
+            }),
+          );
+        }
+      });
+  };
+};
+export const SignupSuccessAction = () => {
+  return {
+    type: UserActionTypes.Signup_Success_Action,
+  };
+};
 
 export const UserLogoutSuccess = () => {
   return {type: UserActionTypes.Logout_Success_Action};
 };
-
 
 export const AddressAddAction = (payload: any) => {
   return (dispatch: any, getState: any) => {

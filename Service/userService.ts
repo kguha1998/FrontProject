@@ -8,6 +8,11 @@ export const serviceClient = new RestService({
 export const UserLogin = (data: any) => {
   return serviceClient.post(environment.url.loginUrl, data);
 };
+export const UserSignup = (data: any) => {
+ // console.log('User Service',data)
+  return serviceClient.post(environment.url.signupUrl, data);
+};
+
 export const AddressAdd = (data: any) => {
   return serviceClient.post(environment.url.addressAddUrl, data);
 };
