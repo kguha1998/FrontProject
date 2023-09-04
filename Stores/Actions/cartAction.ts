@@ -6,15 +6,15 @@ export enum CartItemsActionTypes {
     CartItem_Success_Action = '[Cart] CartItem Success Action',
 }
 
-export const CartItemAction = (payload: any) => {
-  console.log("i am from action",payload)
+export const CartItemAction = (defaultProductData: any) => {
+  console.log("i am from action",defaultProductData)
     return (dispatch: any, getState: any) => {
       dispatch(BeginApiCallAction({
         count: 1,
         message: 'Please Wait...'}))
-      return CartItems(payload)
+      return CartItems(defaultProductData)
         .then(response => {
-         // console.log(response.data)
+          console.log(response.data)
           if (response.status != 200) {
             dispatch(ApiCallErrorAction(response.data));
           } else {

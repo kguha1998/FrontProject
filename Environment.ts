@@ -1,5 +1,5 @@
- export const BaseUrl = 'http://192.168.1.40:3000/api/v1';
-//export const BaseUrl = 'http://192.168.58.157:3000/api/v1';
+ //export const BaseUrl = 'http://192.168.1.40:3000/api/v1';
+export const BaseUrl = 'http://172.29.240.1:3000/api/v1';
 
 export const environment = {
   url: {
@@ -11,7 +11,7 @@ export const environment = {
     commodityUrl:'/products',
     addressFetchUrl: '/addresses',
     addressEditUrl: '/addresses',
-    productInput: '/Calculateorderprice',
+    productInput: '/order/Calculateorderprice',
     paymentModeUrl: '/paymentmethods',
     addressDeleteUrl:'/addresses/delete',
   },

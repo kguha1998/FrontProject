@@ -8,12 +8,27 @@ import { StoreState } from '../../../../Models/reduxModel'
 import { CartItemAction } from '../../../../Stores/Actions/cartAction'
 import { userDetail } from '../../../../Models/User'
 import { cartdata, cartitem, product } from '../../../../Models/Cart'
+import { useFocusEffect } from '@react-navigation/native'
 
-const CartIndex = ({setStep,cart,user,CartItemAction }: CartIndexProps) => {
-  console.log("i am from index component",cart)
- useEffect(()=>{
-  CartItemAction(cart);
- },[])
+const CartIndex = ({setStep,user,CartItemAction,data }: CartIndexProps) => {
+ 
+  useFocusEffect(React.useCallback(()=>{
+    const defaultProductData  =  [
+      {
+        product_id: 66,
+        quantity: 2,
+        commodities: [1, 2, 3],
+      },
+      {
+        product_id: 67,
+        quantity: 1,
+        commodities: [1, 2, 3],
+      },
+    ]
+    CartItemAction(defaultProductData);
+    console.log("i am component",data);
+  },[]))
+
   return (
     <ScrollView>
         <LinearGradient
@@ -59,13 +74,14 @@ const CartIndex = ({setStep,cart,user,CartItemAction }: CartIndexProps) => {
     )
 }
 const mapStateToProps = (state: StoreState, ownProps: any) => {
+  //console.log(state);
   return {
     user: state.user.user_detail,
-   cart:  state.cart,
+    data: state.CartMain.cartdata,
   };
 };
 const mapDispatchToProps = {
-  CartItemAction 
+  CartItemAction ,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(CartIndex)
@@ -74,7 +90,8 @@ export default connect(mapStateToProps, mapDispatchToProps)(CartIndex)
 export interface CartIndexProps{
   setStep:(step :1) =>void;
   user?: userDetail;
-  cart?: cartitem[];
- // cartMain?: cartdata[];
-  CartItemAction?:any
+  defaultProductData?: any;
+  cartMain?: cartdata[];
+  CartItemAction?:any;
+  data?: any;
 }
