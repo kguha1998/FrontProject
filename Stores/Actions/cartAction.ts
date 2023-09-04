@@ -7,6 +7,7 @@ export enum CartItemsActionTypes {
 }
 
 export const CartItemAction = (payload: any) => {
+  console.log("i am from action",payload)
     return (dispatch: any, getState: any) => {
       dispatch(BeginApiCallAction({
         count: 1,

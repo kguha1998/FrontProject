@@ -2,7 +2,7 @@ import { CartMain } from "../../Models/Cart";
 import { CartItemsActionTypes } from "../Actions/cartAction";
 import InitialState from "./initialState";
 
-const initialState: CartMain = InitialState.Cart;
+const initialState: CartMain = InitialState.cart;
 export default function CartReducer(
   state: CartMain = initialState,
   action: any,
