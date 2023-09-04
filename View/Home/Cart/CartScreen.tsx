@@ -479,5 +479,4 @@ interface CartItemProps{
   user?: userDetail;
   cart?: cart_page[];
   CartItemAction?:any;
-
 }
