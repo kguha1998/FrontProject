@@ -1,4 +1,7 @@
-import {StoreState} from '../../Models/reduxModel';
+import { product } from '../../Models/Cart';
+import { StoreState } from '../../Models/reduxModel';
+
+
 
 const InitialState: StoreState = {
   user: {
@@ -13,20 +16,15 @@ const InitialState: StoreState = {
     count: 0,
     message: '',
   },
-  product:{
-    product_detail:[],
-    commodity_detail:undefined
+  product: {
+    product_detail: [],
+    commodity_detail: undefined,
   },
-  cart:{
-    cart_item:[],
-    payment_mode:undefined
-
-  }
-
-    
+  CartMain: {
+    cartdata: undefined,
+    Product: [],
+  },
   
-
-  
-}
+};
 
 export default InitialState;

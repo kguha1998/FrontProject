@@ -8,9 +8,9 @@ import StepIndicator from 'react-native-step-indicator';
 import Swiper from 'react-native-swiper';
 import {createStackNavigator} from '@react-navigation/stack';
 import CartScreen from './CartScreen';
-import OrderSummary from './OrderSummary';
 import Address from './Address';
 import OrderConfirmation from './OrderConfirmation';
+import CartIndex from './CartScreen';
 
 const Cart = () => {
 
@@ -51,7 +51,7 @@ const Cart = () => {
         onPress={val => setStep(val)}
       />
       {step == 0 ? (
-        <CartScreen setStep={setStep} />
+        <CartIndex setStep={setStep} />
       ) : step == 1 ? (
         <Address setStep={setStep}/>
       ) : (
