@@ -1,46 +1,31 @@
-import React, { useState } from 'react';
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  StyleSheet,
-} from 'react-native';
+import React from 'react';
+import { View, Text, TouchableOpacity } from 'react-native';
+import Collapsible from 'react-native-collapsible';
+import { ScrollView } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-const CartMain = () => {
-  const [cartItems, setCartItems] = useState([
-    { id: '1', name: 'KSW Mini Box', price: 250, quantity: 1 },
-    { id: '2', name: 'KSW Small Box', price: 350, quantity: 2 },
-    { id: '3', name: 'KSW Large Box', price: 500, quantity: 3 },
-  ]);
-
-  const incrementQuantity = (itemId: string) => {
-    setCartItems((prevCartItems) =>
-      prevCartItems.map((item) =>
-        item.id === itemId ? { ...item, quantity: item.quantity + 1 } : item
-      )
+const CartMain = ({ data }: CartMainProps) => {
+  if (!data || !data.products || data.products.length === 0) {
+    return (
+      <View>
+        <Text>No items in the cart</Text>
+      </View>
     );
-  };
+  }
 
-  const decrementQuantity = (itemId: string) => {
-    setCartItems((prevCartItems) =>
-      prevCartItems.map((item) =>
-        item.id === itemId ? { ...item, quantity: item.quantity - 1 } : item
-      )
-    );
-  };
+  const totalPrice = data.products.reduce((total:any, item:any) => {
+    return total + item.quantity * item.product_price;
+  }, 0);
 
-  const removeFromCart = (itemId: string) => {
-    setCartItems((prevCartItems) =>
-      prevCartItems.filter((item) => item.id !== itemId)
-    );
-  };
+  const [Collapsed, setCollapsed] = React.useState(true);
+    const toggleExpand = () => {
+      setCollapsed(!Collapsed)}
 
   return (
     <View>
-      {cartItems.map((item) => (
+      {data.products.map((item: any) => (
         <View
-          key={item.id}
+          key={item.product_id}
           style={{
             height: 140,
             width: '95%',
@@ -49,6 +34,7 @@ const CartMain = () => {
             flexDirection: 'column',
           }}
         >
+          
           <View>
             <Text
               style={{
@@ -56,135 +42,124 @@ const CartMain = () => {
                 marginLeft: 15,
                 color: 'black',
                 fontSize: 20,
+                fontWeight: '500'
               }}
             >
-              {item.name}
+              {item.product_name}
             </Text>
           </View>
 
           <View
             style={{
               flexDirection: 'row',
-              marginLeft: 0,
+              marginLeft: 15,
               backgroundColor: 'white',
-              width: '100%',
+              width: '92%',
+              marginRight:50
             }}
           >
-            <TouchableOpacity
-              style={{
-                backgroundColor: 'green',
-                height: 20,
-                width: 20,
-                borderRadius: 9,
-                margin: 20,
-                marginTop: 20,
-              }}
-              onPress={() => decrementQuantity(item.id)}
-            >
-              <Text
-                style={{
-                  color: 'white',
-                  textAlign: 'center',
-                  fontWeight: 'bold',
-                }}
-              >
-                -
-              </Text>
-            </TouchableOpacity>
-
             <Text
               style={{
                 marginTop: 20,
                 color: 'black',
-                marginRight: 10,
+                marginLeft: 10,
+                fontSize:15
               }}
             >
-              {item.quantity}
+              Quantity: {item.quantity}
             </Text>
-
-            <TouchableOpacity
-              style={{
-                backgroundColor: 'green',
-                height: 20,
-                width: 20,
-                borderRadius: 9,
-                margin: 10,
-                marginTop: 20,
-              }}
-              onPress={() => incrementQuantity(item.id)}
-            >
-              <Text
-                style={{
-                  color: 'white',
-                  textAlign: 'center',
-                  fontWeight: '600',
-                }}
-              >
-                +
-              </Text>
-            </TouchableOpacity>
 
             <View>
               <Text
                 style={{
                   marginTop: 20,
                   color: 'black',
-                  marginLeft: 115,
+                  marginLeft: 90,
                   fontWeight: '500',
                   fontSize: 15,
                 }}
               >
-                ₹{item.price}
+                Total Price: ₹{item.quantity * item.product_price}
               </Text>
             </View>
-
-            <View style={{ marginLeft: 10, marginTop: 9 }}>
-              <TouchableOpacity
-                onPress={() => removeFromCart(item.id)}
-                style={{
-                  borderRadius: 100,
-                  width: 80,
-                  alignSelf: 'center',
-                  alignItems: 'center',
-                  paddingVertical: 5,
-                  paddingHorizontal: 10,
-                  marginLeft: 5,
-                }}
-              >
-                <Icon name="trash-outline" style={{ color: 'black' }} size={30} />
-              </TouchableOpacity>
-            </View>
+            <View style={{ marginLeft: 10,marginTop:15}}>
+            <TouchableOpacity
+              // onPress={() => removeFromCart()}
+              style={{
+                borderRadius: 100,
+                width: 80,
+                alignSelf: 'center',
+                alignItems: 'center',
+                paddingVertical: 5,
+                paddingHorizontal:10,
+                marginLeft: 5,
+              }}>
+            
+              <Icon name="trash-outline" style={{color:'black'}} size={(20)} />
+            </TouchableOpacity>
           </View>
-          <View style={{ flexDirection: 'column' }}>
-            <Text>Show Items</Text>
+         
           </View>
+          <ScrollView  style={{flex:1,
+              flexDirection: 'column',
+              marginLeft: 25,
+              backgroundColor: 'white',
+              width: '90%',
+              marginRight:50,
+              marginTop:10
+            }}><TouchableOpacity onPress={toggleExpand} ><Text style={{fontWeight:'bold'}}>Show Items</Text></TouchableOpacity>
+            <Collapsible collapsed={Collapsed}>
+                          <View style={{width:'100%'}}>
+                                        <Text>tomato</Text>
+                                        <Text>tomato</Text>
+                                        <Text>tomato</Text>
+                                        <Text>tomato</Text>
+                                        <Text>tomato</Text>
+                                          </View></Collapsible></ScrollView>
         </View>
       ))}
 
       <View
         style={{
-          height: 80,
+          height: 130,
           width: '95%',
           backgroundColor: 'white',
           margin: 10,
           flexDirection: 'column',
         }}
       >
-        <View>
+        <View style={{marginTop:5}}>
           <Text
             style={{
               marginTop: 5,
               color: 'black',
-              fontSize: 23,
+              fontSize: 20,
               fontWeight: 'bold',
+              marginLeft:5
+              
             }}
           >
             Bill Details
           </Text>
         </View>
-        <View style={{ flexDirection: 'row' }}>
-          <Text style={{ marginTop: 7, color: 'black', fontSize: 17 }}>
-            Total Price:
+        <View style={{ flexDirection: 'row'}}>
+          <Text style={{ marginTop: 7, color: 'black', fontSize: 15,marginLeft:5 }}>
+            Discount
+          </Text>
+          <Text style={{ marginTop: 7, color: 'black', fontSize: 15,marginLeft: 285 }}>
+            20%
+          </Text></View>
+          <View style={{ flexDirection: 'row'}}><Text style={{ marginTop: 7, color: 'black', fontSize: 15,marginLeft:5 }}>
+            Discount Amount
+          </Text>
+          <Text style={{ marginTop: 7, color: 'black', fontSize: 15,marginLeft: 220 }}>
+            500
+          </Text></View>
+          <View style={{ flexDirection: 'row'}}><Text style={{ marginTop: 7, color: 'black', fontSize: 15,marginLeft:5 }}>
+            Final Price:
+          </Text>
+          <Text style={{ marginTop: 7, color: 'black', fontSize: 15,marginLeft: 250 }}>
+          ₹{totalPrice}
           </Text>
         </View>
       </View>
@@ -193,3 +168,7 @@ const CartMain = () => {
 };
 
 export default CartMain;
+
+export interface CartMainProps {
+  data?: any;
+}
