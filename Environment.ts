@@ -11,7 +11,7 @@ export const environment = {
     commodityUrl:'/products',
     addressFetchUrl: '/addresses',
     addressEditUrl: '/addresses',
-    productInput: '/Calculateorderprice',
+    productInput: 'order/Calculateorderprice',
     paymentModeUrl: '/paymentmethods',
     addressDeleteUrl:'/addresses/delete',
   },
