@@ -14,14 +14,25 @@ import Icon from 'react-native-vector-icons/Ionicons';
 const ChooseItemView1 = ({
   navigation,
   productDetails,
-  CartScreen,
-  cartData,
-  handleaddToCart,
-  handleRemoveToCart,
+  
 }: ChooseItemView1porps) => {
+  
   const [expandedCommodityTypeIndex, setExpandedCommodityTypeIndex] =
     useState(null);
+    const [cart, setCart] = useState<any>([]); 
 
+
+    const handleAddToCart = ( Add: any) => {
+      const newCart = [...cart]; 
+      newCart.push(Add); 
+      setCart(newCart); 
+    };
+
+    const handleRemoveItemFromCart = (itemToRemove: string) => {
+      const updatedCart = cart.filter((item:any) => item !== itemToRemove);
+      setCart(updatedCart);
+    };
+  
   return (
     <View style={{}}>
       <LinearGradient
@@ -104,12 +115,8 @@ const ChooseItemView1 = ({
                           <TouchableOpacity
                             style={styles.button}
                             onPress={() => {
-                              // handleaddToCart(commodity.commodity_name);
-                              // // Handle button click for each commodity
-                              // console.log(
-                              //   'Button clicked for:',
-                              //   commodity.commodity_name,
-                              // );
+                              console.log("inside",commodity.commodity_name)
+                              handleAddToCart(commodity.commodity_name);
                             }}>
                             <Text style={styles.buttonText}>Add to cart</Text>
                           </TouchableOpacity>
@@ -118,12 +125,7 @@ const ChooseItemView1 = ({
                           <TouchableOpacity
                             style={styles.button}
                             onPress={() => {
-                              // handleRemoveToCart(commodity.commodity_name);
-                              // // Handle button click for each commodity
-                              // console.log(
-                              //   'Button clicked for:',
-                              //   commodity.commodity_name,
-                              // );
+                              handleRemoveItemFromCart (commodity.commodity_name);
                             }}>
                             <Text style={styles.buttonText}>Remove</Text>
                           </TouchableOpacity>
@@ -212,9 +214,6 @@ export default ChooseItemView1;
 interface ChooseItemView1porps {
   navigation?: any;
   route?: any;
-  cartData?: any;
-  handleaddToCart?: any;
-  handleRemoveToCart?: any;
   productDetails?: any;
   CartScreen?:any
 }
