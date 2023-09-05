@@ -1,7 +1,7 @@
 // In your interfaces file (e.g., Cart.ts)
 export interface CartMain {
     //cartitem?: cartitem[];
-    cartdata?: cartdata[];
+    cartdata?: cartdata;
     Product?: Product[]
   }
   

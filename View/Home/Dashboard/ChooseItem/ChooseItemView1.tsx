@@ -94,8 +94,8 @@ const ChooseItemView1 = ({
                         <View key={cIndex} style={styles.commoditiesStyle}>
                           <View style={{marginBottom:20}}>
                           <Text style={styles.commodityDescription}>{commodity.commodity_name}</Text>
-                          <Text style={styles.commodityDescription}>Quantity: {commodity.quantity}</Text>
-                          <Text style={styles.commodityDescription}>
+                          <Text style={{fontSize:13,color:'#Ff8f00'}}>Quantity: {commodity.quantity}</Text>
+                          <Text style={{fontSize:13,color:'#Ff8f00'}}>
                             Measurement Unit: {commodity.measurement_unit}
                           </Text>
                           </View>
@@ -114,7 +114,7 @@ const ChooseItemView1 = ({
                             <Text style={styles.buttonText}>Add to cart</Text>
                           </TouchableOpacity>
                           </View>
-                          <View style={{marginStart:70}}>
+                          <View style={{marginLeft:170}}>
                           <TouchableOpacity
                             style={styles.button}
                             onPress={() => {
@@ -151,10 +151,8 @@ const ChooseItemView1 = ({
 
 const styles = StyleSheet.create({
   container: {
-    padding: 20,
+    padding: 10,
     marginTop: 10,
-    marginLeft: 20,
-    marginRight: 20,
     borderRadius: 10,
     // borderWidth: 1,
     // borderColor: 'orange',
@@ -186,9 +184,6 @@ const styles = StyleSheet.create({
     padding: 15,
     marginHorizontal: 10,
     marginVertical: 20,
-    borderRadius: 10,
-    borderWidth: 1,
-    borderColor: 'orange',
     elevation: 15,
     backgroundColor: 'white',
   },
@@ -198,16 +193,18 @@ const styles = StyleSheet.create({
     fontWeight:'500'
   },
   button: {
-    backgroundColor: 'orange',
-    borderRadius: 10,
-    padding: 8,
+    backgroundColor: 'white',
+    // borderRadius: 10,
+    padding: 2,
     alignItems: 'center',
     justifyContent: 'center',
-    elevation:8
+    borderColor: 'orange',
+    borderWidth: 1,
+    elevation:5
   },
   buttonText: {
-    color: 'white',
-    fontWeight: 'bold',
+    color: '#Ff8f00',
+    fontWeight: '400',
   },
 });
 

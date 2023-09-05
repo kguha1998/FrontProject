@@ -2,14 +2,14 @@
  import { CartItemsActionTypes } from "../Actions/cartAction";
 import InitialState from "./initialState";
 
-const initialState: CartMain = InitialState.cart;
+const initialState: CartMain = InitialState.CartMain;
 export default function CartReducer(
   state: CartMain = initialState,
   action: any,
 ) {
   switch (action.type) {
     case CartItemsActionTypes.CartItem_Success_Action:
-      return {...state, cart_detail: action.payload};
+      return {...state, cartdata: action.payload};
     default:
       return state;
   }
