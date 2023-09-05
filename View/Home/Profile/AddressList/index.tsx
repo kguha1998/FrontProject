@@ -7,7 +7,7 @@ import { connect } from 'react-redux'
 import { addressList, userDetail } from '../../../../Models/User'
 
 const AddressList = ({navigation,user,address,AddressListAction,AddressDeleteAction}:AddressListProps) => {
-  
+
 
   useEffect(()=>{
         AddressListAction(user?.customer_id);
@@ -19,6 +19,7 @@ const AddressList = ({navigation,user,address,AddressListAction,AddressDeleteAct
       address_id: id
     })
    }
+   
   return (
     <View>
      <AddressListView AddressDelete={AddressDelete} navigation={navigation} address={address}  />

@@ -15,7 +15,7 @@ export default function UserReducer(
     case UserActionTypes.Address_Fetch_Success_Action:
         return {...state, single_address: action.payload};
     case UserActionTypes.Logout_Success_Action:
-      return InitialState;
+        return InitialState;
     default:
       return state;
   }

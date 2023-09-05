@@ -9,9 +9,9 @@ import AddressAdd from './AddressAdd';
 import EditProfile from './EditProfile';
 import OrderHistory from './OrderHistory';
 
-
+const Stack = createStackNavigator();
 const Profile = () => {
-  const Stack = createStackNavigator();
+  
   return (
     <Stack.Navigator screenOptions={{headerShown:false}}>
        <Stack.Screen name="ProfileMain" component={ProfileMain} />

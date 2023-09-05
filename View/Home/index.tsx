@@ -6,9 +6,9 @@ import Order from './Order';
 import Cart from './Cart';
 import Profile from './Profile';
 import Icon from 'react-native-vector-icons/Ionicons';
-
+const Tab = createBottomTabNavigator();
 const Home = () => {
-  const Tab = createBottomTabNavigator();
+
   return (
 
     <Tab.Navigator

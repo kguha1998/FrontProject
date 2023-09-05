@@ -13,6 +13,7 @@ import Address from './Address';
 import OrderConfirmation from './OrderConfirmation';
 
 const Cart = () => {
+
   const [step, setStep] = useState<number>(0);
   console.log(step);
 
@@ -57,6 +58,7 @@ const Cart = () => {
         <OrderConfirmation/>
       )}
     </View>
+    
   );
 };
 

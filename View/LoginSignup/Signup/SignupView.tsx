@@ -15,9 +15,24 @@ const SignupView = ({navigation,route,Signup}:SignupViewProps) => {
     formState: {errors},
   } = useForm();
 
-  const onSubmit=(data: any)=>{
-   Signup(data);
-  }
+  // const onSubmit=(data: any)=>{
+  //  Signup(data);
+  //  ToastAndroid.show('Signup successful!', ToastAndroid.LONG);
+  //  navigation.navigate('Login');
+  // }
+  const onSubmit = async (data: any) => {
+    // Assuming Signup is an async function that returns a success flag
+    const signupSuccess = await Signup(data);
+  
+    if (signupSuccess) {
+      ToastAndroid.show('Signup successful!', ToastAndroid.LONG);
+      navigation.navigate('Login');
+    } else {
+      // Handle signup failure, show an error message, etc.
+      ToastAndroid.show('Signup Faild! Please Try Again', ToastAndroid.LONG);
+    }
+  };
+
 
   const mobileVerify =()=>{
     if(!!getValues('mobile_Number') && getValues('mobile_Number').length == 10){
@@ -168,10 +183,6 @@ const SignupView = ({navigation,route,Signup}:SignupViewProps) => {
 
       <TouchableOpacity
           onPress={handleSubmit(onSubmit)}
-          //onPress={() => navigation.navigate('Home')}
-          //colors={['#FFB900', '#FFE435', '#FFA000',]}
-          //start={{x: 0, y: 0}}
-          //end={{x: 1, y: 0}}
           style={{
             borderRadius: 100,
             width: 150,
@@ -203,6 +214,5 @@ interface SignupViewProps{
     route?:any;
     Signup?:any;
 }
-
 
 
