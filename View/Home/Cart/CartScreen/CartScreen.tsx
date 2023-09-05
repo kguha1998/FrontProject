@@ -1,46 +1,25 @@
-import React, { useState } from 'react';
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  StyleSheet,
-} from 'react-native';
+import React from 'react';
+import { View, Text, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-const CartMain = () => {
-  const [cartItems, setCartItems] = useState([
-    { id: '1', name: 'KSW Mini Box', price: 250, quantity: 1 },
-    { id: '2', name: 'KSW Small Box', price: 350, quantity: 2 },
-    { id: '3', name: 'KSW Large Box', price: 500, quantity: 3 },
-  ]);
-
-  const incrementQuantity = (itemId: string) => {
-    setCartItems((prevCartItems) =>
-      prevCartItems.map((item) =>
-        item.id === itemId ? { ...item, quantity: item.quantity + 1 } : item
-      )
+const CartMain = ({ data }: CartMainProps) => {
+  if (!data || !data.products || data.products.length === 0) {
+    return (
+      <View>
+        <Text>No items in the cart</Text>
+      </View>
     );
-  };
+  }
 
-  const decrementQuantity = (itemId: string) => {
-    setCartItems((prevCartItems) =>
-      prevCartItems.map((item) =>
-        item.id === itemId ? { ...item, quantity: item.quantity - 1 } : item
-      )
-    );
-  };
-
-  const removeFromCart = (itemId: string) => {
-    setCartItems((prevCartItems) =>
-      prevCartItems.filter((item) => item.id !== itemId)
-    );
-  };
+  const totalPrice = data.products.reduce((total:any, item:any) => {
+    return total + item.quantity * item.product_price;
+  }, 0);
 
   return (
     <View>
-      {cartItems.map((item) => (
+      {data.products.map((item: any) => (
         <View
-          key={item.id}
+          key={item.product_id}
           style={{
             height: 140,
             width: '95%',
@@ -58,7 +37,7 @@ const CartMain = () => {
                 fontSize: 20,
               }}
             >
-              {item.name}
+              {item.product_name}
             </Text>
           </View>
 
@@ -70,28 +49,6 @@ const CartMain = () => {
               width: '100%',
             }}
           >
-            <TouchableOpacity
-              style={{
-                backgroundColor: 'green',
-                height: 20,
-                width: 20,
-                borderRadius: 9,
-                margin: 20,
-                marginTop: 20,
-              }}
-              onPress={() => decrementQuantity(item.id)}
-            >
-              <Text
-                style={{
-                  color: 'white',
-                  textAlign: 'center',
-                  fontWeight: 'bold',
-                }}
-              >
-                -
-              </Text>
-            </TouchableOpacity>
-
             <Text
               style={{
                 marginTop: 20,
@@ -99,30 +56,8 @@ const CartMain = () => {
                 marginRight: 10,
               }}
             >
-              {item.quantity}
+              Quantity: {item.quantity}
             </Text>
-
-            <TouchableOpacity
-              style={{
-                backgroundColor: 'green',
-                height: 20,
-                width: 20,
-                borderRadius: 9,
-                margin: 10,
-                marginTop: 20,
-              }}
-              onPress={() => incrementQuantity(item.id)}
-            >
-              <Text
-                style={{
-                  color: 'white',
-                  textAlign: 'center',
-                  fontWeight: '600',
-                }}
-              >
-                +
-              </Text>
-            </TouchableOpacity>
 
             <View>
               <Text
@@ -134,29 +69,9 @@ const CartMain = () => {
                   fontSize: 15,
                 }}
               >
-                ₹{item.price}
+                Total Price: ₹{item.quantity * item.product_price}
               </Text>
             </View>
-
-            <View style={{ marginLeft: 10, marginTop: 9 }}>
-              <TouchableOpacity
-                onPress={() => removeFromCart(item.id)}
-                style={{
-                  borderRadius: 100,
-                  width: 80,
-                  alignSelf: 'center',
-                  alignItems: 'center',
-                  paddingVertical: 5,
-                  paddingHorizontal: 10,
-                  marginLeft: 5,
-                }}
-              >
-                <Icon name="trash-outline" style={{ color: 'black' }} size={30} />
-              </TouchableOpacity>
-            </View>
-          </View>
-          <View style={{ flexDirection: 'column' }}>
-            <Text>Show Items</Text>
           </View>
         </View>
       ))}
@@ -184,7 +99,7 @@ const CartMain = () => {
         </View>
         <View style={{ flexDirection: 'row' }}>
           <Text style={{ marginTop: 7, color: 'black', fontSize: 17 }}>
-            Total Price:
+            Total Price: ₹{totalPrice}
           </Text>
         </View>
       </View>
@@ -193,3 +108,7 @@ const CartMain = () => {
 };
 
 export default CartMain;
+
+export interface CartMainProps {
+  data?: any;
+}

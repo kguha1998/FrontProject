@@ -10,7 +10,7 @@ import { userDetail } from '../../../../Models/User'
 import { cartdata, cartitem, product } from '../../../../Models/Cart'
 import { useFocusEffect } from '@react-navigation/native'
 
-const CartIndex = ({setStep,user,CartItemAction,data }: CartIndexProps) => {
+const CartIndex = ({setStep,CartItemAction,data }: CartIndexProps) => {
  
   useFocusEffect(React.useCallback(()=>{
     const defaultProductData  =  [
@@ -26,7 +26,7 @@ const CartIndex = ({setStep,user,CartItemAction,data }: CartIndexProps) => {
       },
     ]
     CartItemAction(defaultProductData);
-    console.log("i am component",data);
+   // console.log("i am component",data);
   },[]))
 
   return (
@@ -52,7 +52,7 @@ const CartIndex = ({setStep,user,CartItemAction,data }: CartIndexProps) => {
             CART
           </Text>
         </LinearGradient>
-        <View><CartMain /></View>
+        <View><CartMain  data={data}/></View>
         
     <View>
       <TouchableOpacity
