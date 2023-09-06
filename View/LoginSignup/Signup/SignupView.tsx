@@ -15,23 +15,23 @@ const SignupView = ({navigation,route,Signup}:SignupViewProps) => {
     formState: {errors},
   } = useForm();
 
-  // const onSubmit=(data: any)=>{
-  //  Signup(data);
-  //  ToastAndroid.show('Signup successful!', ToastAndroid.LONG);
-  //  navigation.navigate('Login');
-  // }
-  const onSubmit = async (data: any) => {
-    // Assuming Signup is an async function that returns a success flag
-    const signupSuccess = await Signup(data);
+  const onSubmit=(data: any)=>{
+   Signup(data);
+   ToastAndroid.show('Signup successful!', ToastAndroid.LONG);
+   navigation.navigate('Login');
+  }
+  // const onSubmit = async (data: any) => {
+  //   // Assuming Signup is an async function that returns a success flag
+  //   const signupSuccess = await Signup(data);
   
-    if (signupSuccess) {
-      ToastAndroid.show('Signup successful!', ToastAndroid.LONG);
-      navigation.navigate('Login');
-    } else {
-      // Handle signup failure, show an error message, etc.
-      ToastAndroid.show('Signup Faild! Please Try Again', ToastAndroid.LONG);
-    }
-  };
+  //   if (signupSuccess) {
+  //     ToastAndroid.show('Signup successful!', ToastAndroid.LONG);
+  //     navigation.navigate('Login');
+  //   } else {
+  //     // Handle signup failure, show an error message, etc.
+  //     ToastAndroid.show('Signup Faild! Please Try Again', ToastAndroid.LONG);
+  //   }
+  // };
 
 
   const mobileVerify =()=>{

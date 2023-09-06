@@ -11,6 +11,7 @@ const AddressList = ({navigation,user,address,AddressListAction,AddressDeleteAct
 
   useEffect(()=>{
         AddressListAction(user?.customer_id);
+      
    console.log(user?.customer_id)
   },[])
    const AddressDelete=(id: number)=>{
