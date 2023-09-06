@@ -12,7 +12,7 @@ export const environment = {
     addressFetchUrl: '/addresses',
     addressEditUrl: '/addresses',
     productInput: 'order/Calculateorderprice',
-    paymentModeUrl: '/paymentmethods',
+    paymentModeUrl: '/domain',
     addressDeleteUrl:'/addresses/delete',
   },
 };

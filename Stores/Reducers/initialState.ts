@@ -23,6 +23,7 @@ const InitialState: StoreState = {
   CartMain: {
     cartdata: undefined,
     Product: [],
+    PaymentMode:undefined
   },
   
 };

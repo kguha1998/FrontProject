@@ -10,6 +10,6 @@ export const CartItems = (data: any) => {
   return serviceClient.post(environment.url.productInput, data);
 };
 export const PaymentMode = (data: any) => {
-  return serviceClient.post(environment.url.paymentModeUrl, data);
+  return serviceClient.get(environment.url.paymentModeUrl+'/'+data);
 };
 

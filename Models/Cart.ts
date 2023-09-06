@@ -3,6 +3,7 @@ export interface CartMain {
     //cartitem?: cartitem[];
     cartdata?: cartdata;
     Product?: Product[]
+    PaymentMode?:PaymentMode;
   }
   
   export interface cartitem {
@@ -28,4 +29,6 @@ export interface CartMain {
     discountPercentage: string
     discountedPrice: number
   }
-  
+  export interface PaymentMode {
+    domain_type: string;
+  }

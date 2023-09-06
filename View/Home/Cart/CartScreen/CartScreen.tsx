@@ -27,7 +27,7 @@ const CartMain = ({ data }: CartMainProps) => {
         <View
           key={item.product_id}
           style={{
-            height: 140,
+            height: 170,
             width: '95%',
             backgroundColor: 'white',
             margin: 10,
