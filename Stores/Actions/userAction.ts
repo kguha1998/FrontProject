@@ -1,5 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {AddressAdd, AddressDelete, AddressEdit, AddressFetch, AddressList, UserLogin, UserSignup} from '../../Service/userService';
+import {AddressAdd, AddressDelete, AddressEdit, AddressFetch, AddressList, UserDetailEdit, UserLogin, UserSignup} from '../../Service/userService';
 import {ApiCallErrorAction, BeginApiCallAction} from './apiStatusActions';
 import { ErrorModel } from '../../Models/errorModels';
 
@@ -12,6 +12,7 @@ export enum UserActionTypes {
   Address_Edit_Success_Action = '[USER] Address Edit Success Action',
   Address_Fetch_Success_Action = '[USER] Address Fetch Success Action',
   Address_Delete_Success_Action = '[USER] Address Delete Success Action',
+  User_Detail_Edit_Success_Action = '[USER] User Detail Edit Success Action'
 
 }
 export const LoginAction = (payload: any) => {
@@ -371,3 +372,56 @@ export const AddressDeleteSuccessAction = () => {
   };
 };
 
+export const UserDetailEditAction = (payload: any) => {
+    const{id,data}=payload;
+  console.log('inside user action ',id)
+  console.log('inside action call',payload)
+  return (dispatch: any, getState: any) => {
+  dispatch(BeginApiCallAction({
+    count: 1,
+    message: 'Please Wait...'}))
+  return UserDetailEdit(id,data)
+    .then(response => {
+      //console.log(response.status);
+      if (response.status != 200) {
+        dispatch(ApiCallErrorAction(response.data));
+      } else {
+       // payload.navigation.navigate('AddressList')
+        dispatch(UserDetailEditSuccessAction());
+      }
+    })
+    .catch(error => {
+      if (error?.response?.status === 403) {
+        dispatch(
+          ApiCallErrorAction({
+            errorCode: '',
+            message: 'Please Login again to continue.',
+          }),
+        );
+        AsyncStorage.multiRemove(['token'])
+        dispatch(UserLogoutSuccess());
+      } else if (error?.response?.status === 500) {
+        dispatch(
+          ApiCallErrorAction({
+            errorCode: '',
+            message: error?.response?.data?.message,
+          }),
+        );
+      } else {
+        dispatch(
+          ApiCallErrorAction({
+            errorCode: '',
+            message: 'Error encountered please try again later',
+          }),
+        );
+      }
+    });
+};
+};
+export const UserDetailEditSuccessAction = () => {
+ return {
+   type: UserActionTypes.User_Detail_Edit_Success_Action
+ 
+
+ };
+};

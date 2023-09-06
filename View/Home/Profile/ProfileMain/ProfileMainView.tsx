@@ -2,12 +2,13 @@ import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Dimensions, Image
 import React, { useState } from 'react'
 import LinearGradient from 'react-native-linear-gradient';
 import Icon from 'react-native-vector-icons/Ionicons';
+import { userDetail } from '../../../../Models/User';
 
-const ProfileMainView = ({navigation,Logout}:ProfileViewProps) => {
+const ProfileMainView = ({navigation,Logout,user}:ProfileViewProps) => {
   const [isPopoverVisible, setPopoverVisible] = useState(false);
 
-   
-
+    
+  console.log('Customer Id',user?.customer_id);
     const handleRemovePress = () => {
       setPopoverVisible(true);
     };
@@ -93,12 +94,12 @@ const ProfileMainView = ({navigation,Logout}:ProfileViewProps) => {
                <Text style={{fontSize:20, marginLeft:10}}>Address</Text>
                </View>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => navigation.navigate('OrderHistory')} style={{backgroundColor: '#f2f7f3',height:70,width:'95%', margin:10,borderRadius:10,elevation: 10}}>
+            {/* <TouchableOpacity onPress={() => navigation.navigate('OrderHistory')} style={{backgroundColor: '#f2f7f3',height:70,width:'95%', margin:10,borderRadius:10,elevation: 10}}>
                <View style={{flexDirection:'row',paddingHorizontal:20,paddingVertical:20,}}>
                <Icon name="bag-check-outline" size={(25)} />
                <Text style={{fontSize:20, marginLeft:10}}>Order History</Text>
                </View>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
             <TouchableOpacity onPress={handleRemovePress} style={{backgroundColor: '#f2f7f3',height:70,width:'95%', margin:10,borderRadius:10,elevation: 10}}>
                <View style={{flexDirection:'row',paddingHorizontal:20,paddingVertical:20,}}>
                <Icon name="power-outline" size={(25)} />
@@ -197,6 +198,6 @@ const styles = StyleSheet.create({
 export default ProfileMainView
 interface ProfileViewProps{ 
   navigation?:any;
- 
+  user?:userDetail;
   Logout?:any
 }

@@ -35,6 +35,16 @@ export const AddressDelete = (data: any) => {
   return serviceClient.get(environment.url.addressDeleteUrl+'/'+ data);
 };
 
+// export const UserDetailEdit = (data: any) => {
+//   return serviceClient.post(environment.url.userDetailEdit, data);
+// };
 
+export const UserDetailEdit = (customer_id: any,data: any) => {
+  console.log('inside service call',customer_id);
+  console.log('inside service call',data)
+  const url = `${environment.url.userDetailEdit}/${customer_id}`;
+  console.log('inside servicecall ',url)
+  return serviceClient.post(url, data);
+};
 
 

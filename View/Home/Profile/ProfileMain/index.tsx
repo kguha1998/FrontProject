@@ -9,7 +9,6 @@ import { userDetail } from '../../../../Models/User'
 
 const ProfileMain = ({navigation,user,UserLogoutSuccess}:ProfileMainProps) => {
   
- 
   const Logout = (data: any) => {
     UserLogoutSuccess(user?.customer_id);
   }
@@ -17,7 +16,7 @@ const ProfileMain = ({navigation,user,UserLogoutSuccess}:ProfileMainProps) => {
    
 
   return (
-    <ProfileMainView navigation={navigation} Logout={Logout} />
+    <ProfileMainView navigation={navigation} Logout={Logout} user={user} />
   )
   }
 const mapStateToProps = (state: StoreState, ownProps: any) => {

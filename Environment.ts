@@ -14,5 +14,6 @@ export const environment = {
     productInput: 'order/Calculateorderprice',
     paymentModeUrl: '/paymentmethods',
     addressDeleteUrl:'/addresses/delete',
+    userDetailEdit:'/customer/cust',
   },
 };
