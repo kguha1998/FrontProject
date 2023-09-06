@@ -8,7 +8,7 @@ const ProfileMainView = ({navigation,Logout,user}:ProfileViewProps) => {
   const [isPopoverVisible, setPopoverVisible] = useState(false);
 
     
-  console.log('Customer Id',user?.customer_id);
+ // console.log(user?.customer_name);
     const handleRemovePress = () => {
       setPopoverVisible(true);
     };
@@ -45,7 +45,7 @@ const ProfileMainView = ({navigation,Logout,user}:ProfileViewProps) => {
       Profile
     </Text>
     </View>
-    <View style={{width: 80,height: 80, backgroundColor: '#fff', borderRadius: 50,marginLeft:180}}></View>
+    {/* <View style={{width: 80,height: 80, backgroundColor: '#fff', borderRadius: 50,marginLeft:180}}></View> */}
     </View>
   </LinearGradient>
   </View>
@@ -68,14 +68,14 @@ const ProfileMainView = ({navigation,Logout,user}:ProfileViewProps) => {
             color: '#fa8b0c',
             textAlign: 'center',
           }}>
-          Krishna Guha
+          {user?.customer_name}
         </Text>
         <Text
         style={{
           fontSize: 15,
           color: '#fa8b0c',
           textAlign: 'center'}}>
-          9876543210</Text>
+          {user?.customer_phone}</Text>
       
         </View> 
         <ScrollView>
