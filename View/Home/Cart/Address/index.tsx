@@ -14,6 +14,17 @@ const Address = ({route,user,address,AddressListAction,props,setStep}:AddressLis
     AddressListAction(user?.customer_id);
     console.log(user?.customer_id)
   },[])
+
+
+  // In the Address component or its parent component
+const handleAddressSelection = (addressId:any) => {
+  // Do something with the selected addressId in the parent component
+  console.log(`Selected Address ID: ${addressId}`);
+};
+
+// Render the CartAddressList component and pass the callback function as a prop
+
+
   
   return (
   <ScrollView>
@@ -35,7 +46,7 @@ const Address = ({route,user,address,AddressListAction,props,setStep}:AddressLis
     </Text>
   </LinearGradient>
     <View>
-      <CartAddressList address={address} />
+    <CartAddressList address={address}  handleAddressSelection={handleAddressSelection} />
    
   
     </View>
@@ -59,9 +70,11 @@ const Address = ({route,user,address,AddressListAction,props,setStep}:AddressLis
 };
 
 const mapStateToProps = (state: StoreState, ownProps: any) => {
+
   return {
     user: state.user.user_detail,
     address: state.user.address_list
+
   };
 };
 const mapDispatchToProps = {
@@ -77,4 +90,5 @@ interface AddressListProps {
   AddressListAction?: any;
   props?:any;
   setStep:(step :2) =>void;
+  handleAddressSelection?:any
 }
