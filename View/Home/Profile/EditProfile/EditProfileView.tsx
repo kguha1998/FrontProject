@@ -1,4 +1,4 @@
-import { View, Text, Dimensions, TextInput, TouchableOpacity } from 'react-native'
+import { View, Text, Dimensions, TextInput, TouchableOpacity, ToastAndroid } from 'react-native'
 import React from 'react'
 
 
@@ -7,7 +7,7 @@ import { Controller, useForm } from 'react-hook-form';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { ScrollView } from 'react-native-gesture-handler';
 
-const EditProfileView = ({navigation,route}:EditProfileViewProps) => {
+const EditProfileView = ({navigation,route,EditUserDetail}:EditProfileViewProps) => {
   const {
     control,
     handleSubmit,
@@ -17,7 +17,9 @@ const EditProfileView = ({navigation,route}:EditProfileViewProps) => {
   } = useForm();
 
   const onSubmit=(data: any)=>{
-    console.log(data);
+    EditUserDetail(data);
+    ToastAndroid.show('Details Updated!', ToastAndroid.LONG);
+    navigation.navigate('ProfileMain');
   }
   return (
     <View>
@@ -72,7 +74,7 @@ const EditProfileView = ({navigation,route}:EditProfileViewProps) => {
           required: true,
         }}
         render={({field: {onChange, onBlur, value}}) => (
-          <View style={{margin: 10,borderWidth:1,borderRadius:10,marginTop:40,borderColor: errors.Name ?'red': '#fa8b0c'}}>
+          <View style={{margin: 10,borderWidth:1,borderRadius:10,marginTop:40,borderColor: errors.customer_name ?'red': '#fa8b0c'}}>
             <TextInput
               placeholder="  Name"
               onBlur={onBlur}
@@ -81,7 +83,7 @@ const EditProfileView = ({navigation,route}:EditProfileViewProps) => {
             />
           </View>
         )}
-        name="Name"
+        name="customer_name"
       />
       {errors.Name && <Text>This is required.</Text>}
 
@@ -101,7 +103,7 @@ const EditProfileView = ({navigation,route}:EditProfileViewProps) => {
         />
         </View>
       )}
-      name="email"
+      name="customer_email"
     />
 
     <Controller
@@ -113,7 +115,7 @@ const EditProfileView = ({navigation,route}:EditProfileViewProps) => {
           pattern: /^(\+\d{1,3}[- ]?)?\d{10}$/
         }}
         render={({field: {onChange, onBlur, value}}) => (
-          <View style={{borderWidth:1, margin: 10,marginTop:30,borderRadius:10, borderColor: errors.mobile_Number ?'red': '#fa8b0c'}}>
+          <View style={{borderWidth:1, margin: 10,marginTop:30,borderRadius:10, borderColor: errors.customer_phone ?'red': '#fa8b0c'}}>
             <TextInput
               placeholder=" Mobile Number"
               onBlur={onBlur}
@@ -122,7 +124,7 @@ const EditProfileView = ({navigation,route}:EditProfileViewProps) => {
             />
           </View>
         )}
-        name="mobile_Number"
+        name="customer_phone"
       />
       {errors.mobile_Number && <Text>This is required.</Text>}
 
@@ -153,4 +155,5 @@ export default EditProfileView
 interface EditProfileViewProps{ 
   navigation?:any;
   route?:any;
+  EditUserDetail?:any
 }

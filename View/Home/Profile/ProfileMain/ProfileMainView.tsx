@@ -2,12 +2,13 @@ import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Dimensions, Image
 import React, { useState } from 'react'
 import LinearGradient from 'react-native-linear-gradient';
 import Icon from 'react-native-vector-icons/Ionicons';
+import { userDetail } from '../../../../Models/User';
 
-const ProfileMainView = ({navigation,route}:ProfileViewProps) => {
+const ProfileMainView = ({navigation,Logout,user}:ProfileViewProps) => {
   const [isPopoverVisible, setPopoverVisible] = useState(false);
 
-   
-
+    
+ // console.log(user?.customer_name);
     const handleRemovePress = () => {
       setPopoverVisible(true);
     };
@@ -17,7 +18,7 @@ const ProfileMainView = ({navigation,route}:ProfileViewProps) => {
     };
   
     const handleConfirm = () => {
-  
+      Logout();
      // setPopoverVisible(false);
     };
   return (
@@ -44,7 +45,7 @@ const ProfileMainView = ({navigation,route}:ProfileViewProps) => {
       Profile
     </Text>
     </View>
-    <View style={{width: 80,height: 80, backgroundColor: '#fff', borderRadius: 50,marginLeft:180}}></View>
+    {/* <View style={{width: 80,height: 80, backgroundColor: '#fff', borderRadius: 50,marginLeft:180}}></View> */}
     </View>
   </LinearGradient>
   </View>
@@ -67,14 +68,14 @@ const ProfileMainView = ({navigation,route}:ProfileViewProps) => {
             color: '#fa8b0c',
             textAlign: 'center',
           }}>
-          Krishna Guha
+          {user?.customer_name}
         </Text>
         <Text
         style={{
           fontSize: 15,
           color: '#fa8b0c',
           textAlign: 'center'}}>
-          9876543210</Text>
+          {user?.customer_phone}</Text>
       
         </View> 
         <ScrollView>
@@ -93,12 +94,12 @@ const ProfileMainView = ({navigation,route}:ProfileViewProps) => {
                <Text style={{fontSize:20, marginLeft:10}}>Address</Text>
                </View>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => navigation.navigate('OrderHistory')} style={{backgroundColor: '#f2f7f3',height:70,width:'95%', margin:10,borderRadius:10,elevation: 10}}>
+            {/* <TouchableOpacity onPress={() => navigation.navigate('OrderHistory')} style={{backgroundColor: '#f2f7f3',height:70,width:'95%', margin:10,borderRadius:10,elevation: 10}}>
                <View style={{flexDirection:'row',paddingHorizontal:20,paddingVertical:20,}}>
                <Icon name="bag-check-outline" size={(25)} />
                <Text style={{fontSize:20, marginLeft:10}}>Order History</Text>
                </View>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
             <TouchableOpacity onPress={handleRemovePress} style={{backgroundColor: '#f2f7f3',height:70,width:'95%', margin:10,borderRadius:10,elevation: 10}}>
                <View style={{flexDirection:'row',paddingHorizontal:20,paddingVertical:20,}}>
                <Icon name="power-outline" size={(25)} />
@@ -197,5 +198,6 @@ const styles = StyleSheet.create({
 export default ProfileMainView
 interface ProfileViewProps{ 
   navigation?:any;
-  route?:any;
+  user?:userDetail;
+  Logout?:any
 }
