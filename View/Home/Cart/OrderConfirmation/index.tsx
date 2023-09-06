@@ -30,6 +30,7 @@ const mapStateToProps = (state: StoreState, ownProps: any) => {
 const mapDispatchToProps = {
   PaymentModeAction ,
 };
+
 export default connect(mapStateToProps, mapDispatchToProps)(Pindex)
 export interface PindexProps{
   PaymentModeAction?:any;
