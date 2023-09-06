@@ -112,6 +112,7 @@ export const SignupSuccessAction = () => {
 };
 
 export const UserLogoutSuccess = () => {
+  console.log("Logout",UserLogoutSuccess)
   return {type: UserActionTypes.Logout_Success_Action};
 };
 
@@ -172,7 +173,7 @@ export const AddressListAction = (payload: any) => {
       message: 'Please Wait...'}))
     return AddressList(payload)
       .then(response => {
-       // console.log(response.data)
+       console.log('Action',response.data)
         if (response.status != 200) {
           dispatch(ApiCallErrorAction(response.data));
         } else {

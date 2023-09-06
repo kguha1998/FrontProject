@@ -2,15 +2,38 @@ import { View, Text } from 'react-native'
 import React from 'react'
 import ProfileView from './ProfileMainView'
 import ProfileMainView from './ProfileMainView'
+import { connect } from 'react-redux'
+import { StoreState } from '../../../../Models/reduxModel'
+import { UserLogoutSuccess } from '../../../../Stores/Actions/userAction'
+import { userDetail } from '../../../../Models/User'
 
-const ProfileMain = ({navigation,route}:ProfileMainProps) => {
+const ProfileMain = ({navigation,user,UserLogoutSuccess}:ProfileMainProps) => {
+  
+ 
+  const Logout = (data: any) => {
+    UserLogoutSuccess(user?.customer_id);
+  }
+    
+   
+
   return (
-    <ProfileMainView navigation={navigation} />
+    <ProfileMainView navigation={navigation} Logout={Logout} />
   )
-}
+  }
+const mapStateToProps = (state: StoreState, ownProps: any) => {
+  return {
+    user: state.user.user_detail,
+   
+  };
+};
+const mapDispatchToProps = {
+  UserLogoutSuccess
+};
 
-export default ProfileMain
+export default connect(mapStateToProps, mapDispatchToProps)(ProfileMain);
+
 interface ProfileMainProps{
   navigation?: any;
-  route?: any;
+  user?:userDetail;
+  UserLogoutSuccess?:any
 }

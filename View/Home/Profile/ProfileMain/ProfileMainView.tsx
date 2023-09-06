@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import LinearGradient from 'react-native-linear-gradient';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-const ProfileMainView = ({navigation,route}:ProfileViewProps) => {
+const ProfileMainView = ({navigation,Logout}:ProfileViewProps) => {
   const [isPopoverVisible, setPopoverVisible] = useState(false);
 
    
@@ -17,7 +17,7 @@ const ProfileMainView = ({navigation,route}:ProfileViewProps) => {
     };
   
     const handleConfirm = () => {
-  
+      Logout();
      // setPopoverVisible(false);
     };
   return (
@@ -197,5 +197,6 @@ const styles = StyleSheet.create({
 export default ProfileMainView
 interface ProfileViewProps{ 
   navigation?:any;
-  route?:any;
+ 
+  Logout?:any
 }
