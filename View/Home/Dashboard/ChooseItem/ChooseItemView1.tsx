@@ -146,7 +146,7 @@ const ChooseItemView1 = ({
                      
                             <TouchableOpacity
                             style={styles.Cartbutton}
-                            onPress={() => {
+                            onPress={() => {navigation.navigate('Cart')
                               GoToCart() 
                             ;
                             }}>

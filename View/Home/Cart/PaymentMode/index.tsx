@@ -1,6 +1,6 @@
 import { View, Text } from 'react-native'
 import React, { useEffect } from 'react'
-import OrderConfirmation from './OrderConfirmView'
+import OrderConfirmation from './PaymentModeView'
 import { StoreState } from '../../../../Models/reduxModel'
 import { PaymentModeAction } from '../../../../Stores/Actions/cartAction'
 import { connect } from 'react-redux'

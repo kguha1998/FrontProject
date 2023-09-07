@@ -10,7 +10,7 @@ import {
   import React, { useEffect, useState } from 'react';
   import LinearGradient from 'react-native-linear-gradient';
   
-  const OrderConfirmation = ({mode}:OrderConfirmationProps) => {
+  const OrderConfirmation = ({mode,navigation}:OrderConfirmationProps) => {
     console.log("child data",mode)
     const [selectedRadio,setSelectedRadio] =useState(2)
     
@@ -142,7 +142,8 @@ import {
           <View style={styles.modalButtons}>
           <TouchableOpacity
               style={[styles.modalButton, styles.confirmButton]}
-              onPress={handleConfirm}>
+              // onPress={() => navigation.navigate('OrderConfirmationPage')}>
+              >
               <Text style={styles.modalButtonText}>Yes</Text>
             </TouchableOpacity>
             <TouchableOpacity
@@ -199,5 +200,6 @@ import {
   export default OrderConfirmation;
   export interface OrderConfirmationProps{
     mode?:any;
+    navigation?:any;
   }
   

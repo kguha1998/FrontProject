@@ -2,7 +2,7 @@ import {View, Text} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import StepIndicator from 'react-native-step-indicator';
 import Address from './Address';
-import OrderConfirmation from './OrderConfirmation';
+import OrderConfirmation from './PaymentMode';
 import CartIndex from './CartScreen';
 
 const Cart = ({navigation}:any) => {
