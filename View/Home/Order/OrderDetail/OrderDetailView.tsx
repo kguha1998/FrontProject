@@ -33,7 +33,6 @@ const OrderDetailView = ({navigation,route}:OrderDetailViewProps) => {
 }
 
 export default OrderDetailView
-
 const styles = StyleSheet.create({
     button: {
         marginTop:50,
