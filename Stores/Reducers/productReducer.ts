@@ -12,6 +12,8 @@ export default function ProductReducer(
       return {...state, product_detail: action.payload};
     case ProductActionTypes.CommodityList_Success_Action:
       return {...state, commodity_detail: action.payload};
+    case ProductActionTypes.AddToCart_Success_Action:
+      return {...state, Store_Product: action.payload};  
     default:
       return state;
   }
