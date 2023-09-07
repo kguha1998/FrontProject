@@ -1,11 +1,19 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {View, Text, TouchableOpacity} from 'react-native';
 import Collapsible from 'react-native-collapsible';
 import {ScrollView} from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-const CartMain = ({data}: CartMainProps) => {
-  if (!data || !data.products || data.products.length === 0) {
+const CartMain = ({ data }: CartMainProps) => {
+  const [collapsed, setCollapsed] = useState(true);
+
+  useEffect(() => {
+    if (data) {
+      // console.log('Data received:', data); // Ensure you're receiving the data correctly
+    }
+  }, [data]);
+
+  if (!data || !data.product || data.product.length === 0) {
     return (
       <View>
         <Text>No items in the cart</Text>
@@ -13,19 +21,18 @@ const CartMain = ({data}: CartMainProps) => {
     );
   }
 
-  const totalPrice = data.products.reduce((total: any, item: any) => {
-    return total + item.quantity * item.product_price;
-  }, 0);
-
-  const [Collapsed, setCollapsed] = React.useState(true);
+  const totalPrice = data.totalPrice;
   const toggleExpand = () => {
-    setCollapsed(!Collapsed);
+    setCollapsed(!collapsed);
   };
 
   return (
     <View>
-    <View style={{flexDirection:'row',marginLeft:7}} ><View style={{marginTop:22,}}><Icon name="timer-outline" style={{color: 'black'}} size={20} /></View>
-    <View style={{marginLeft:5}}><Text style={{
+      <View style={{ flexDirection: 'row', marginLeft: 7 }}>
+        <View style={{ marginTop: 22 }}>
+          <Icon name="timer-outline" style={{ color: 'black' }} size={20} />
+        </View>
+        <View style={{ marginLeft: 5 }}><Text style={{
     alignSelf: 'center',
     textAlign: 'left',
     marginTop: 20,
@@ -55,7 +62,7 @@ const CartMain = ({data}: CartMainProps) => {
         }}>
         ITEMS ADDED
       </Text>
-      {data.products.map((item: any) => (
+      {data.product.map((item: any) => (
         <View
           key={item.product_id}
           style={{
@@ -87,7 +94,7 @@ const CartMain = ({data}: CartMainProps) => {
                 fontSize: 15,
                 fontWeight: '500',
               }}>
-              Box Price:200
+              Box Price:{item.mrp}
             </Text>
           </View>
           </View>
@@ -120,7 +127,7 @@ const CartMain = ({data}: CartMainProps) => {
                   fontWeight: '500',
                   fontSize: 15,
                 }}>
-                Total Price: ₹{item.quantity * item.product_price}
+                Total Price: ₹{item.quantity * item.selling_price}
               </Text>
             </View>
             <View style={{marginLeft: 10, marginTop: 10}}>
@@ -152,7 +159,7 @@ const CartMain = ({data}: CartMainProps) => {
             <TouchableOpacity onPress={toggleExpand}>
               <Text style={{fontWeight: 'bold'}}>Show Items</Text>
             </TouchableOpacity>
-            <Collapsible collapsed={Collapsed}>
+            <Collapsible collapsed={collapsed}>
               <View style={{width: '100%'}}>
                 <Text>tomato</Text>
                 <Text>tomato</Text>
@@ -218,7 +225,7 @@ const CartMain = ({data}: CartMainProps) => {
               fontSize: 15,
               marginLeft:278,
             }}>
-            10%
+            {data.totalDiscountPercentage}%
           </Text>
         </View>
         <View style={{flexDirection: 'row'}}>
@@ -233,7 +240,7 @@ const CartMain = ({data}: CartMainProps) => {
               fontSize: 15,
               marginLeft: 220,
             }}>
-            500
+            {data.totalDiscount}
           </Text>
         </View>
         <View style={{flexDirection: 'row'}}>
@@ -248,7 +255,7 @@ const CartMain = ({data}: CartMainProps) => {
               fontSize: 15,
               marginLeft: 260,
             }}>
-            ₹{totalPrice}
+            ₹{data.totalPrice}
           </Text>
         </View>
       </View>

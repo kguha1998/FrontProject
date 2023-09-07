@@ -1,5 +1,5 @@
-export const BaseUrl = 'http://192.168.1.26:3000/api/v1';
-//export const BaseUrl = 'http://192.168.1.15:3000/api/v1';
+//export const BaseUrl = 'http://192.168.1.26:3000/api/v1';
+export const BaseUrl = 'http://192.168.1.15:3000/api/v1';
 
 export const environment = {
   url: {
