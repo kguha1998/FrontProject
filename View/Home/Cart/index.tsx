@@ -1,19 +1,11 @@
 import {View, Text} from 'react-native';
 import React, {useState} from 'react';
-// import { createStackNavigator } from '@react-navigation/stack';
-// import Address from './Address';
-// import OrderConfirmation from './OrderConfirmation';
-// import OrderSummary from './OrderSummary';
 import StepIndicator from 'react-native-step-indicator';
-import Swiper from 'react-native-swiper';
-import {createStackNavigator} from '@react-navigation/stack';
-import CartScreen from './CartScreen';
 import Address from './Address';
 import OrderConfirmation from './OrderConfirmation';
 import CartIndex from './CartScreen';
 
-const Cart = () => {
-
+const Cart = ({navigation}:any) => {
   const [step, setStep] = useState<number>(0);
   console.log(step);
 
@@ -53,7 +45,7 @@ const Cart = () => {
       {step == 0 ? (
         <CartIndex setStep={setStep} />
       ) : step == 1 ? (
-        <Address setStep={setStep}/>
+        <Address setStep={setStep} navigation={navigation}/>
       ) : (
         <OrderConfirmation/>
       )}

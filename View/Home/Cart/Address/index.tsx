@@ -8,7 +8,8 @@ import { addressList, userDetail } from '../../../../Models/User';
 import CartAddressList from './CartAddressList';
 
 
-const Address = ({route,user,address,AddressListAction,props,setStep}:AddressListProps) => {
+const Address = ({route,user,address,AddressListAction,props,setStep, navigation}:AddressListProps) => {
+  console.log("i am in address ",navigation)
   const[address1,updateaddress]=useState<any>([])
   useEffect(()=>{
     AddressListAction(user?.customer_id);
@@ -46,7 +47,7 @@ const handleAddressSelection = (addressId:any) => {
     </Text>
   </LinearGradient>
     <View>
-    <CartAddressList address={address}  handleAddressSelection={handleAddressSelection} />
+    <CartAddressList address={address}  handleAddressSelection={handleAddressSelection}  navigation={navigation}/>
    
   
     </View>
