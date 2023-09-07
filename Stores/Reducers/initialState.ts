@@ -19,6 +19,7 @@ const InitialState: StoreState = {
   product: {
     product_detail: [],
     commodity_detail: undefined,
+    Store_Product: undefined
   },
   CartMain: {
     cartdata: undefined,

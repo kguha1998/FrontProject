@@ -44,7 +44,7 @@ interface ChooseBoxViewPorps{
 }
 
 const ProductBox =({navigation,route,item}: ProductBoxporps)=>{ 
-  console.log(navigation)
+  
   return( 
       <View style={{ marginTop:10,marginLeft:20,marginRight:20, borderRadius:10, borderWidth: 1, borderColor: 'orange',elevation: 10,
               backgroundColor: 'white',marginBottom:50,}}>
