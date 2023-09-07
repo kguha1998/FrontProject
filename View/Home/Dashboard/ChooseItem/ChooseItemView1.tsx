@@ -14,6 +14,8 @@ import Icon from 'react-native-vector-icons/Ionicons';
 const ChooseItemView1 = ({
   navigation,
   productDetails,
+  AddToCartAction,
+  AddToCart
   
 }: ChooseItemView1porps) => {
   
@@ -28,11 +30,14 @@ const ChooseItemView1 = ({
       setCart(newCart); 
     };
 
-    const handleRemoveItemFromCart = (itemToRemove: string) => {
-      const updatedCart = cart.filter((item:any) => item !== itemToRemove);
-      setCart(updatedCart);
+    const handleRemoveItemFromCart = (itemToRemove: any) => {
+      setCart(cart.filter((item:any) => item !== itemToRemove));
     };
-  
+
+    const GoToCart= () =>{
+      AddToCart(cart)
+    }
+   
   return (
     <View style={{}}>
       <LinearGradient
@@ -73,10 +78,6 @@ const ChooseItemView1 = ({
             <View style={styles.container}>
              {productDetails && (
               <View>
-            {/* <Text style={{height:20,width:20,color:'black'}}>Product Name: {productDetails.product_name}</Text>
-          <Text>Product Description: {productDetails.product_desc}</Text>
-          <Text>Max Allowed Items: {productDetails.max_allowed_items}</Text>
-          <Text>Commodity Types:</Text> */}
                  {productDetails.comodity_item.map(
                      (commodityType: any, index: any): any => (
                      <View key={index} >
@@ -89,6 +90,7 @@ const ChooseItemView1 = ({
                         setExpandedCommodityTypeIndex(index);
                       }
                     }}>
+                      
                      <View> 
                       <Text style={styles.commodityTypeName}>
                       {commodityType.commodity_type_name}
@@ -115,17 +117,16 @@ const ChooseItemView1 = ({
                           <TouchableOpacity
                             style={styles.button}
                             onPress={() => {
-                              console.log("inside",commodity.commodity_name)
-                              handleAddToCart(commodity.commodity_name);
+                              handleAddToCart(commodity.commodity_id);
                             }}>
-                            <Text style={styles.buttonText}>Add to cart</Text>
+                            <Text style={styles.buttonText}>Add</Text>
                           </TouchableOpacity>
                           </View>
                           <View style={{marginLeft:170}}>
                           <TouchableOpacity
                             style={styles.button}
                             onPress={() => {
-                              handleRemoveItemFromCart (commodity.commodity_name);
+                              handleRemoveItemFromCart (commodity.commodity_id);
                             }}>
                             <Text style={styles.buttonText}>Remove</Text>
                           </TouchableOpacity>
@@ -142,7 +143,17 @@ const ChooseItemView1 = ({
                      </View>
               ),
             )}
-          </View>
+                     
+                            <TouchableOpacity
+                            style={styles.Cartbutton}
+                            onPress={() => {navigation.navigate('Cart')
+                              GoToCart() 
+                            ;
+                            }}>
+                            <Text style={styles.buttonText}>Add To Cart</Text>
+                          </TouchableOpacity>
+                         
+              </View>
         )}
             </View>
          </View>
@@ -208,6 +219,16 @@ const styles = StyleSheet.create({
     color: '#Ff8f00',
     fontWeight: '400',
   },
+  Cartbutton: {
+    backgroundColor: 'white',
+    borderRadius: 100,
+    padding: 2,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderColor: 'orange',
+    borderWidth: 1,
+    elevation:5
+  }
 });
 
 export default ChooseItemView1;
@@ -215,5 +236,13 @@ interface ChooseItemView1porps {
   navigation?: any;
   route?: any;
   productDetails?: any;
-  CartScreen?:any
+  CartScreen?:any;
+  AddToCartAction?:any;
+  AddToCart?:any,
+  GoToCart?:any
+  
 }
+function AddToCart() {
+  throw new Error('Function not implemented.');
+}
+

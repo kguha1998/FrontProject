@@ -4,7 +4,8 @@ import { ApiCallErrorAction, BeginApiCallAction } from "./apiStatusActions";
 
 export enum ProductActionTypes {
     ProductList_Success_Action = '[ORDER] ProductList Success Action',
-    CommodityList_Success_Action = '[ORDER] CommodityList Success Action'
+    CommodityList_Success_Action = '[ORDER] CommodityList Success Action',
+    AddToCart_Success_Action = '[ORDER] AddToCart Success Action'
 }
  
   export const ProductListAction = (payload: any) => {
@@ -69,5 +70,17 @@ export enum ProductActionTypes {
       payload: payload,
     };
   };
-  
-  
+
+  export const AddToCartAction = (payload: any) => {
+    return (dispatch: any, getState: any) => {
+      
+        dispatch(AddToCartSuccessAction(payload));
+          }
+        }
+   
+  export const AddToCartSuccessAction = (payload: any) => {
+    return {
+      type:ProductActionTypes.AddToCart_Success_Action,
+      payload: payload,
+    };
+  };
