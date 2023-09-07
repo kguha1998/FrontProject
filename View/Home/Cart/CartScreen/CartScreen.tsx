@@ -1,11 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import Collapsible from 'react-native-collapsible';
 import { ScrollView } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 const CartMain = ({ data }: CartMainProps) => {
-  if (!data || !data.products || data.products.length === 0) {
+  const [collapsed, setCollapsed] = useState(true);
+console.log("i am in cartmain",data)
+  const toggleExpand = () => {
+    setCollapsed(!collapsed);
+  };
+
+  // Check if data is available and contains products
+  if (!data || !data.product || data.product.length === 0) {
     return (
       <View>
         <Text>No items in the cart</Text>
@@ -13,17 +20,13 @@ const CartMain = ({ data }: CartMainProps) => {
     );
   }
 
-  const totalPrice = data.products.reduce((total:any, item:any) => {
-    return total + item.quantity * item.product_price;
+  const totalPrice = data.product.reduce((total:any, item:any) => {
+    return total + item.quantity * item.selling_price;
   }, 0);
-
-  const [Collapsed, setCollapsed] = React.useState(true);
-    const toggleExpand = () => {
-      setCollapsed(!Collapsed)}
 
   return (
     <View>
-      {data.products.map((item: any) => (
+      {data.product.map((item:any) => (
         <View
           key={item.product_id}
           style={{
@@ -34,7 +37,6 @@ const CartMain = ({ data }: CartMainProps) => {
             flexDirection: 'column',
           }}
         >
-          
           <View>
             <Text
               style={{
@@ -42,7 +44,7 @@ const CartMain = ({ data }: CartMainProps) => {
                 marginLeft: 15,
                 color: 'black',
                 fontSize: 20,
-                fontWeight: '500'
+                fontWeight: '500',
               }}
             >
               {item.product_name}
@@ -55,7 +57,7 @@ const CartMain = ({ data }: CartMainProps) => {
               marginLeft: 15,
               backgroundColor: 'white',
               width: '92%',
-              marginRight:50
+              marginRight: 50,
             }}
           >
             <Text
@@ -63,10 +65,10 @@ const CartMain = ({ data }: CartMainProps) => {
                 marginTop: 20,
                 color: 'black',
                 marginLeft: 10,
-                fontSize:15
+                fontSize: 15,
               }}
             >
-              Quantity: {item.quantity}
+              Quantity: {item.quantity}{/* needs to be rectfied*/ }
             </Text>
 
             <View>
@@ -79,43 +81,49 @@ const CartMain = ({ data }: CartMainProps) => {
                   fontSize: 15,
                 }}
               >
-                Total Price: ₹{item.quantity * item.product_price}
+                Total Price: ₹{item.quantity * item.selling_price}
               </Text>
             </View>
-            <View style={{ marginLeft: 10,marginTop:15}}>
-            <TouchableOpacity
-              // onPress={() => removeFromCart()}
-              style={{
-                borderRadius: 100,
-                width: 80,
-                alignSelf: 'center',
-                alignItems: 'center',
-                paddingVertical: 5,
-                paddingHorizontal:10,
-                marginLeft: 5,
-              }}>
-            
-              <Icon name="trash-outline" style={{color:'black'}} size={(20)} />
-            </TouchableOpacity>
+            <View style={{ marginLeft: 10, marginTop: 15 }}>
+              <TouchableOpacity
+                // onPress={() => removeFromCart()}
+                style={{
+                  borderRadius: 100,
+                  width: 80,
+                  alignSelf: 'center',
+                  alignItems: 'center',
+                  paddingVertical: 5,
+                  paddingHorizontal: 10,
+                  marginLeft: 5,
+                }}
+              >
+                <Icon name="trash-outline" style={{ color: 'black' }} size={20} />
+              </TouchableOpacity>
+            </View>
           </View>
-         
-          </View>
-          <ScrollView  style={{flex:1,
+          <ScrollView
+            style={{
+              flex: 1,
               flexDirection: 'column',
               marginLeft: 25,
               backgroundColor: 'white',
               width: '90%',
-              marginRight:50,
-              marginTop:10
-            }}><TouchableOpacity onPress={toggleExpand} ><Text style={{fontWeight:'bold'}}>Show Items</Text></TouchableOpacity>
-            <Collapsible collapsed={Collapsed}>
-                          <View style={{width:'100%'}}>
-                                        <Text>tomato</Text>
-                                        <Text>tomato</Text>
-                                        <Text>tomato</Text>
-                                        <Text>tomato</Text>
-                                        <Text>tomato</Text>
-                                          </View></Collapsible></ScrollView>
+              marginRight: 50,
+              marginTop: 10,
+            }}
+          >
+            <TouchableOpacity onPress={toggleExpand}>
+              <Text style={{ fontWeight: 'bold' }}>Show Items</Text>
+            </TouchableOpacity>
+            <Collapsible collapsed={collapsed}>
+              <View style={{ width: '100%' }}>
+                {/* Render the items */}
+                {item.commodities.map((commodity:any, index:any) => (
+                  <Text key={index}>{commodity}</Text>
+                ))}
+              </View>
+            </Collapsible>
+          </ScrollView>
         </View>
       ))}
 
@@ -128,38 +136,41 @@ const CartMain = ({ data }: CartMainProps) => {
           flexDirection: 'column',
         }}
       >
-        <View style={{marginTop:5}}>
+        <View style={{ marginTop: 5 }}>
           <Text
             style={{
               marginTop: 5,
               color: 'black',
               fontSize: 20,
               fontWeight: 'bold',
-              marginLeft:5
-              
+              marginLeft: 5,
             }}
           >
             Bill Details
           </Text>
         </View>
-        <View style={{ flexDirection: 'row'}}>
-          <Text style={{ marginTop: 7, color: 'black', fontSize: 15,marginLeft:5 }}>
+        <View style={{ flexDirection: 'row' }}>
+          <Text style={{ marginTop: 7, color: 'black', fontSize: 15, marginLeft: 5 }}>
             Discount
           </Text>
-          <Text style={{ marginTop: 7, color: 'black', fontSize: 15,marginLeft: 285 }}>
-            20%
-          </Text></View>
-          <View style={{ flexDirection: 'row'}}><Text style={{ marginTop: 7, color: 'black', fontSize: 15,marginLeft:5 }}>
+          <Text style={{ marginTop: 7, color: 'black', fontSize: 15, marginLeft: 285 }}>
+            {data.totalDiscountPercentage}%
+          </Text>
+        </View>
+        <View style={{ flexDirection: 'row' }}>
+          <Text style={{ marginTop: 7, color: 'black', fontSize: 15, marginLeft: 5 }}>
             Discount Amount
           </Text>
-          <Text style={{ marginTop: 7, color: 'black', fontSize: 15,marginLeft: 220 }}>
-            500
-          </Text></View>
-          <View style={{ flexDirection: 'row'}}><Text style={{ marginTop: 7, color: 'black', fontSize: 15,marginLeft:5 }}>
+          <Text style={{ marginTop: 7, color: 'black', fontSize: 15, marginLeft: 220 }}>
+            {data.totalDiscount}
+          </Text>
+        </View>
+        <View style={{ flexDirection: 'row' }}>
+          <Text style={{ marginTop: 7, color: 'black', fontSize: 15, marginLeft: 5 }}>
             Final Price:
           </Text>
-          <Text style={{ marginTop: 7, color: 'black', fontSize: 15,marginLeft: 250 }}>
-          ₹{totalPrice}
+          <Text style={{ marginTop: 7, color: 'black', fontSize: 15, marginLeft: 250 }}>
+            ₹{data.totalPrice}
           </Text>
         </View>
       </View>
@@ -171,4 +182,5 @@ export default CartMain;
 
 export interface CartMainProps {
   data?: any;
+  //updateState?:any;
 }
