@@ -9,7 +9,7 @@ import Swiper from 'react-native-swiper';
 import {createStackNavigator} from '@react-navigation/stack';
 import CartScreen from './CartScreen';
 import Address from './Address';
-import OrderConfirmation from './OrderConfirmation';
+import OrderConfirmation from './PaymentMode';
 import CartIndex from './CartScreen';
 
 const Cart = () => {
