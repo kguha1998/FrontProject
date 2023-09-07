@@ -13,6 +13,7 @@ import OrderConfirmation from './OrderConfirmation';
 import CartIndex from './CartScreen';
 
 const Cart = () => {
+
   const [step, setStep] = useState<number>(0);
   console.log(step);
 
@@ -57,6 +58,7 @@ const Cart = () => {
         <OrderConfirmation/>
       )}
     </View>
+    
   );
 };
 

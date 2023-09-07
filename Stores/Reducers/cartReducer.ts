@@ -10,6 +10,8 @@ export default function CartReducer(
   switch (action.type) {
     case CartItemsActionTypes.CartItem_Success_Action:
       return {...state, cartdata: action.payload};
+    case CartItemsActionTypes.PaymentMode_Success_Action:
+      return {...state, PaymentMode: action.payload};
     default:
       return state;
   }
