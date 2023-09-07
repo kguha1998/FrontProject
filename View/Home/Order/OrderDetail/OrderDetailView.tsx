@@ -35,49 +35,17 @@ const OrderDetailView = ({ navigation, route }: OrderDetailViewProps) => {
           Order Detail
         </Text>
       </LinearGradient>
-
-      <View style={styles.box}>
-        <TouchableOpacity onPress={toggleModal}>
-          <Image
-            source={{
-              uri: 'https://cdn2.iconfinder.com/data/icons/shopping-378/100/shopping-cart-full-shopping-carts-goods-bag-box-product-512.png',
-            }}
-            style={{ width: 150, height: 150, resizeMode: 'contain' }}
-          />
-          <Text style={styles.text}>Product Box</Text>
-        </TouchableOpacity>
-      </View>
-
-      <Modal
-        animationType="slide"
-        transparent={true}
-        visible={isModalVisible}
-        onRequestClose={toggleModal}>
-        <View style={styles.modalContainer}>
-          <View style={styles.modalContent}>
-            <Text>CAPSICUM GREEN</Text>
-            <Text>BABY PUMPKIN</Text>
-            <Text>RED TOMATO</Text>
-            <Text>RED AMARANTHUS </Text>
-            <Text>SPINACH</Text>
-            <Text>BRINJAL</Text>
-            <TouchableOpacity onPress={toggleModal}>
-              <Text style={styles. close_button}>Close</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      </Modal>
-
-      <View>
-        <TouchableOpacity
-          onPress={() => navigation.navigate('OrderList')}
-          style={styles.button}>
-          <Text>Go back to Order List Page</Text>
-        </TouchableOpacity>
-      </View>
+    <TouchableOpacity onPress={()=>navigation.navigate('OrderList')} 
+    style={styles.button}>
+        <Text>
+          Go back to Order List Page
+        </Text>
+    </TouchableOpacity>
     </View>
-  );
-};
+  )
+}
+
+
 
 const styles = StyleSheet.create({
   button: {
