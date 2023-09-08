@@ -87,7 +87,7 @@ const Signup = ({navigation,SignupAction}:SignupProps)  => {
   const mapStateToProps = (state: StoreState, ownProps: any) => {
     return {
       user: state.user.user_detail,
-      error: state.user.SignupError,
+    
     };
   };
   const mapDispatchToProps = {
