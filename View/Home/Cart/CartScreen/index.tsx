@@ -1,5 +1,5 @@
 import { View, Text, TouchableOpacity, Dimensions } from 'react-native'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import CartMain from './CartScreen'
 import LinearGradient from 'react-native-linear-gradient'
 import { ScrollView } from 'react-native-gesture-handler'
@@ -10,24 +10,22 @@ import { userDetail } from '../../../../Models/User'
 import { cartdata, cartitem, product } from '../../../../Models/Cart'
 import { useFocusEffect } from '@react-navigation/native'
 
-const CartIndex = ({setStep,CartItemAction,data }: CartIndexProps) => {
- 
+const CartIndex = ({setStep,CartItemAction,data,defaultProductData,updateState  }: CartIndexProps) => {
+  //const [fetchedData, setFetchedData] = useState({});
   useFocusEffect(React.useCallback(()=>{
-    const defaultProductData  =  [
-      {
-        product_id: 66,
-        quantity: 2,
-        commodities: [1, 2, 3],
-      },
-      {
-        product_id: 67,
-        quantity: 1,
-        commodities: [1, 2, 3],
-      },
-    ]
-    CartItemAction(defaultProductData);
-   // console.log("i am component",data);
-  },[]))
+   CartItemAction(defaultProductData);
+  //  setTimeout(() => {
+  //   const fetchedData = { data };
+  //   setFetchedData(fetchedData);
+  // }, 1000);
+  },[CartItemAction]))
+  useEffect(() => {
+    if (data) {
+      // If data has been fetched, update the state and send it to the parent
+      updateState(data);
+    }
+  }, [data, updateState]);
+
 
   return (
     <ScrollView>
@@ -52,7 +50,7 @@ const CartIndex = ({setStep,CartItemAction,data }: CartIndexProps) => {
             CART
           </Text>
         </LinearGradient>
-        <View><CartMain  data={data}/></View>
+        <View><CartMain  data={data} /></View>
         
     <View>
       <TouchableOpacity
@@ -74,10 +72,11 @@ const CartIndex = ({setStep,CartItemAction,data }: CartIndexProps) => {
     )
 }
 const mapStateToProps = (state: StoreState, ownProps: any) => {
-  //console.log(state);
+
   return {
     user: state.user.user_detail,
     data: state.CartMain.cartdata,
+    defaultProductData :state.product.Store_Product,
   };
 };
 const mapDispatchToProps = {
@@ -94,4 +93,5 @@ export interface CartIndexProps{
   cartMain?: cartdata[];
   CartItemAction?:any;
   data?: any;
+  updateState?:any;
 }
