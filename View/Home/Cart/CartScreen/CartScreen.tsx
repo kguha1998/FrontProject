@@ -1,3 +1,4 @@
+import { useFocusEffect } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
 import {View, Text, TouchableOpacity} from 'react-native';
 import Collapsible from 'react-native-collapsible';
@@ -7,11 +8,12 @@ import Icon from 'react-native-vector-icons/Ionicons';
 const CartMain = ({ data }: CartMainProps) => {
   const [collapsed, setCollapsed] = useState(true);
 
-  useEffect(() => {
+  useFocusEffect(
+    React.useCallback(() => {
     if (data) {
       // console.log('Data received:', data); // Ensure you're receiving the data correctly
     }
-  }, [data]);
+  }, [data]));
 
   if (!data || !data.product || data.product.length === 0) {
     return (
