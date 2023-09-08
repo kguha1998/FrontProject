@@ -37,6 +37,8 @@ export default function LoadingReducer(
         return {...state, count: state.count > 0 ? state.count - 1 : 0};
     case ProductActionTypes.CommodityList_Success_Action:
         return {...state, count: state.count > 0 ? state.count - 1 : 0};
+    case ProductActionTypes.AddToCart_Success_Action:
+        return {...state, count: state.count > 0 ? state.count - 1 : 0};    
     case UserActionTypes.Address_Delete_Success_Action:
       return {...state, count: state.count > 0 ? state.count - 1 : 0};
     case UserActionTypes.User_Detail_Edit_Success_Action:

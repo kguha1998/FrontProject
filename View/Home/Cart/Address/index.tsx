@@ -8,7 +8,8 @@ import { addressList, userDetail } from '../../../../Models/User';
 import CartAddressList from './CartAddressList';
 
 
-const Address = ({route,user,address,AddressListAction,props,setStep}:AddressListProps) => {
+const Address = ({route,user,address,AddressListAction,props,setStep, navigation,updateAddressId}:AddressListProps) => {
+  
   const[address1,updateaddress]=useState<any>([])
   useEffect(()=>{
     AddressListAction(user?.customer_id);
@@ -20,9 +21,10 @@ const Address = ({route,user,address,AddressListAction,props,setStep}:AddressLis
 const handleAddressSelection = (addressId:any) => {
   // Do something with the selected addressId in the parent component
   console.log(`Selected Address ID: ${addressId}`);
+  updateAddressId({ customer_id: user?.customer_id, address_id: addressId });
+
 };
 
-// Render the CartAddressList component and pass the callback function as a prop
 
 
   
@@ -46,7 +48,7 @@ const handleAddressSelection = (addressId:any) => {
     </Text>
   </LinearGradient>
     <View>
-    <CartAddressList address={address}  handleAddressSelection={handleAddressSelection} />
+    <CartAddressList address={address}  handleAddressSelection={handleAddressSelection}  navigation={navigation}/>
    
   
     </View>
@@ -91,4 +93,6 @@ interface AddressListProps {
   props?:any;
   setStep:(step :2) =>void;
   handleAddressSelection?:any
+  updateAddressId?:any
 }
+

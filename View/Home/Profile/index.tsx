@@ -19,7 +19,7 @@ const Profile = () => {
        <Stack.Screen name="AddressList" component={AddressList} />
        <Stack.Screen name="AddressEdit" component={AddressEdit} />
        <Stack.Screen name="AddressAdd" component={AddressAdd} />
-       <Stack.Screen name="OrderHistory" component={OrderHistory} />
+       
     </Stack.Navigator>
   )
 }

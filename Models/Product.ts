@@ -1,6 +1,7 @@
 export interface ProductListMain {
     product_detail?: ProductDetail[];
     commodity_detail?:chooseItem;
+    Store_Product?:storeProduct;
   }
   
   export interface ProductDetail {
@@ -36,4 +37,13 @@ export interface ProductListMain {
     commodity_name: string
     quantity: number
     measurement_unit: string
+  }
+
+export interface storeProduct{
+  products:[{
+    quantity:number,
+    product_id:number,
+    commodities:[]
+  }]
+    
   }

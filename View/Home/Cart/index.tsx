@@ -1,22 +1,30 @@
 import {View, Text} from 'react-native';
-import React, {useState} from 'react';
-// import { createStackNavigator } from '@react-navigation/stack';
-// import Address from './Address';
-// import OrderConfirmation from './OrderConfirmation';
-// import OrderSummary from './OrderSummary';
+import React, {useEffect, useState} from 'react';
 import StepIndicator from 'react-native-step-indicator';
-import Swiper from 'react-native-swiper';
-import {createStackNavigator} from '@react-navigation/stack';
-import CartScreen from './CartScreen';
 import Address from './Address';
-import OrderConfirmation from './OrderConfirmation';
+import OrderConfirmation from './PaymentMode';
 import CartIndex from './CartScreen';
 
-const Cart = () => {
-
+const Cart = ({navigation}:any) => {
   const [step, setStep] = useState<number>(0);
-  console.log(step);
+  const [orderdata, setorderdata] = useState<any>(null);
 
+  useEffect(() => {
+    // This effect will run whenever orderdata changes
+    console.log("Updated orderdata:", orderdata);
+  }, [orderdata]);
+
+  const updateState = (data: any) => {
+    setorderdata(data);
+  };
+
+  const updateAddressId = (data: { customer_id: number; address_id: number }) => {
+    // Assuming orderdata is an object, update both customer_id and address_id fields
+    setorderdata((prevOrderData: any) => ({
+      ...prevOrderData,
+      ...data,
+    }));
+  };
   const labels = ['Cart', 'Delivery Address', 'Order Confirmation'];
   const customStyles = {
     stepIndicatorSize: 25,
@@ -51,9 +59,9 @@ const Cart = () => {
         onPress={val => setStep(val)}
       />
       {step == 0 ? (
-        <CartIndex setStep={setStep} />
+        <CartIndex setStep={setStep}  updateState={updateState} />
       ) : step == 1 ? (
-        <Address setStep={setStep}/>
+        <Address setStep={setStep} navigation={navigation} updateAddressId={updateAddressId}/>
       ) : (
         <OrderConfirmation/>
       )}
