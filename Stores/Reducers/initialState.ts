@@ -8,9 +8,11 @@ const InitialState: StoreState = {
     user_detail: undefined,
     address_list: [],
     single_address: undefined,
+    SignupError:undefined,
   },
   error: {
     error: undefined,
+   
   },
   loading: {
     count: 0,

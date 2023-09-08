@@ -11,4 +11,5 @@ export interface StoreState {
   product: ProductListMain;
   loading: LoadingState;
   error: ErrorState;
+  
 }

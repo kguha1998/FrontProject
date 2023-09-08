@@ -6,6 +6,7 @@ import { StoreState } from '../../../../Models/reduxModel'
 import { connect } from 'react-redux'
 import { userDetail } from '../../../../Models/User'
 import { UserDetailEditAction } from '../../../../Stores/Actions/userAction'
+import { useFocusEffect } from '@react-navigation/native'
 
 const EditProfile = ({navigation,route,user,UserDetailEditAction}:EditProfileProps) => {
 
@@ -18,6 +19,7 @@ const EditProfile = ({navigation,route,user,UserDetailEditAction}:EditProfilePro
     const payload={
       id:id,
       data:data,
+      navigation:navigation,
        }
     UserDetailEditAction(payload);
 };
