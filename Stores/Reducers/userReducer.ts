@@ -2,6 +2,7 @@ import {UserMain} from '../../Models/User';
 import {UserActionTypes} from '../Actions/userAction';
 import InitialState from './initialState';
 
+
 const initialState: UserMain = InitialState.user;
 export default function UserReducer(
   state: UserMain = initialState,
@@ -14,8 +15,15 @@ export default function UserReducer(
         return {...state, address_list: action.payload};
     case UserActionTypes.Address_Fetch_Success_Action:
         return {...state, single_address: action.payload};
+    case UserActionTypes.User_Detail_Edit_Success_Action:
+      console.log("From Reducer",action.payload)
+      return { ...state, user_detail: { ...state.user_detail, ...action.payload } };
+
+     
+     // return {...state, user_detail:action.payload};   
     case UserActionTypes.Logout_Success_Action:
         return InitialState;
+  
     default:
       return state;
   }

@@ -1,12 +1,16 @@
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Dimensions, Image, ImageBackground, Modal } from 'react-native'
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import LinearGradient from 'react-native-linear-gradient';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { userDetail } from '../../../../Models/User';
 
 const ProfileMainView = ({navigation,Logout,user}:ProfileViewProps) => {
+
   const [isPopoverVisible, setPopoverVisible] = useState(false);
 
+
+
+  
     
  // console.log(user?.customer_name);
     const handleRemovePress = () => {
@@ -18,7 +22,7 @@ const ProfileMainView = ({navigation,Logout,user}:ProfileViewProps) => {
     };
   
     const handleConfirm = () => {
-      Logout();
+        Logout();
      // setPopoverVisible(false);
     };
   return (
@@ -75,7 +79,8 @@ const ProfileMainView = ({navigation,Logout,user}:ProfileViewProps) => {
           fontSize: 15,
           color: '#fa8b0c',
           textAlign: 'center'}}>
-          {user?.customer_phone}</Text>
+          {user?.customer_phone}
+          </Text>
       
         </View> 
         <ScrollView>
