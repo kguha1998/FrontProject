@@ -16,7 +16,7 @@ const OrderConfirmation = ({ mode }: OrderConfirmationProps) => {
   const [selectedRadio, setSelectedRadio] = useState(2);
   const [paymentMethod, setPaymentMethod] = useState("apple");
   const [isPopoverVisible, setPopoverVisible] = useState(false);
-
+  const [isInnerPopoverVisible, setInnerPopoverVisible] = useState(false);
   useEffect(() => {
     if (mode && mode.length > 0 && mode[0].domain_type) {
       setPaymentMethod(mode[0].domain_type);
@@ -34,7 +34,7 @@ const OrderConfirmation = ({ mode }: OrderConfirmationProps) => {
   const handleConfirm = () => {
     // Add your logic to confirm the order here
     // After confirming the order, you can close the modal
-    setPopoverVisible(false);
+    // setPopoverVisible(false);
   };
 
   // Handle Android back button when the modal is open
@@ -135,7 +135,7 @@ const OrderConfirmation = ({ mode }: OrderConfirmationProps) => {
             alignSelf: 'center',
             alignItems: 'center',
             paddingVertical: 5,
-            marginTop: 350,
+            marginTop: 40,
             marginBottom: 30,
             backgroundColor: '#fa8b0c',
           }}>
@@ -148,22 +148,43 @@ const OrderConfirmation = ({ mode }: OrderConfirmationProps) => {
           visible={isPopoverVisible}>
           <View style={styles.modalContainer}>
             <View style={styles.modalContent}>
-              <Text>Are you sure you want to confirm the order?</Text>
+              <Text style={{fontWeight:'bold'}}>Are you sure you want to confirm the order?</Text>
               <View style={styles.modalButtons}>
                 <TouchableOpacity
                   style={[styles.modalButton, styles.confirmButton]}
                   onPress={handleConfirm}>
                   <Text style={styles.modalButtonText}>Yes</Text>
                 </TouchableOpacity>
+                
                 <TouchableOpacity
                   style={[styles.modalButton, styles.cancelButton]}
                   onPress={handleCancel}>
                   <Text style={styles.modalButtonText}>Cancel</Text>
                 </TouchableOpacity>
+                
               </View>
             </View>
           </View>
         </Modal>
+
+         <Modal
+        animationType="fade"
+        transparent={true}
+        visible={isInnerPopoverVisible}>
+        <View style={styles.modalContainer}>
+          <View style={styles.modalContent}>
+            <Text style={{ fontWeight: 'bold' }}>Inner Popover Content</Text>
+            <View style={styles.modalButtons}>
+              <TouchableOpacity
+                style={[styles.modalButton, styles.confirmButton]}
+                // onPress={handleInnerPopoverCancel}
+                >
+                <Text style={styles.modalButtonText}>Close</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
+      </Modal>
       </View>
     </View>
   );
