@@ -50,7 +50,7 @@ const AddressListView = ({navigation,address,AddressDelete}:AddressListViewProps
       </TouchableOpacity>
       </View> 
         {
-          address.map((m:any)=> (
+          address?.map((m:any)=> (
             <AddressNew key={m.address_id} item={m} navigation={navigation} AddressDelete={AddressDelete}  />
           ))
         }
