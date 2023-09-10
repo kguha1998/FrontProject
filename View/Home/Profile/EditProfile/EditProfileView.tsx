@@ -18,8 +18,8 @@ const EditProfileView = ({navigation,route,EditUserDetail}:EditProfileViewProps)
 
   const onSubmit=(data: any)=>{
     EditUserDetail(data);
-    ToastAndroid.show('Details Updated!', ToastAndroid.LONG);
-    navigation.navigate('ProfileMain');
+  //   ToastAndroid.show('Details Updated!', ToastAndroid.LONG);
+  //  navigation.navigate('ProfileMain');
   }
   return (
     <View>

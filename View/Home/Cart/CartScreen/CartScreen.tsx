@@ -1,8 +1,8 @@
+import { useFocusEffect } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
 import Collapsible from 'react-native-collapsible';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { useFocusEffect } from '@react-navigation/native';
 
 
 const CartMain = ({ data, incrementQuantity, decrementQuantity  }: CartMainProps) => {

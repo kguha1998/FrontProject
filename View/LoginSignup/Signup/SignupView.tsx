@@ -6,7 +6,7 @@ import LinearGradient from 'react-native-linear-gradient';
 
 
 
-const SignupView = ({navigation,route,Signup}:SignupViewProps) => {
+const SignupView = ({navigation,Signup}:SignupViewProps) => {
   const {
     control,
     handleSubmit,
@@ -16,10 +16,24 @@ const SignupView = ({navigation,route,Signup}:SignupViewProps) => {
   } = useForm();
 
   const onSubmit=(data: any)=>{
-   Signup(data);
-   ToastAndroid.show('Signup successful!', ToastAndroid.LONG);
-   navigation.navigate('Login');
+    
+     
+    // if(error===undefined){
+    //   ToastAndroid.show('User Already Exists!', ToastAndroid.LONG);
+    // }else{
+    Signup(data,navigation);
+  
+
   }
+/*   if (error){
+  
+    ToastAndroid.show('Allready Register!', ToastAndroid.LONG);
+    navigation.navigate('Login');
+   }
+   else{
+    ToastAndroid.show('Successfully Signup!', ToastAndroid.LONG);
+    navigation.navigate('Login');
+  } */
   // const onSubmit = async (data: any) => {
   //   // Assuming Signup is an async function that returns a success flag
   //   const signupSuccess = await Signup(data);
@@ -34,6 +48,7 @@ const SignupView = ({navigation,route,Signup}:SignupViewProps) => {
   // };
 
 
+
   const mobileVerify =()=>{
     if(!!getValues('mobile_Number') && getValues('mobile_Number').length == 10){
       console.log("service call");
@@ -43,7 +58,7 @@ const SignupView = ({navigation,route,Signup}:SignupViewProps) => {
     }
     
   }
-
+  
  return (
   <ScrollView>
   <LinearGradient
@@ -182,12 +197,16 @@ const SignupView = ({navigation,route,Signup}:SignupViewProps) => {
       {errors.conpassword && <Text>This is required.</Text>} */}
 
       <TouchableOpacity
-          onPress={handleSubmit(onSubmit)}
+           onPress={() => {
+            handleSubmit(onSubmit)();
+            
+          }}
           style={{
             borderRadius: 100,
             width: 150,
             alignSelf: 'center',
             alignItems: 'center',
+
             paddingVertical: 5,
             marginTop: 50,
             marginBottom: 10,
@@ -211,8 +230,8 @@ const SignupView = ({navigation,route,Signup}:SignupViewProps) => {
 export default SignupView;
 interface SignupViewProps{ 
     navigation?:any;
-    route?:any;
     Signup?:any;
+   
+    
 }
-
 

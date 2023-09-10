@@ -7,11 +7,12 @@ import { StoreState } from '../../../../Models/reduxModel';
 import { ProductListAction } from '../../../../Stores/Actions/productAction';
 
 
-const ChooseBox = ({navigation, route,product,ProductListAction}: ChooseBoxProps) => {
+const ChooseBox = ({navigation, route,product,ProductListAction,user}: ChooseBoxProps) => {
   const[productBox,setproductBox] =useState<any>([])
   useEffect(()=>{
     ProductListAction();
   }, []);
+ 
 
   return(
         <ChooseBoxView navigation={navigation} product={product}/>
@@ -20,7 +21,8 @@ const ChooseBox = ({navigation, route,product,ProductListAction}: ChooseBoxProps
 
       const mapStateToProps = (state: StoreState, ownProps: any) => {
         return {
-         product: state.product.product_detail
+         product: state.product.product_detail,
+        
         };
       };
       const mapDispatchToProps = {
@@ -33,4 +35,5 @@ const ChooseBox = ({navigation, route,product,ProductListAction}: ChooseBoxProps
         route?: any;
         product?:ProductDetail[];
         ProductListAction?:any;
+        user?:any
       }

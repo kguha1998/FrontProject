@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { StoreState } from '../../../../Models/reduxModel';
 import { AddToCartAction, CommodityListAction} from '../../../../Stores/Actions/productAction';
-import ChooseItemView from './ChooseItemView';
 import ChooseItemView1 from './ChooseItemView1';
 
 
