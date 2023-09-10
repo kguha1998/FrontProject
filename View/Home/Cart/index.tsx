@@ -59,11 +59,11 @@ const Cart = ({navigation}:any) => {
         onPress={val => setStep(val)}
       />
       {step == 0 ? (
-        <CartIndex setstep={setStep} updateState={updateState} />
+        <CartIndex setStep={setStep} updateState={updateState} />
       ) : step == 1 ? (
         <Address setStep={setStep} navigation={navigation} updateAddressId={updateAddressId}/>
       ) : (
-        <OrderConfirmation/>
+        <OrderConfirmation orderdata={orderdata} navigation={navigation}/>
       )}
     </View>
     

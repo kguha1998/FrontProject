@@ -1,11 +1,13 @@
 import { CommodityList, ProductList } from "../../Service/productService";
 import { ApiCallErrorAction, BeginApiCallAction } from "./apiStatusActions";
+import { CartItemsActionTypes } from "./cartAction";
 
 
 export enum ProductActionTypes {
     ProductList_Success_Action = '[ORDER] ProductList Success Action',
     CommodityList_Success_Action = '[ORDER] CommodityList Success Action',
-    AddToCart_Success_Action = '[ORDER] AddToCart Success Action'
+    AddToCart_Success_Action = '[ORDER] AddToCart Success Action',
+
 }
  
   export const ProductListAction = (payload: any) => {
@@ -84,3 +86,4 @@ export enum ProductActionTypes {
       payload: payload,
     };
   };
+

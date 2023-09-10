@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, Button, StyleSheet } from 'react-native';
 
-const OrderConfirmationPage = ({ navigation }:orderconfirmProps) => {
+const OrderConfirmationPage1 = ({ navigation }:orderconfirmProps) => {
   // You can pass order details or any other data as props to this component
 
   const handleGoBack = () => {
@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
   // Add styles for other components as needed
 });
 
-export default OrderConfirmationPage;
+export default OrderConfirmationPage1;
 export interface orderconfirmProps{
     navigation?:any;
 }

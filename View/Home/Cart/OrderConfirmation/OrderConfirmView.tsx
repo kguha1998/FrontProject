@@ -11,8 +11,8 @@ import {
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 
-const OrderConfirmation = ({ mode }: OrderConfirmationProps) => {
-  console.log("child data", mode);
+const OrderConfirmation1 = ({ mode }: OrderConfirmationProps) => {
+  
   const [selectedRadio, setSelectedRadio] = useState(2);
   const [paymentMethod, setPaymentMethod] = useState("apple");
   const [isPopoverVisible, setPopoverVisible] = useState(false);
@@ -212,7 +212,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export default OrderConfirmation;
+export default OrderConfirmation1;
 
 export interface OrderConfirmationProps {
   mode?: any;

@@ -6,13 +6,15 @@ import { PaymentModeAction } from '../../../../Stores/Actions/cartAction'
 import { connect } from 'react-redux'
 import { useFocusEffect } from '@react-navigation/native'
 
-const Pindex = ({PaymentModeAction,data,mode}:PindexProps) => {
+const Pindex2 = ({PaymentModeAction,data,mode,orderdata}:PindexProps) => {
   const pmode:string="Cash On Delivery"
   //console.log("mode",mode)
   useFocusEffect(React.useCallback(()=>{
     PaymentModeAction(pmode);
   
   },[]))
+
+
   return (
     <View>
       <OrderConfirmation mode={mode} />
@@ -29,11 +31,13 @@ const mapStateToProps = (state: StoreState, ownProps: any) => {
 };
 const mapDispatchToProps = {
   PaymentModeAction ,
+  
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Pindex)
+export default connect(mapStateToProps, mapDispatchToProps)(Pindex2)
 export interface PindexProps{
   PaymentModeAction?:any;
   data?:any;
   mode?:any;
+  orderdata?:any;
 }
