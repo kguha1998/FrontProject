@@ -11,14 +11,14 @@ export enum OrderItemsActionTypes {
 
 
   export const Order_listAction = (payload: any) => {
-    console.log("i am inside action",payload)
+   // console.log("i am inside action",payload)
     return (dispatch: any, getState: any) => {
       dispatch(BeginApiCallAction({
         count: 1,
         message: 'Please Wait...'}))
       return Orderlist(payload)
         .then(response => {
-         console.log('i am in action',response.data)
+        // console.log('i am in action',response.data)
           if (response.status != 200) {
             dispatch(ApiCallErrorAction(response.data));
           } else {
@@ -53,7 +53,7 @@ export enum OrderItemsActionTypes {
         });
     }
   };
-  export const Order_listSuccessAction = (payload:any) => {
+  export const Order_listSuccessAction = (payload:any) => {  console.log("qwerty",payload)
     return {
       type: OrderItemsActionTypes.order_list_Success_Action,
       payload: payload,

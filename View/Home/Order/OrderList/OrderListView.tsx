@@ -4,7 +4,7 @@ import {TouchableOpacity} from 'react-native-gesture-handler';
 import LinearGradient from 'react-native-linear-gradient';
 import axios from 'axios';
 
-const OrderListView = ({navigation, route}: OrderListViewProps) => {
+const OrderListView = ({navigation,order_detail_list, route}: OrderListViewProps) => {
   const [veg, setVeg] = useState<any>([]);
   useEffect(() => {
     try {
@@ -20,6 +20,7 @@ const OrderListView = ({navigation, route}: OrderListViewProps) => {
       console.log(err);
     }
   }, []);
+  console.log("i am coming from child ",order_detail_list)
   return (
     <View>
       <LinearGradient
@@ -115,4 +116,5 @@ const styles = StyleSheet.create({
 interface OrderListViewProps {
   navigation?: any;
   route?: any;
+  order_detail_list?:any;
 }
