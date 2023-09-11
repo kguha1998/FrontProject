@@ -23,7 +23,9 @@ export default function ProductReducer(
               ...action.payload.products, // New products from the action payload
             ],
           },
+          
         };
+      
         
     default:
       return state;
