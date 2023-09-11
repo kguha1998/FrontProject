@@ -1,5 +1,7 @@
-export const BaseUrl = 'http://192.168.1.17:3000/api/v1';
-//export const BaseUrl = 'http://192.168.1.15:3000/api/v1';
+
+//export const BaseUrl = 'http://192.168.1.40:3000/api/v1';
+export const BaseUrl = 'http://192.168.0.137:3000/api/v1';
+
 
 export const environment = {
   url: {
@@ -15,5 +17,7 @@ export const environment = {
     paymentModeUrl: '/domain',
     addressDeleteUrl:'/addresses/delete',
     userDetailEdit:'/customer/cust',
+    placeorderurl:'/order/CreateOrder',
+    orderlist:'/order/cust',
   },
 };

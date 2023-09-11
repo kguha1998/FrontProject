@@ -1,4 +1,5 @@
 import { CartMain,  product } from './Cart';
+import { OrderMain } from './OrderModel';
 import { ProductListMain } from './Product';
 import { UserMain } from './User';
 import { ErrorState } from './errorModels';
@@ -11,4 +12,5 @@ export interface StoreState {
   product: ProductListMain;
   loading: LoadingState;
   error: ErrorState;
+  OrderMain: OrderMain;
 }

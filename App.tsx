@@ -10,6 +10,7 @@ import MainRoute from './View';
 import { NavigationContainer } from '@react-navigation/native';
 import{Provider as StoreProvider} from 'react-redux';
 import ConfigureStore from './Stores/configureStore';
+import Toast from 'react-native-toast-message';
 
 function App(): JSX.Element {
  
@@ -18,6 +19,7 @@ function App(): JSX.Element {
     <StoreProvider store={store}>
     <NavigationContainer>
       <MainRoute />
+    
     </NavigationContainer>
     </StoreProvider>
 

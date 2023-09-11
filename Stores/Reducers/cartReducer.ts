@@ -12,7 +12,9 @@ export default function CartReducer(
       return {...state, cartdata: action.payload};
     case CartItemsActionTypes.PaymentMode_Success_Action:
       return {...state, PaymentMode: action.payload};
+     
     default:
       return state;
+     
   }
 }

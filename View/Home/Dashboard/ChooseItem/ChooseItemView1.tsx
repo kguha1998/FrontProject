@@ -23,15 +23,26 @@ const ChooseItemView1 = ({
     useState(null);
     const [cart, setCart] = useState<any>([]); 
 
+    // const [buttonColor, setButtonColor] = useState('white'); // State for button color
+    const [buttonColors, setButtonColors] = useState<Record<string, string>>({}); // State for button colors
 
     const handleAddToCart = ( Add: any) => {
       const newCart = [...cart]; 
       newCart.push(Add); 
-      setCart(newCart); 
+      setCart(newCart);
+      // Set the button color for the specific commodity item
+    setButtonColors(prevColors => ({
+      ...prevColors,
+      [Add]: 'green',
+    })); 
     };
 
     const handleRemoveItemFromCart = (itemToRemove: any) => {
       setCart(cart.filter((item:any) => item !== itemToRemove));
+      setButtonColors(prevColors => ({
+        ...prevColors,
+        [itemToRemove]: 'white',
+      }));
     };
 
     const GoToCart= () =>{
@@ -115,7 +126,7 @@ const ChooseItemView1 = ({
                           <View style={{flexDirection:'row',}}>
                             <View style={{}}>
                           <TouchableOpacity
-                            style={styles.button}
+                            style={[styles.button,{ backgroundColor: buttonColors[commodity.commodity_id] || 'white' }]}
                             onPress={() => {
                               handleAddToCart(commodity.commodity_id);
                             }}>
@@ -124,7 +135,7 @@ const ChooseItemView1 = ({
                           </View>
                           <View style={{marginLeft:170}}>
                           <TouchableOpacity
-                            style={styles.button}
+                            style={[styles.button]}
                             onPress={() => {
                               handleRemoveItemFromCart (commodity.commodity_id);
                             }}>
