@@ -59,7 +59,7 @@ const Cart = ({navigation}:any) => {
         onPress={val => setStep(val)}
       />
       {step == 0 ? (
-        <CartIndex setStep={setStep} updateState={updateState} />
+        <CartIndex setstep={setStep} updateState={updateState} />
       ) : step == 1 ? (
         <Address setStep={setStep} navigation={navigation} updateAddressId={updateAddressId}/>
       ) : (

@@ -2,6 +2,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {AddressAdd, AddressDelete, AddressEdit, AddressFetch, AddressList, UserDetailEdit, UserLogin, UserSignup} from '../../Service/userService';
 import {ApiCallErrorAction, BeginApiCallAction} from './apiStatusActions';
 import { ErrorModel } from '../../Models/errorModels';
+import { ToastAndroid } from 'react-native';
 
 export enum UserActionTypes {
   Login_Success_Action = '[USER] Login Success Action',
@@ -15,6 +16,7 @@ export enum UserActionTypes {
   User_Detail_Edit_Success_Action = '[USER] User Detail Edit Success Action'
 
 }
+
 export const LoginAction = (payload: any) => {
   return (dispatch: any, getState: any) => {
     dispatch(BeginApiCallAction({
@@ -70,11 +72,13 @@ export const SignupAction = (payload: any) => {
       message: 'Please Wait...'}))
     return UserSignup(payload)
       .then(response => {
-        console.log('Action:',response.data);
-        if (response.status != 200) {
+        if (response.status !== 200) {
+          //console.log("From Action",response.data);
           dispatch(ApiCallErrorAction(response.data));
-        } else {
-          //payload.navigation.navigate('Login')
+          }
+        else {
+          ToastAndroid.show('Successfully Registered!', ToastAndroid.LONG);
+          payload.navigation.navigate('Login')
           dispatch(SignupSuccessAction());
         }
       })
@@ -88,7 +92,14 @@ export const SignupAction = (payload: any) => {
           );
           AsyncStorage.multiRemove(['token'])
           dispatch(UserLogoutSuccess());
-        } else if (error?.response?.status === 500) {
+        } else if (error?.response?.status === 501) {
+            ToastAndroid.show('Already Registered!', ToastAndroid.LONG);
+            payload.navigation.navigate('Login');
+          // dispatch(
+          //   SignupErrorAction(error.response.data),
+          // );
+        } 
+        else if (error?.response?.status === 500) {
           dispatch(
             ApiCallErrorAction({
               errorCode: '',
@@ -373,7 +384,8 @@ export const AddressDeleteSuccessAction = () => {
 };
 
 export const UserDetailEditAction = (payload: any) => {
-    const{id,data}=payload;
+   const{id,data}=payload;
+   
   console.log('inside user action ',id)
   console.log('inside action call',payload)
   return (dispatch: any, getState: any) => {
@@ -385,10 +397,18 @@ export const UserDetailEditAction = (payload: any) => {
       //console.log(response.status);
       if (response.status != 200) {
         dispatch(ApiCallErrorAction(response.data));
+        
       } else {
-       // payload.navigation.navigate('AddressList')
-        dispatch(UserDetailEditSuccessAction());
-      }
+        
+        dispatch(UserDetailEditSuccessAction(payload));
+        ToastAndroid.show('Details Updated!', ToastAndroid.LONG);
+       payload.navigation.navigate('ProfileMain')
+        // setTimeout(() => {
+        //  payload.navigation.navigate('ProfileMain');
+        //  }, 5000); // Change the delay time (in milliseconds) as needed
+      };
+        
+      
     })
     .catch(error => {
       if (error?.response?.status === 403) {
@@ -418,10 +438,10 @@ export const UserDetailEditAction = (payload: any) => {
     });
 };
 };
-export const UserDetailEditSuccessAction = () => {
+export const UserDetailEditSuccessAction = (payload: any) => {
  return {
-   type: UserActionTypes.User_Detail_Edit_Success_Action
- 
+   type: UserActionTypes.User_Detail_Edit_Success_Action,
+   payload: payload,
 
  };
 };

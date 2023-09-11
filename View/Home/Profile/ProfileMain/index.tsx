@@ -1,14 +1,29 @@
 import { View, Text } from 'react-native'
-import React from 'react'
+import React, { useEffect } from 'react'
 import ProfileView from './ProfileMainView'
 import ProfileMainView from './ProfileMainView'
 import { connect } from 'react-redux'
 import { StoreState } from '../../../../Models/reduxModel'
-import { UserLogoutSuccess } from '../../../../Stores/Actions/userAction'
+import { UserDetailEditAction, UserDetailEditSuccessAction, UserLogoutSuccess } from '../../../../Stores/Actions/userAction'
 import { userDetail } from '../../../../Models/User'
+import { useFocusEffect } from '@react-navigation/native'
 
-const ProfileMain = ({navigation,user,UserLogoutSuccess}:ProfileMainProps) => {
-  
+const ProfileMain = ({navigation,user,UserLogoutSuccess,UserDetailEditAction}:ProfileMainProps) => {
+  // useFocusEffect(
+  //   React.useCallback(() => {
+  //     UserDetailEditAction(user)
+  //  }, [])
+  //  );
+
+  //  useEffect(() => {
+  //   UserDetailEditAction(user);
+   
+    
+  //  }, []);
+  console.log(user?.customer_name)
+ // UserDetailEditAction(user);
+ 
+//console.log(user?.customer_name)
   const Logout = (data: any) => {
     UserLogoutSuccess(user?.customer_id);
   }
@@ -26,7 +41,8 @@ const mapStateToProps = (state: StoreState, ownProps: any) => {
   };
 };
 const mapDispatchToProps = {
-  UserLogoutSuccess
+  UserLogoutSuccess,
+  UserDetailEditAction
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProfileMain);
@@ -35,4 +51,5 @@ interface ProfileMainProps{
   navigation?: any;
   user?:userDetail;
   UserLogoutSuccess?:any
+  UserDetailEditAction?:any
 }
