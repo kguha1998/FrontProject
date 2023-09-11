@@ -7,6 +7,7 @@ export enum CartItemsActionTypes {
   CartItem_Success_Action = '[Cart] CartItem Success Action',
   PaymentMode_Success_Action = '[Cart] PaymentMode Success Action',
   Order_Success_Action ='[Cart] Order Success Action',
+  Order_Complete_Action = '[Cart] order complete Action',
 }
 
 export const CartItemAction = (defaultProductData: any) => {
@@ -71,6 +72,7 @@ export const PaymentModeAction = (payload: any) => {
       payload: payload,
     };
   };
+
   export const PlaceOrderAction = (payload: any) => {
     console.log("i am inside action",payload)
     return (dispatch: any, getState: any) => {
@@ -116,10 +118,17 @@ export const PaymentModeAction = (payload: any) => {
   };
   export const OrderSuccessAction = () => {
     return {
-      type: CartItemsActionTypes.Order_Success_Action
+      type: CartItemsActionTypes.Order_Success_Action,
+
     };
   };
 
+  export const OrdercompleteAction = () => {
+    return {
+      type: CartItemsActionTypes.Order_Complete_Action,
+
+    };
+  };
 
 
 

@@ -2,11 +2,11 @@ import { View, Text } from 'react-native'
 import React, { useEffect } from 'react'
 import OrderConfirmation from './PaymentModeView'
 import { StoreState } from '../../../../Models/reduxModel'
-import { PaymentModeAction, PlaceOrderAction } from '../../../../Stores/Actions/cartAction'
+import { OrderSuccessAction, OrdercompleteAction, PaymentModeAction, PlaceOrderAction } from '../../../../Stores/Actions/cartAction'
 import { connect } from 'react-redux'
 import { useFocusEffect } from '@react-navigation/native'
 
-const Pindex = ({PaymentModeAction,data,mode,orderdata, navigation,PlaceOrderAction }:PindexProps) => {
+const Pindex = ({PaymentModeAction,data,mode,orderdata, navigation,PlaceOrderAction,OrdercompleteAction }:PindexProps) => {
   const pmode:string="Cash On Delivery"
   //console.log("mode",mode)
   useFocusEffect(React.useCallback(()=>{
@@ -32,6 +32,7 @@ const Pindex = ({PaymentModeAction,data,mode,orderdata, navigation,PlaceOrderAct
    
     // Call the 'Placeorder' action here
     PlaceOrderAction(refactoredData);
+    OrdercompleteAction();
   };
   return (
     <View>
@@ -50,6 +51,7 @@ const mapStateToProps = (state: StoreState, ownProps: any) => {
 const mapDispatchToProps = {
   PaymentModeAction ,
   PlaceOrderAction,
+  OrdercompleteAction,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Pindex)
@@ -60,4 +62,5 @@ export interface PindexProps{
   orderdata?:any;
   navigation?:any;
   PlaceOrderAction?:any
+  OrdercompleteAction?:any
 }

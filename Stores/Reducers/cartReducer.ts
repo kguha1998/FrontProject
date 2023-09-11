@@ -12,7 +12,9 @@ export default function CartReducer(
       return {...state, cartdata: action.payload};
     case CartItemsActionTypes.PaymentMode_Success_Action:
       return {...state, PaymentMode: action.payload};
-     
+    case CartItemsActionTypes.Order_Complete_Action:
+      console.log("i am in reducer ")
+      return {  ...InitialState.CartMain };
     default:
       return state;
      

@@ -19,12 +19,12 @@ const CartIndex = ({setStep,CartItemAction,data,defaultProductData,updateState,o
 
   },[CartItemAction]))
   
-  useEffect(() => {
+  useFocusEffect(React.useCallback(() => {
     if (data) {
       // If data has been fetched, update the state and send it to the parent
       updateState(data);
     }
-  }, [data, updateState]);
+  }, [data, updateState]));
  
   const incrementQuantity = (item: any) => {
     const newQuantity = item.quantity + 1;
