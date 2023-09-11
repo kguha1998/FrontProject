@@ -1,273 +1,330 @@
 import { useFocusEffect } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
-import {View, Text, TouchableOpacity} from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
 import Collapsible from 'react-native-collapsible';
-import {ScrollView} from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-const CartMain = ({ data }: CartMainProps) => {
-  const [collapsed, setCollapsed] = useState(true);
 
+const CartMain = ({ data, incrementQuantity, decrementQuantity  }: CartMainProps) => {
+  const [collapsed, setCollapsed] = useState(true);
   useFocusEffect(
     React.useCallback(() => {
-    if (data) {
-      // console.log('Data received:', data); // Ensure you're receiving the data correctly
-    }
-  }, [data]));
+      if (data) {
+        // console.log('Data received:', data); // Ensure you're receiving the data correctly
+      } // For example, log a message when the screen is focused
+    }, [data])
+  );
 
-  if (!data || !data.product || data.product.length === 0) {
-    return (
-      <View>
-        <Text>No items in the cart</Text>
-      </View>
-    );
-  }
-
-  const totalPrice = data.totalPrice;
   const toggleExpand = () => {
     setCollapsed(!collapsed);
   };
 
+
+
+
   return (
-    <View>
-      <View style={{ flexDirection: 'row', marginLeft: 7 }}>
-        <View style={{ marginTop: 22 }}>
-          <Icon name="timer-outline" style={{ color: 'black' }} size={20} />
-        </View>
-        <View style={{ marginLeft: 5 }}><Text style={{
-    alignSelf: 'center',
-    textAlign: 'left',
-    marginTop: 20,
-    fontSize: 18,
-    fontFamily: 'oswald',
-    color: 'black',}}>Delivery in</Text></View>
-    <View style={{marginLeft:3}}><Text style={{
-    alignSelf: 'center',
-    textAlign: 'left',
-    marginTop: 20,
-    fontSize: 18,
-    fontWeight:'bold',
-    fontFamily: 'oswald',
-    color: 'black',}}>15-20 Mins</Text></View>
-    </View>
-    <View>
-      <Text
-        style={{
-          fontSize: 17,
-          height: 20,
-          width: 320,
-          alignSelf: 'center',
-          textAlign: 'center',
-          marginTop: 20,
-          fontFamily: 'oswald',
-          fontWeight: '500',
-        }}>
-        ITEMS ADDED
-      </Text>
-      {data.product.map((item: any) => (
-        <View
-          key={item.product_id}
-          style={{
-            height: 170,
-            width: '95%',
-            backgroundColor: 'white',
-            margin: 10,
-            flexDirection: 'column',
-          }}>
-            <View style={{flexDirection:'column'}}>
-          <View > 
+    <ScrollView>
+      <View>
+        <View style={{ flexDirection: 'row', alignItems: 'center', marginLeft: 7 }}>
+          <View style={{ marginTop: 22 }}>
+            <Icon name="timer-outline" style={{ color: 'black' }} size={20} />
+          </View>
+          <View style={{ marginLeft: 5 }}>
             <Text
               style={{
+                alignSelf: 'center',
+                textAlign: 'left',
                 marginTop: 20,
-                marginLeft: 15,
+                fontSize: 18,
+                fontFamily: 'oswald',
                 color: 'black',
-                fontSize: 20,
-                fontWeight: '500',
               }}>
-              {item.product_name}
+              Delivery in
             </Text>
           </View>
-          <View style={{marginLeft: 0,}}>
+          <View style={{ marginLeft: 3 }}>
             <Text
               style={{
-                marginTop: 15,
-                marginLeft: 15,
+                alignSelf: 'center',
+                textAlign: 'left',
+                marginTop: 20,
+                fontSize: 18,
+                fontWeight: 'bold',
+                fontFamily: 'oswald',
                 color: 'black',
-                fontSize: 15,
-                fontWeight: '500',
               }}>
-              Box Price:{item.mrp}
+              15-20 Mins
             </Text>
           </View>
-          </View>
-
-
+        </View>
+        <View style={{ marginBottom: 10, alignItems: 'center' }}>
+          <Text
+            style={{
+              fontSize: 17,
+              height: 20,
+              width: 320,
+              alignSelf: 'center',
+              textAlign: 'center',
+              marginTop: 20,
+              fontFamily: 'oswald',
+              fontWeight: '500',
+            }}>
+            ITEMS ADDED
+          </Text>
+        </View>
+      </View>
+      <View style={{ margin: 10 }}>
+        {data &&
+          data.product &&
+          data.product.length > 0 &&
+          data.product.map((item: any) => (
+            <View
+              key={item.product_id}
+              style={{
+                backgroundColor: 'white',
+                marginBottom: 10,
+                padding: 10,
+                borderRadius: 8,
+              }}>
+              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                <Text style={styles.productName}>{item.product_name}</Text>
+                <TouchableOpacity onPress={() => incrementQuantity(item)}>
+                  <Icon name="add-circle" style={styles.icon} size={24} />
+                </TouchableOpacity>
+                <Text style={styles.quantity}>{item.quantity}</Text>
+                <TouchableOpacity onPress={() => decrementQuantity(item)}>
+                  <Icon name="remove-circle" style={styles.icon2} size={24} />
+                </TouchableOpacity>
+              </View>
+              <View style={styles.priceContainer}>
+                <Text style={styles.priceLabel}>Box Price: ₹{item.mrp}</Text>
+                <Text style={styles.priceLabel}>
+                  Total Price: ₹{item.quantity * item.selling_price}
+                </Text>
+              </View>
+            </View>
+          ))}
+      </View>
+      <TouchableOpacity onPress={toggleExpand} style={styles.showItemsContainer}>
+        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+          <Text style={styles.showItemsText}>Show Items</Text>
+          <Icon
+            name={collapsed ? 'chevron-down-outline' : 'chevron-up-outline'} // Replace with appropriate icons
+            style={styles.showItemsIcon}
+            size={24}
+          />
+        </View>
+      </TouchableOpacity>
+      <Collapsible collapsed={collapsed}>
+        <View style={styles.collapsibleContent}>
+          {data &&
+            data.product &&
+            data.product.length > 0 &&
+            data.product.map((item: any) => (
+              <View key={item.product_id}>
+                {item.commodities.map((commodity: any) => (
+                  <Text key={commodity.commodity_id} style={styles.selectedItemText}>
+                    {commodity.commodity_name}
+                  </Text>
+                ))}
+              </View>
+            ))}
+        </View>
+      </Collapsible>
+      <View style={{ alignItems: 'center' }}>
+        <View style={{ flexDirection: 'column', width: '95%' }}>
           <View
             style={{
               flexDirection: 'row',
-              marginLeft: 5,
-              backgroundColor: 'white',
-              width: '92%',
-              marginRight: 50,
+              alignItems: 'center',
+              justifyContent: 'center',
+              padding: 10,
+              borderRadius: 8,
+              margin: 10,
             }}>
             <Text
               style={{
-                marginTop: 15,
-                color: 'black',
-                marginLeft: 10,
-                fontSize: 15,
+                fontSize: 17,
+                height: 20,
+                alignSelf: 'center',
+                textAlign: 'center',
+                fontFamily: 'oswald',
+                fontWeight: '500',
               }}>
-              Quantity: {item.quantity}
+              SAVINGS CORNER
             </Text>
-
+          </View>
+          <View
+            style={{
+              backgroundColor: 'white',
+              height: 60,
+              width: '95%',
+              margin: 10,
+              flexDirection: 'column',
+            }}>
+            <View style={{ flexDirection: 'row' }}>
+              <Text style={{ fontWeight: 'bold', fontSize: 15, marginLeft: 12, marginTop: 5 }}>
+                Save 10%
+              </Text>
+              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                <Icon name="gift" size={18} color="#f72d48" />
+                <Text
+                  style={{
+                    fontWeight: 'bold',
+                    fontSize: 15,
+                    marginLeft: 10,
+                    marginTop: 5,
+                    color: '#f72d48',
+                  }}>
+                  Apply
+                </Text>
+              </View>
+            </View>
             <View>
-              <Text
-                style={{
-                  marginTop: 15,
-                  color: 'black',
-                  marginLeft: 110,
-                  fontWeight: '500',
-                  fontSize: 15,
-                }}>
-                Total Price: ₹{item.quantity * item.selling_price}
+              <Text style={{ fontWeight: '300', fontSize: 15, marginLeft: 12, marginTop: 3 }}>
+                Code: FO10
               </Text>
             </View>
-            <View style={{marginLeft: 10, marginTop: 10}}>
-              <TouchableOpacity
-                // onPress={() => removeFromCart()}
+          </View>
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'center',
+             
+              padding: 10,
+              borderRadius: 8,
+              margin: 10,
+            }}>
+            <Text
+              style={{
+                fontSize: 17,
+                height: 20,
+                alignSelf: 'center',
+                textAlign: 'center',
+                fontFamily: 'oswald',
+                fontWeight: '500',
+              }}>
+              BILL SUMMARY
+            </Text>
+          </View>
+          <View
+            style={{
+              height: 100,
+              backgroundColor: 'white',
+              margin: 10,
+              flexDirection: 'column',
+            }}>
+            <View style={{ flexDirection: 'row' }}>
+              <Text
+                style={{ marginTop: 7, color: 'black', fontSize: 15, marginLeft: 10 }}>
+                Discount
+              </Text>
+              <Text
                 style={{
-                  borderRadius: 100,
-                  width: 80,
-                  alignSelf: 'center',
-                  alignItems: 'center',
-                  paddingVertical: 5,
-                  paddingHorizontal: 10,
-                  marginLeft: 5,
+                  marginTop: 7,
+                  color: 'black',
+                  fontSize: 15,
+                  marginLeft: 270,
                 }}>
-                <Icon name="trash-outline" style={{color: 'black'}} size={20} />
-              </TouchableOpacity>
+                {data.totalDiscountPercentage}%
+              </Text>
+            </View>
+            <View style={{ flexDirection: 'row' }}>
+              <Text
+                style={{ marginTop: 7, color: 'black', fontSize: 15, marginLeft: 10 }}>
+                Discount Amount
+              </Text>
+              <Text
+                style={{
+                  marginTop: 7,
+                  color: 'black',
+                  fontSize: 15,
+                  marginLeft: 213,
+                }}>
+                {data.totalDiscount}
+              </Text>
+            </View>
+            <View style={{ flexDirection: 'row' }}>
+              <Text
+                style={{ marginTop: 7, color: 'black', fontSize: 15, marginLeft: 10 }}>
+                Final Price:
+              </Text>
+              <Text
+                style={{
+                  marginTop: 7,
+                  color: 'black',
+                  fontSize: 15,
+                  marginLeft: 250
+                }}>
+                ₹{data.totalPrice}
+              </Text>
             </View>
           </View>
-          <ScrollView
-            style={{
-              flex: 1,
-              flexDirection: 'column',
-              marginLeft: 15,
-              backgroundColor: 'white',
-              width: '90%',
-              marginRight: 50,
-              marginTop: 5,
-            }}>
-            <TouchableOpacity onPress={toggleExpand}>
-              <Text style={{fontWeight: 'bold'}}>Show Items</Text>
-            </TouchableOpacity>
-            <Collapsible collapsed={collapsed}>
-              <View style={{width: '100%'}}>
-                <Text>tomato</Text>
-                <Text>tomato</Text>
-                <Text>tomato</Text>
-                <Text>tomato</Text>
-                <Text>tomato</Text>
-              </View>
-            </Collapsible>
-          </ScrollView>
-        </View>
-      ))}
-      <View style={{marginRight:10,marginLeft:10,marginTop:15,marginEnd:10}}><Text
-        style={{
-          fontSize: 17,
-          height: 30,
-          width: 320,
-          alignSelf: 'center',
-          textAlign: 'center',
-          // marginTop: 10,
-          fontFamily: 'oswald',
-          fontWeight: '500',
-        }}>
-        SAVINGS CORNER
-      </Text></View>
-
-      <View style={{backgroundColor: 'white',height: 60, width: '95%',margin:10,flexDirection:'column'}}>
-      <View style={{flexDirection:'row' }}>
-      <Text style={{fontWeight:'bold',fontSize:15,marginLeft:12,marginTop:5}}>Save 10% on First Order</Text>
-      <Text style={{fontWeight:'bold',fontSize:15,marginLeft:165,marginTop:5,color:'#f72d48'}}>Apply</Text></View>
-      <View><Text style={{fontWeight:'300',fontSize:15,marginLeft:12,marginTop:3}}>Code: FO10</Text></View>
-      </View>
-      <View style={{marginRight:10,marginLeft:10,marginTop:15,marginEnd:10}}><Text
-        style={{
-          fontSize: 17,
-          height: 30,
-          width: 320,
-          alignSelf: 'center',
-          textAlign: 'center',
-          // marginTop: 10,
-          fontFamily: 'oswald',
-          fontWeight: '500',
-        }}>
-        BILL SUMMARY
-      </Text></View>  
-      <View
-        style={{
-          height: 100,
-          width: '95%',
-          backgroundColor: 'white',
-          margin: 10,
-          flexDirection: 'column',
-        }}>
-        
-        <View style={{flexDirection: 'row'}}>
-          <Text
-            style={{marginTop: 7, color: 'black', fontSize: 15, marginLeft: 10}}>
-            Discount
-          </Text>
-          <Text
-            style={{
-              marginTop: 7,
-              color: 'black',
-              fontSize: 15,
-              marginLeft:278,
-            }}>
-            {data.totalDiscountPercentage}%
-          </Text>
-        </View>
-        <View style={{flexDirection: 'row'}}>
-          <Text
-            style={{marginTop: 7, color: 'black', fontSize: 15, marginLeft: 10}}>
-            Discount Amount
-          </Text>
-          <Text
-            style={{
-              marginTop: 7,
-              color: 'black',
-              fontSize: 15,
-              marginLeft: 220,
-            }}>
-            {data.totalDiscount}
-          </Text>
-        </View>
-        <View style={{flexDirection: 'row'}}>
-          <Text
-            style={{marginTop: 7, color: 'black', fontSize: 15, marginLeft: 10}}>
-            Final Price:
-          </Text>
-          <Text
-            style={{
-              marginTop: 7,
-              color: 'black',
-              fontSize: 15,
-              marginLeft: 260,
-            }}>
-            ₹{data.totalPrice}
-          </Text>
         </View>
       </View>
-    </View>
-    </View>
+    </ScrollView>
   );
 };
+
+const styles = StyleSheet.create({
+  productName: {
+    fontSize: 20,
+    fontWeight: '500',
+    flex: 1,
+  },
+  quantity: {
+    fontSize: 20,
+    fontWeight: '500',
+    marginHorizontal: 10,
+  },
+  priceContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: 10,
+  },
+  priceLabel: {
+    fontSize: 15,
+    color: 'black',
+  },
+  icon: {
+    color: 'green',
+  },
+  icon2:{
+    color: 'red'
+  },
+  showItemsContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'white',
+    padding: 10,
+    borderRadius: 8,
+    margin: 10,
+  },
+  showItemsText: {
+    fontWeight: 'bold',
+    marginRight: 10,
+  },
+  showItemsIcon: {
+    color: 'black',
+  },
+  collapsibleContent: {
+    margin: 10,
+    padding: 10,
+    backgroundColor: 'white',
+    borderRadius: 8,
+  },
+  selectedItemText: {
+    fontSize: 16,
+    marginBottom: 5, // Add margin between commodities
+  },
+});
 
 export default CartMain;
 
 export interface CartMainProps {
   data?: any;
+  incrementQuantity: (item: any) => void;
+  decrementQuantity: (item: any) => void;
 }

@@ -1,4 +1,5 @@
 import { ProductListMain } from "../../Models/Product";
+import { CartItemsActionTypes } from "../Actions/cartAction";
 import { ProductActionTypes} from "../Actions/productAction";
 import InitialState from "./initialState";
 
@@ -14,6 +15,9 @@ export default function ProductReducer(
       return {...state, commodity_detail: action.payload};
     case ProductActionTypes.AddToCart_Success_Action:
       return {...state, Store_Product: action.payload};  
+      case CartItemsActionTypes.Order_Complete_Action:
+      console.log("i am in reducer ")
+      return {  ...state, Store_Product: null };
     default:
       return state;
   }

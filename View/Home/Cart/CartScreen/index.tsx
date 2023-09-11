@@ -10,22 +10,50 @@ import { userDetail } from '../../../../Models/User'
 import { cartdata, cartitem, product } from '../../../../Models/Cart'
 import { useFocusEffect } from '@react-navigation/native'
 
-const CartIndex = ({setStep,CartItemAction,data,defaultProductData,updateState  }: CartIndexProps) => {
+
+const CartIndex = ({setStep,CartItemAction,data,defaultProductData,updateState,orderdata  }: CartIndexProps) => {
   //const [fetchedData, setFetchedData] = useState({});
   useFocusEffect(React.useCallback(()=>{
+    // Action call
    CartItemAction(defaultProductData);
-  //  setTimeout(() => {
-  //   const fetchedData = { data };
-  //   setFetchedData(fetchedData);
-  // }, 1000);
+
   },[CartItemAction]))
-  useEffect(() => {
+  
+  useFocusEffect(React.useCallback(() => {
     if (data) {
       // If data has been fetched, update the state and send it to the parent
       updateState(data);
     }
-  }, [data, updateState]);
+  }, [data, updateState]));
+ 
+  const incrementQuantity = (item: any) => {
+    const newQuantity = item.quantity + 1;
+    const product_id =item.product_id;
+  // Create the updated products array
+  const updatedProducts = defaultProductData.products.map((product:any) =>
+    product.product_id === product_id ? { ...product, quantity: newQuantity } : product
+  );
+ // Create the data in the desired format
+  const updatedData = {
+    "products": updatedProducts,
+  };
+  console.log("after increment print",updatedProducts) // Dispatch your action
+  CartItemAction(updatedData);
+  };
 
+  const decrementQuantity = (item: any) => {
+    if (item.quantity > 1) {
+      const newQuantity = item.quantity - 1;
+      const product_id =item.product_id;
+      const updatedProducts = defaultProductData.products.map((product:any)=>
+        product_id.product_id == product_id ? {...product, quantity:newQuantity} :product
+        );
+        const updatedData ={
+          "products": updatedProducts,
+        };
+        CartItemAction(updatedData);
+    }
+  };
 
   return (
     <ScrollView>
@@ -50,7 +78,11 @@ const CartIndex = ({setStep,CartItemAction,data,defaultProductData,updateState  
             CART
           </Text>
         </LinearGradient>
-        <View><CartMain  data={data} /></View>
+        <View>{data ? ( // Check if data is defined before rendering the child component
+          <CartMain data={data}  incrementQuantity={incrementQuantity} decrementQuantity={decrementQuantity}/>
+        ) : (
+          <Text>Loading data...</Text> // Or display a loading message or handle this case as needed
+        )}</View>
         
     <View>
       <TouchableOpacity
@@ -77,10 +109,12 @@ const mapStateToProps = (state: StoreState, ownProps: any) => {
     user: state.user.user_detail,
     data: state.CartMain.cartdata,
     defaultProductData :state.product.Store_Product,
+
   };
 };
 const mapDispatchToProps = {
   CartItemAction ,
+  
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(CartIndex)
@@ -94,4 +128,5 @@ export interface CartIndexProps{
   CartItemAction?:any;
   data?: any;
   updateState?:any;
+  orderdata?:any;
 }

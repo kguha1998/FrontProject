@@ -1,6 +1,6 @@
 // In your interfaces file (e.g., Cart.ts)
 export interface CartMain {
-    //cartitem?: cartitem[];
+    cartItems: any;
     cartdata?: cartdata;
     Product?: Product[]
     PaymentMode?:PaymentMode;
@@ -32,3 +32,8 @@ export interface CartMain {
   export interface PaymentMode {
     domain_type: string;
   }
+
+
+
+
+  

@@ -2,9 +2,7 @@ export interface UserMain {
   user_detail?: userDetail;
   address_list: addressList[];
   single_address?: SingleAddress;
- 
 }
-
 
 
 export interface userDetail {
