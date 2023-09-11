@@ -23,6 +23,7 @@ const InitialState: StoreState = {
     commodity_detail: undefined,
     Store_Product:{
       products:[{
+        id:"",
         quantity:1,
         product_id:0,
         commodities:[]
