@@ -8,7 +8,7 @@ const InitialState: StoreState = {
     user_detail: undefined,
     address_list: [],
     single_address: undefined,
-    SignupError:undefined,
+    // SignupError:undefined,
   },
   error: {
     error: undefined,
@@ -21,7 +21,14 @@ const InitialState: StoreState = {
   product: {
     product_detail: [],
     commodity_detail: undefined,
-    Store_Product: undefined
+    Store_Product:{
+      products:[{
+        quantity:1,
+        product_id:0,
+        commodities:[]
+
+      }],
+    },
   },
   CartMain: {
     cartdata: undefined,
