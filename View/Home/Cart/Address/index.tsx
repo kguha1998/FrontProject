@@ -6,15 +6,17 @@ import { StoreState } from '../../../../Models/reduxModel';
 import { AddressListAction } from '../../../../Stores/Actions/userAction';
 import { addressList, userDetail } from '../../../../Models/User';
 import CartAddressList from './CartAddressList';
+import { useFocusEffect } from '@react-navigation/native';
 
 
 const Address = ({route,user,address,AddressListAction,props,setStep, navigation,updateAddressId}:AddressListProps) => {
   
   const[address1,updateaddress]=useState<any>([])
-  useEffect(()=>{
+  useFocusEffect(React.useCallback(()=>{
+    // Action call for service 
     AddressListAction(user?.customer_id);
     console.log(user?.customer_id)
-  },[])
+  },[]))
 
 
   // In the Address component or its parent component

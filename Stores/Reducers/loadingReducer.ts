@@ -1,5 +1,6 @@
 import {LoadingState} from '../../models/loadingModels';
 import {ApiStatusActionTypes} from '../Actions/apiStatusActions';
+import { CartItemsActionTypes } from '../Actions/cartAction';
 import { ProductActionTypes } from '../Actions/productAction';
 import {UserActionTypes} from '../Actions/userAction';
 import InitialState from './initialState';
@@ -43,6 +44,8 @@ export default function LoadingReducer(
       return {...state, count: state.count > 0 ? state.count - 1 : 0};
     case UserActionTypes.User_Detail_Edit_Success_Action:
         return {...state, count: state.count > 0 ? state.count - 1 : 0};
+        case CartItemsActionTypes.Order_Success_Action:
+          return {...state, count: state.count > 0 ? state.count - 1 : 0};
     case UserActionTypes.Logout_Success_Action:
       return initialState;
     default:

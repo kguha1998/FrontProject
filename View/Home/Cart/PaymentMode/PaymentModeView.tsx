@@ -1,21 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  ScrollView,
-  Dimensions,
-  StyleSheet,
-  Modal,
-  BackHandler, // Import BackHandler
-} from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, TouchableOpacity, Dimensions, StyleSheet, Modal } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
+import LottieView from 'lottie-react-native';
 
-const OrderConfirmation = ({ mode }: OrderConfirmationProps) => {
-  console.log("child data", mode);
+const OrderConfirmation = ({ mode, onConfirm, navigation }: OrderConfirmationProps) => {
   const [selectedRadio, setSelectedRadio] = useState(2);
-  const [paymentMethod, setPaymentMethod] = useState("apple");
-  const [isPopoverVisible, setPopoverVisible] = useState(false);
+  const [paymentMethod, setPaymentMethod] = useState('Soon Payments will be available');
+  const [isModalVisible, setModalVisible] = useState(false);
 
   useEffect(() => {
     if (mode && mode.length > 0 && mode[0].domain_type) {
@@ -23,38 +14,20 @@ const OrderConfirmation = ({ mode }: OrderConfirmationProps) => {
     }
   }, [mode]);
 
-  const handleRemovePress = () => {
-    setPopoverVisible(true);
-  };
-
-  const handleCancel = () => {
-    setPopoverVisible(false);
-  };
 
   const handleConfirm = () => {
-    // Add your logic to confirm the order here
-    // After confirming the order, you can close the modal
-    setPopoverVisible(false);
+    if (onConfirm) {
+      onConfirm(),
+      // Show the modal when confirming the order
+      setModalVisible(true);
+      // Simulate a delay for order placement
+      setTimeout(() => {
+        // Redirect to 'Order' after a delay
+        setModalVisible(false); // Close the modal
+        navigation.navigate('Order'); // Replace 'Order' with your actual order page component name
+      }, 2000); // Adjust the delay time as needed
+    }
   };
-
-  // Handle Android back button when the modal is open
-  useEffect(() => {
-    const backAction = () => {
-      if (isPopoverVisible) {
-        setPopoverVisible(false);
-        return true; // Prevent default behavior (exit the app)
-      }
-      return false; // Let the default behavior occur
-    };
-
-    const backHandler = BackHandler.addEventListener(
-      "hardwareBackPress",
-      backAction
-    );
-
-    return () => backHandler.remove(); // Cleanup the event listener
-
-  }, [isPopoverVisible]);
 
   return (
     <View>
@@ -68,14 +41,16 @@ const OrderConfirmation = ({ mode }: OrderConfirmationProps) => {
           elevation: 25,
           alignItems: 'center',
           paddingTop: 25,
-        }}>
+        }}
+      >
         <Text
           style={{
             color: 'white',
             fontSize: 25,
             fontWeight: 'bold',
             marginBottom: 5,
-          }}>
+          }}
+        >
           Order Confirmation
         </Text>
       </LinearGradient>
@@ -87,7 +62,8 @@ const OrderConfirmation = ({ mode }: OrderConfirmationProps) => {
             marginTop: 5,
             marginBottom: 5,
             marginLeft: 10,
-          }}>
+          }}
+        >
           Select a Payment Method
         </Text>
         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
@@ -100,7 +76,8 @@ const OrderConfirmation = ({ mode }: OrderConfirmationProps) => {
                 borderWidth: 2,
                 borderRadius: 20,
                 margin: 10,
-              }}>
+              }}
+            >
               {selectedRadio === 2 ? (
                 <View
                   style={{
@@ -110,7 +87,7 @@ const OrderConfirmation = ({ mode }: OrderConfirmationProps) => {
                     borderRadius: 20,
                     margin: 4,
                   }}
-                />
+                ></View>
               ) : null}
             </View>
           </TouchableOpacity>
@@ -121,75 +98,49 @@ const OrderConfirmation = ({ mode }: OrderConfirmationProps) => {
                 fontSize: 20,
                 marginTop: 5,
                 marginBottom: 5,
-              }}>
+              }}
+            >
               {paymentMethod}
             </Text>
           </View>
         </View>
 
         <TouchableOpacity
-          onPress={handleRemovePress}
+          onPress={handleConfirm}
           style={{
             borderRadius: 100,
             width: 150,
             alignSelf: 'center',
             alignItems: 'center',
             paddingVertical: 5,
-            marginTop: 350,
+            marginTop: 50,
             marginBottom: 30,
             backgroundColor: '#fa8b0c',
-          }}>
+          }}
+        >
           <Text style={{ color: 'white', fontSize: 19 }}>Confirm Order</Text>
         </TouchableOpacity>
-
-        <Modal
-          animationType="fade" // Add fade animation
-          transparent={true}
-          visible={isPopoverVisible}>
-          <View style={styles.modalContainer}>
-            <View style={styles.modalContent}>
-              <Text>Are you sure you want to confirm the order?</Text>
-              <View style={styles.modalButtons}>
-                <TouchableOpacity
-                  style={[styles.modalButton, styles.confirmButton]}
-                  onPress={handleConfirm}>
-                  <Text style={styles.modalButtonText}>Yes</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={[styles.modalButton, styles.cancelButton]}
-                  onPress={handleCancel}>
-                  <Text style={styles.modalButtonText}>Cancel</Text>
-                </TouchableOpacity>
-              </View>
-            </View>
-          </View>
-        </Modal>
       </View>
+      <Modal animationType="slide" transparent={true} visible={isModalVisible}>
+        <View style={styles.modalContent}>
+          <LottieView
+            source={require('./order_confirmation.json')}
+            autoPlay={true} // Auto play the animation
+            loop={false} // Play the animation only once
+            style={{ width: 200, height: 200 }}
+          />
+        </View>
+      </Modal>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  radio: {
-    height: 40,
-    width: 40,
-    borderColor: 'black',
-    borderWidth: 2,
-    borderRadius: 20,
-    margin: 10,
-  },
-  modalContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
-  },
   modalContent: {
-    backgroundColor: 'white',
-    padding: 30,
-    borderRadius: 10,
+    flex: 1,
     alignItems: 'center',
-    marginHorizontal: 40,
+    justifyContent: 'center',
+    backgroundColor: 'white', // Modal background color set to white
   },
   modalButtons: {
     flexDirection: 'row',
@@ -200,6 +151,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     borderRadius: 25,
     marginHorizontal: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   cancelButton: {
     backgroundColor: 'gray',
@@ -209,11 +162,17 @@ const styles = StyleSheet.create({
   },
   modalButtonText: {
     color: 'white',
+    fontSize: 16,
+    fontWeight: 'bold',
   },
 });
+
+
 
 export default OrderConfirmation;
 
 export interface OrderConfirmationProps {
   mode?: any;
+  onConfirm?: any;
+  navigation?: any;
 }

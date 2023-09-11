@@ -16,5 +16,7 @@ export const environment = {
     paymentModeUrl: '/domain',
     addressDeleteUrl:'/addresses/delete',
     userDetailEdit:'/customer/cust',
+    placeorderurl:'/order/CreateOrder',
+    orderlist:'/order/cust',
   },
 };

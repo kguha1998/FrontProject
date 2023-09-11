@@ -56,16 +56,16 @@ const OrderDetailChild = ({navigation, route, item}: any) => {
       style={styles.CardStyle}>
         <View style={{padding:10}}>
       <View>
-        <Text style={styles.TextStyle}>ItemName : {item.Items_Details}</Text>
+        <Text style={styles.TextStyle}>Order ID : {item.Items_Details}</Text>
       </View>
       <View>
-        <Text style={styles.TextStyle}>Traking Id:{item.Tracking_No}</Text>
+        <Text style={styles.TextStyle}>Product Name :{item.Tracking_No}</Text>
       </View>
       <View>
-        <Text style={styles.TextStyle}>Qty:{item.Items_Quantity}</Text>
+        <Text style={styles.TextStyle}>Qty : {item.Items_Quantity}</Text>
       </View>
       <View>
-        <Text style={styles.TextStyle}>Total Order:{item.order_total}</Text>
+        <Text style={styles.TextStyle}>Price : {item.order_total}</Text>
       </View>
       </View>
       

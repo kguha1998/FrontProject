@@ -1,248 +1,327 @@
+import React, { useState } from 'react';
 import {
   View,
   Text,
   Dimensions,
   StyleSheet,
   Image,
-  Modal,
   TouchableOpacity,
+  ScrollView,
 } from 'react-native';
-import React, { useState } from 'react';
 import LinearGradient from 'react-native-linear-gradient';
+import Icon from 'react-native-vector-icons/Ionicons'; // Import Ionicons from react-native-vector-icons
 
 const OrderDetailView = ({ navigation, route }: OrderDetailViewProps) => {
-  const [isModalVisible, setModalVisible] = useState(false);
+  const [orderData, setOrderData] = useState<any>({
+    order_id: 9,
+    order_code: "BPK9QQIT904056",
+    created_on: "2023-09-10T06:05:04.000Z",
+    expected_delivery_date: "2023-09-11T06:05:04.000Z",
+    products: [
+      {
+        product_name: "KWS Small Box",
+        product_id: 66,
+        commodities: [
+          {
+            commodity_name: "CAPSICUM GREEN",
+            measurement_unit: "gm",
+            quantity: 250
+          },
+          {
+            commodity_name: "MUSROOM PC (Oyester Only)",
+            measurement_unit: "gm",
+            quantity: 200
+          },
+          {
+            commodity_name: "LEMON LOOSE",
+            measurement_unit: "pcs",
+            quantity: 2
+          },
+          {
+            commodity_name: "CHILLI LIGHT GREEN",
+            measurement_unit: "gm",
+            quantity: 150
+          },
+          {
+            commodity_name: "CORIANDER",
+            measurement_unit: "bundle",
+            quantity: 1
+          }
+        ]
+      }
+    ],
+    address: {
+      house_no: "s524",
+      address_line1: "NewTown",
+      address_line2: "Kolkata",
+      city: "Kolkata",
+      state: "West Bengal",
+      country: "India",
+      pin: "700000"
+    },
+    showCommodities: false, // Track whether to show commodities
+  });
 
-  const toggleModal = () => {
-    setModalVisible(!isModalVisible);
+  const toggleCommodities = () => {
+    setOrderData((prevData: any) => ({
+      ...prevData,
+      showCommodities: !prevData.showCommodities,
+    }));
   };
 
   return (
-    <View>
+    <ScrollView>
       <LinearGradient
         colors={['#FFB900', '#FFE435', '#FFA000']}
         start={{ x: 0, y: 0 }}
         end={{ x: 1, y: 0 }}
-        style={styles.LinearGradientStyle}>
-        <Text style={{ color: 'white', fontSize: 27, fontWeight: 'bold' }}>
-          Order Detail
-        </Text>
-      </LinearGradient>
-
-      {/* <View style={styles.box}>
-        <TouchableOpacity onPress={toggleModal}>
-          <Image
-            source={{
-              uri: 'https://cdn2.iconfinder.com/data/icons/shopping-378/100/shopping-cart-full-shopping-carts-goods-bag-box-product-512.png',
-            }}
-            style={{ width: 150, height: 150, resizeMode: 'contain' }}
-          />
-          <Text style={styles.text}>Product Box</Text>
-        </TouchableOpacity>
-      </View>
-      <Modal
-        animationType="slide"
-        transparent={true}
-        visible={isModalVisible}
-        onRequestClose={toggleModal}>
-        <View style={styles.modalContainer}>
-          <View style={styles.modalContent}>
-            <Text>CARROT</Text>
-            <Text>DRUMSTICK</Text>
-            <Text>BITTER GOURD</Text>
-            <Text>BOTTLE GOURD</Text>
-            <Text>PUMPKIN RED</Text>
-            <Text>SNAKE GOURD </Text>
-            <TouchableOpacity onPress={toggleModal}>
-              <Text  style={styles. close_button}>Close</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      </Modal> */}
-      <View>
-        <Text style={styles.TextStyle}>Thanks For Your Order, Sujata!</Text>
-      </View>
-      <View style={styles.CardStyle}>
-       <Box/>
-      </View>
-      <View style={{flexDirection:'row'}}>
-      
-        <View style={styles.button}>
-        <TouchableOpacity>
-        <Text>ReOrder</Text>
-        </TouchableOpacity>
-        </View>
- 
-        <View style={styles.button}>
-        <TouchableOpacity>
-        <Text>Track Order</Text>
-        </TouchableOpacity>
-        </View>
-       
-       </View>
-       <View style={styles.CardStyle}>
-       <Details/>
-      </View>
-      <View>
+        style={styles.header}>
         <TouchableOpacity
           onPress={() => navigation.navigate('OrderList')}
-          style={styles.button}>
-          <Text>Go back to Order List</Text>
+          style={styles.backButton}>
+          <Icon name="arrow-back-outline" size={30} color={'white'} />
         </TouchableOpacity>
+        <Text style={styles.headerText}>Order Details</Text>
+      </LinearGradient>
+
+      <View style={styles.container}>
+        <View style={styles.card}>
+          <Image
+            source={{
+              uri:
+                'https://cdn4.iconfinder.com/data/icons/e-commerce-and-online-shopping-flat/512/delivery_hand_product_order_courier_box_service_shipping-512.png',
+            }}
+            style={styles.image}
+          />
+          <View style={styles.orderDetails}>
+            <OrderDetailItem label="Order ID:" value={orderData.order_id} />
+            <OrderDetailItem label="Order Code:" value={orderData.order_code} />
+            <OrderDetailItem label="Created On:" value={orderData.created_on} />
+            <OrderDetailItem
+              label="Expected Delivery Date:"
+              value={orderData.expected_delivery_date}
+            />
+          </View>
+          <TouchableOpacity
+            onPress={toggleCommodities}
+            style={[
+              styles.commoditiesButton,
+              {
+                backgroundColor: orderData.showCommodities
+                  ? 'lightgray'
+                  : 'transparent',
+                borderColor: orderData.showCommodities
+                  ? 'transparent'
+                  : 'lightcoral',
+              },
+            ]}>
+            <Text style={styles.commoditiesButtonText}>
+              {orderData.showCommodities ? 'Hide Commodities' : 'Show Commodities'}
+            </Text>
+            <Icon
+              name={orderData.showCommodities ? 'chevron-up' : 'chevron-down'} // Use chevron-up or chevron-down based on showCommodities
+              size={20}
+              color="blue"
+            />
+          </TouchableOpacity>
+          {orderData.showCommodities && (
+            <View style={styles.commoditiesContainer}>
+              <Text style={styles.commodityHeader}>Order Products:</Text>
+              {orderData.products.map((product:any, index:any) => (
+                <View key={index} style={styles.productItem}>
+                  <Text style={styles.productName}>{product.product_name}</Text>
+                  <Text style={styles.productName}>
+            Quantity: {product.commodities.length}
+          </Text>
+                  <Accordion items={product.commodities} />
+                </View>
+              ))}
+            </View>
+          )}
+        </View>
+
+        <View style={styles.buttonContainer}>
+          <TouchableOpacity style={styles.button}>
+            <Text style={styles.buttonText}>Reorder</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.button}>
+            <Text style={styles.buttonText}>Track Order</Text>
+          </TouchableOpacity>
+        </View>
       </View>
+    </ScrollView>
+  );
+};
+
+const OrderDetailItem = ({
+  label,
+  value,
+}: {
+  label: string;
+  value: string | number;
+}) => {
+  return (
+    <View style={styles.orderDetailItem}>
+      <Text style={styles.orderDetailLabel}>{label}</Text>
+      <Text style={styles.orderDetailValue}>{value}</Text>
+    </View>
+  );
+};
+//displays the commodity 
+const Accordion = ({
+  items,
+}: {
+  items: Array<{ commodity_name: string; measurement_unit: string; quantity: number }>;
+}) => {
+  return (
+    <View style={styles.commoditiesContainer}>
+      {items.map((item, index) => (
+        <View key={index} style={styles.commodity}>
+          <Text style={styles.commodityName}>{item.commodity_name}</Text>
+          <Text style={styles.commodityDetails}>
+            {item.quantity} {item.measurement_unit}
+          </Text>
+        </View>
+        
+      ))}
     </View>
   );
 };
 
-const Box=()=>{
-  return(
-    <View style={{flexDirection:'row'}}>
-    <View>
-    <Image
-            source={{
-              uri:'https://cdn4.iconfinder.com/data/icons/e-commerce-and-online-shopping-flat/512/delivery_hand_product_order_courier_box_service_shipping-512.png'
-            }}
-            style={{ width: 150, height: 150, resizeMode: 'contain' }}
-          />
-    </View>
-    <View style={{padding:10}}>
-      <View>
-      <Text style={styles.TextStyle}>Box Name : </Text>
-    </View>
-    <View>
-      <Text style={styles.TextStyle}>ItemName : </Text>
-    </View>
-    <View>
-      <Text style={styles.TextStyle}>Traking Id:</Text>
-    </View>
-    <View>
-      <Text style={styles.TextStyle}>Qty:</Text>
-    </View>
-    <View>
-      <Text style={styles.TextStyle}>Total Order:</Text>
-    </View>
-    </View>
-    </View>
-  )
-}
-
-const Details =()=>{
- return(
-  <View>
-    <View>
-    <View>
-    <Image
-            source={{
-              uri:'https://cdn4.iconfinder.com/data/icons/e-commerce-and-online-shopping-flat/512/delivery_hand_product_order_courier_box_service_shipping-512.png'
-            }}
-            style={{ width: 150, height: 150, resizeMode: 'contain' }}
-          />
-    </View>
-    <View>
-      <Text style={styles.TextStyle}>Kundru</Text>
-      </View>
-    </View>
-    <View>
-    <View>
-    <Image
-            source={{
-              uri:'https://cdn4.iconfinder.com/data/icons/e-commerce-and-online-shopping-flat/512/delivery_hand_product_order_courier_box_service_shipping-512.png'
-            }}
-            style={{ width: 150, height: 150, resizeMode: 'contain' }}
-          />
-    </View>
-    <View>
-      <Text style={styles.TextStyle}>Pointed Gaurd </Text>
-      </View>
-    </View>
-    <View>
-      <Text style={styles.TextStyle}>Tomatoes</Text>
-    </View>
-  </View>
- )
-}
-
 const styles = StyleSheet.create({
-  LinearGradientStyle: {
-    borderBottomLeftRadius: 20,
-    borderBottomRightRadius: 20,
-    height: Dimensions.get('window').height * 0.2,
-    width: '100%',
-    alignItems: 'center',
-    paddingTop: 40,
-  },
-  button: {
-    marginBottom: 20,
-    backgroundColor: 'orange',
-    borderRadius: 10,
-    padding: 10,
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginLeft:30,
-    width:150
-  },
-  close_button: {
-    marginTop: 50,
-    backgroundColor: 'white',
-    borderRadius: 10,
-    padding: 12,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderColor: 'orange',
-    borderWidth: 1,
-    elevation: 5,
-    marginRight: 90,
-    marginLeft: 90,
-  },
-  CardStyle: {
-    marginTop: 20,
-    marginLeft:20,
-    marginRight:20,
-    marginBottom:5,
-    borderRadius: 10,
-    borderWidth: 1,
-    borderColor: 'orange',
-    elevation: 10,
-    backgroundColor: 'white',
-  },
-  TextStyle: {
-    fontSize: 15,
-    
-  },
-  // box: {
-  //   width: 200,
-  //   height: 200,
-  //   backgroundColor: 'lightblue',
-  //   justifyContent: 'center',
-  //   alignItems: 'center',
-  //   borderRadius: 10,
-  //   shadowColor: 'gray',
-  //   shadowOffset: { width: 0, height: 2 },
-  //   shadowOpacity: 0.4,
-  //   shadowRadius: 3,
-  //   elevation: 5,
-  //   marginLeft: 100,
-  //   marginTop: 20,
-  // },
-  text: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: '#141414',
-    marginLeft: 25,
-  },
-  modalContainer: {
+  container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
   },
-  modalContent: {
-    width: 300,
+  header: {
+    backgroundColor: 'orange',
+    height: Dimensions.get('window').height * 0.2,
+    paddingHorizontal: 20,
+    paddingTop: 40,
+    flexDirection: 'row',
+  },
+  backButton: {
+    marginRight: 20,
+  },
+  headerText: {
+    color: 'white',
+    fontSize: 25,
+    flex: 1,
+  },
+  card: {
     backgroundColor: 'white',
     borderRadius: 10,
+    elevation: 10,
+    margin: 20,
+    alignItems: 'center',
+    borderColor: 'lightcoral',
+    borderWidth: 2,
+  },
+  image: {
+    width: 150,
+    height: 150,
+    resizeMode: 'contain',
+    marginTop: 20,
+  },
+  orderDetails: {
+    backgroundColor: 'white',
+    borderRadius: 10,
+    elevation: 10,
+    margin: 20,
     padding: 20,
     alignItems: 'center',
   },
+  commoditiesButton: {
+    marginTop: 10,
+    backgroundColor: 'transparent',
+    borderColor: 'lightcoral',
+    borderWidth: 1,
+    padding: 10,
+    paddingHorizontal: 20,
+    borderRadius: 5,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  commoditiesButtonText: {
+    color: 'blue',
+  },
+  commoditiesContainer: {
+    marginTop: 10,
+  },
+  commodityHeader: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginBottom: 10,
+  },
+  productItem: {
+    marginVertical: 10,
+  },
+  productName: {
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
+  orderDetailItem: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginVertical: 5,
+  },
+  orderDetailLabel: {
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+  orderDetailValue: {
+    fontSize: 16,
+  },
+  buttonContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    margin: 20,
+  },
+  button: {
+    backgroundColor: 'orange',
+    borderRadius: 10,
+    paddingVertical: 15,
+    alignItems: 'center',
+    flex: 1,
+    marginHorizontal: 10,
+  },
+  buttonText: {
+    color: 'white',
+    fontWeight: 'bold',
+  },
+  commodity: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    padding: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: 'lightgray',
+    position: 'relative',
+  },
+  commodityUnderline: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    bottom: 0,
+    height: 1, // Adjust the height as needed
+    backgroundColor: 'lightcoral', // Add your desired underline color
+  },
+  commodityInfo: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  commodityName: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginRight: 10,
+  },
+  commodityDetails: {
+    fontSize: 14,
+    color: 'gray',
+  },
+  commodityIcon: {
+    marginLeft: 10,
+  }
 });
 
 interface OrderDetailViewProps {
