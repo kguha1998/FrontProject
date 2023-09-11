@@ -6,7 +6,7 @@ import { StoreState } from '../../../../Models/reduxModel';
 import { Order_listAction, Order_listSuccessAction } from '../../../../Stores/Actions/orderActions';
 import { userDetail } from '../../../../Models/User';
 
-const OrderList = ({ navigation, Order_listAction,Order_listSuccessAction,user, order_detail_list, route }: OrderListProps) => {
+const OrderList = ({ navigation, Order_listAction,Order_listSuccessAction,user, route }: OrderListProps) => {
  
   useEffect(() =>{
     // will make the action call here to fetch order list 
@@ -16,7 +16,7 @@ const OrderList = ({ navigation, Order_listAction,Order_listSuccessAction,user, 
   return (
     <View>
      
-        <OrderListView navigation={navigation} order_detail_list={order_detail_list} />
+        <OrderListView navigation={navigation}  />
      
         
      
@@ -27,7 +27,7 @@ const OrderList = ({ navigation, Order_listAction,Order_listSuccessAction,user, 
 const mapStateToProps = (state: StoreState, ownProps: any) => {
   return {
     user: state.user.user_detail,
-    order_detail_list: state.OrderMain.order_list,
+    //order_detail_list: state.OrderMain.order_list,
   };
 };
 
@@ -43,6 +43,6 @@ interface OrderListProps {
   route?: any;
   Order_listAction?: any;
   user?: userDetail;
-  order_detail_list?: any;
+  //order_detail_list?: any;
   Order_listSuccessAction?:any
 }

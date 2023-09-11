@@ -7,21 +7,21 @@ import axios from 'axios';
 const OrderListView = ({navigation,order_detail_list, route}: OrderListViewProps) => {
   const [veg, setVeg] = useState<any>([]);
   useEffect(() => {
-    try {
-      axios
-        .get('https://mocki.io/v1/45905a5c-396e-4d8c-aaff-5570fa7e26bb')
-        // .get('https://testenvironemet.free.beeceptor.com/vegetable')
-        .then((response: {data: any}) => {
-          setVeg(response.data);
-        })
-        .catch((err: any) => {
-          console.log(err);
-        });
-    } catch (err) {
-      console.log(err);
-    }
-  }, []);
-  console.log("i am coming from child ",order_detail_list)
+  //   try {
+  //      axios
+  //        .get('https://mocki.io/v1/45905a5c-396e-4d8c-aaff-5570fa7e26bb')
+        
+  //       .then((response: {data: any}) => {
+  //         setVeg(response.data);
+  //       })
+  //       .catch((err: any) => {
+  //         console.log(err);
+  //       });
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+   }, []);
+  // console.log("i am coming from child ",order_detail_list)
   return (
     <View>
       <LinearGradient
