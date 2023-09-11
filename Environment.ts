@@ -1,7 +1,6 @@
 
 //export const BaseUrl = 'http://192.168.1.40:3000/api/v1';
-export const BaseUrl = 'http://192.168.1.3:3000/api/v1';
-
+export const BaseUrl = 'http://192.168.1.17:3000/api/v1';
 
 export const environment = {
   url: {
