@@ -42,7 +42,7 @@ const CartIndex = ({setStep,CartItemAction,data,defaultProductData,updateState,o
   };
 
   const decrementQuantity = (item: any) => {
-    if (item.quantity > 1) {
+    //if (item.quantity > 1) {
       const newQuantity = item.quantity - 1;
       const product_id =item.product_id;
       const updatedProducts = defaultProductData.products.map((product:any)=>
@@ -52,7 +52,7 @@ const CartIndex = ({setStep,CartItemAction,data,defaultProductData,updateState,o
           "products": updatedProducts,
         };
         CartItemAction(updatedData);
-    }
+  //  }
   };
 
   return (

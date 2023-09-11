@@ -41,6 +41,7 @@ export interface ProductListMain {
 
 export interface storeProduct{
   products:[{
+    id:string,
     quantity:number,
     product_id:number,
     commodities:[]
