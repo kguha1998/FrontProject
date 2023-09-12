@@ -16,14 +16,14 @@ const CartMain = ({ data, incrementQuantity, decrementQuantity }: CartMainProps)
   useFocusEffect(
     React.useCallback(() => {
       if (data) {
-<<<<<<< HEAD
+
         
-      } // For example, log a message when the screen is focused
-=======
+       // For example, log a message when the screen is focused
+
         // For example, log a message when the screen is focused
         console.log('Screen focused');
       }
->>>>>>> cbda9a195c37f71254bda6f6b218dfb747e4fbea
+
     }, [data])
   );
 
