@@ -62,6 +62,10 @@ const CartIndex = ({setStep,CartItemAction,data,defaultProductData,updateState,o
   };
   
 
+  function removeItem(item: any): void {
+    throw new Error('Function not implemented.')
+  }
+
   return (
     <ScrollView>
         <LinearGradient
@@ -86,9 +90,9 @@ const CartIndex = ({setStep,CartItemAction,data,defaultProductData,updateState,o
           </Text>
         </LinearGradient>
         <View>{data ? ( // Check if data is defined before rendering the child component
-          <CartMain data={data}  incrementQuantity={incrementQuantity} decrementQuantity={decrementQuantity}/>
+          <CartMain data={data}  incrementQuantity={incrementQuantity} decrementQuantity={decrementQuantity} removeItem={removeItem}/>
         ) : (
-          <Text>Loading data...</Text> // Or display a loading message or handle this case as needed
+          <Text>ADD Items To Cart...</Text> // Or display a loading message or handle this case as needed
         )}</View>
         
     <View>
