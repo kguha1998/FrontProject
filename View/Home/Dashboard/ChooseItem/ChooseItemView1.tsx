@@ -5,11 +5,13 @@ import {
   TouchableOpacity,
   StyleSheet,
   Dimensions,
+  Image,
 } from 'react-native';
 import Collapsible from 'react-native-collapsible';
 import { ScrollView } from 'react-native-gesture-handler';
 import LinearGradient from 'react-native-linear-gradient';
 import Icon from 'react-native-vector-icons/Ionicons';
+import { BaseUrl } from '../../../../environment';
 
 const ChooseItemView1 = ({
   navigation,
@@ -43,6 +45,16 @@ const ChooseItemView1 = ({
         ...prevColors,
         [itemToRemove]: 'white',
       }));
+    };
+
+    const handleToggleCartItem = (commodityId: any) => {
+      if (cart.includes(commodityId)) {
+        console.log(`Removing item ${commodityId} from the cart`);
+        handleRemoveItemFromCart(commodityId);
+      } else {
+        console.log(`Adding item ${commodityId} to the cart`);
+        handleAddToCart(commodityId);
+      }
     };
 
     const GoToCart= () =>{
@@ -113,35 +125,50 @@ const ChooseItemView1 = ({
                    <View >
                     <Text style={styles.maxItem}>Max Allowed Items : {commodityType.allowed_items}</Text>
                     <View style={{flexDirection:'column' }}>
+                     
                     {commodityType.commodities.map(
                       (commodity: any, cIndex: any) => (
                         <View key={cIndex} style={styles.commoditiesStyle}>
-                          <View style={{marginBottom:20}}>
-                          <Text style={styles.commodityDescription}>{commodity.commodity_name}</Text>
-                          <Text style={{fontSize:13,color:'#Ff8f00'}}>Quantity: {commodity.quantity}</Text>
-                          <Text style={{fontSize:13,color:'#Ff8f00'}}>
-                            Measurement Unit: {commodity.measurement_unit}
-                          </Text>
+                          <View style={{flexDirection:'row'}}>
+                          <View>
+                          <Image
+                              //  source={{uri: 'https://cdn3.iconfinder.com/data/icons/salad/512/vegetable-healthy-vitamins-food-512.png'}}
+                              source={{uri: `http://192.168.1.13:3000/api/v1/image/${commodity.commodity_id}`}}
+                              style={{width: 100, height: 100, resizeMode: 'contain', }}
+                            />
                           </View>
+                          <View style={{marginBottom:10,marginLeft:20,marginTop:20}}>
+                          <Text style={styles.commodityDescription}>{commodity.commodity_name}</Text>
+                          <Text style={{fontSize:13,color:'#Ff8f00'}}>Quantity: {commodity.quantity}{commodity.measurement_unit}</Text>
+                          </View>
+                          </View>
+                          
                           <View style={{flexDirection:'row',}}>
                             <View style={{}}>
                           <TouchableOpacity
                             style={[styles.button,{ backgroundColor: buttonColors[commodity.commodity_id] || 'white' }]}
                             onPress={() => {
-                              handleAddToCart(commodity.commodity_id);
+                              // handleAddToCart(commodity.commodity_id);
+                              handleToggleCartItem (commodity.commodity_id);
                             }}>
-                            <Text style={styles.buttonText}>Add</Text>
+                            <Text style={styles.buttonText}>
+                          {/* Add */}
+                              {cart.includes(commodity.commodity_id) ? 'Remove' : 'Add'}
+                           </Text>
                           </TouchableOpacity>
                           </View>
-                          <View style={{marginLeft:170}}>
+                          {/* <View style={{marginLeft:170}}>
                           <TouchableOpacity
                             style={[styles.button]}
                             onPress={() => {
                               handleRemoveItemFromCart (commodity.commodity_id);
                             }}>
-                            <Text style={styles.buttonText}>Remove</Text>
+                            <Text style={styles.buttonText}>
+                              Remove
+                              {cart.includes(commodity.commodity_id) ? 'Remove' : 'Add'}
+                            </Text>
                           </TouchableOpacity>
-                          </View>
+                          </View> */}
                           </View>
                         </View>
                         
