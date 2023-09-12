@@ -25,7 +25,8 @@ export default function ProductReducer(
           },
           
         };
-      
+      case CartItemsActionTypes.Order_Complete_Action:
+        return {...state ,Store_Product: null }
         
     default:
       return state;

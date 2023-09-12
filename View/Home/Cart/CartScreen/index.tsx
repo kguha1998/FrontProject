@@ -17,7 +17,7 @@ const CartIndex = ({setStep,CartItemAction,data,defaultProductData,updateState,o
     // Action call
    CartItemAction(defaultProductData);
 
-  },[CartItemAction]))
+  },[defaultProductData]))
   
   useFocusEffect(React.useCallback(() => {
     if (data) {
@@ -27,8 +27,10 @@ const CartIndex = ({setStep,CartItemAction,data,defaultProductData,updateState,o
   }, [data, updateState]));
  
   const incrementQuantity = (item: any) => {
-    const newQuantity = item.quantity + 1;
+   // console.log("this is item",item)
+    const newQuantity = item.quantity ;
     const product_id =item.product_id;
+    //console.log("increment of newqty....",newQuantity)
   // Create the updated products array
   const updatedProducts = defaultProductData.products.map((product:any) =>
     product.product_id === product_id ? { ...product, quantity: newQuantity } : product
