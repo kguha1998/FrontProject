@@ -66,31 +66,11 @@ const OrderConfirmation = ({ mode, onConfirm, navigation }: OrderConfirmationPro
         >
           Select a Payment Method
         </Text>
-        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-          <TouchableOpacity onPress={() => setSelectedRadio(2)}>
-            <View
-              style={{
-                height: 30,
-                width: 30,
-                borderColor: 'black',
-                borderWidth: 2,
-                borderRadius: 20,
-                margin: 10,
-              }}
-            >
-              {selectedRadio === 2 ? (
-                <View
-                  style={{
-                    backgroundColor: 'blue',
-                    height: 18,
-                    width: 18,
-                    borderRadius: 20,
-                    margin: 4,
-                  }}
-                ></View>
-              ) : null}
-            </View>
-          </TouchableOpacity>
+        <View style={{ flexDirection: 'row', alignItems: 'center' ,marginLeft:10 , marginTop: 5,}}>
+        <CustomRadioButton
+            selected={selectedRadio === 2}
+            onSelect={() => setSelectedRadio(2)}
+          />
           <View>
             <Text
               style={{
@@ -98,13 +78,13 @@ const OrderConfirmation = ({ mode, onConfirm, navigation }: OrderConfirmationPro
                 fontSize: 20,
                 marginTop: 5,
                 marginBottom: 5,
+                marginLeft :5,
               }}
             >
               {paymentMethod}
             </Text>
           </View>
         </View>
-
         <TouchableOpacity
           onPress={handleConfirm}
           style={{
@@ -118,7 +98,7 @@ const OrderConfirmation = ({ mode, onConfirm, navigation }: OrderConfirmationPro
             backgroundColor: '#fa8b0c',
           }}
         >
-          <Text style={{ color: 'white', fontSize: 19 }}>Confirm Order</Text>
+          <Text style={{ color: 'white', fontSize: 19 }}>Place Order</Text>
         </TouchableOpacity>
       </View>
       <Modal animationType="slide" transparent={true} visible={isModalVisible}>
@@ -170,6 +150,37 @@ const styles = StyleSheet.create({
 
 
 export default OrderConfirmation;
+// Custom radio button component with a linear gradient background
+const CustomRadioButton = ({ selected, onSelect }: any) => {
+  return (
+    <TouchableOpacity onPress={onSelect}>
+      <View
+        style={{
+          height: 20,
+          width: 20,
+          borderRadius: 20,
+          borderWidth: 2,
+          borderColor: selected ? '#fa8b0c' : 'gray', // Change border color based on selection
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
+        <View
+          style={{
+            backgroundColor: selected ? '#fa8b0c' : 'transparent', // Change background color based on selection
+            height: 10,
+            width: 10,
+            borderRadius: 10,
+          }}
+        ></View>
+      </View>
+    </TouchableOpacity>
+  );
+};
+export interface CustomRadioButton{
+  selected?:any;
+  onSelect?:any;
+}
 
 export interface OrderConfirmationProps {
   mode?: any;

@@ -18,7 +18,7 @@ export const CartItemAction = (defaultProductData: any) => {
         message: 'Please Wait...'}))
       return CartItems(defaultProductData)
         .then(response => {
-          console.log(response.data)
+          
           if (response.status != 200) {
             dispatch(ApiCallErrorAction(response.data));
           } else {
@@ -74,14 +74,14 @@ export const PaymentModeAction = (payload: any) => {
   };
 
   export const PlaceOrderAction = (payload: any) => {
-    console.log("i am inside action",payload)
+  
     return (dispatch: any, getState: any) => {
       dispatch(BeginApiCallAction({
         count: 1,
         message: 'Please Wait...'}))
       return PlaceOrder(payload)
         .then(response => {
-         console.log('i am in action',response.data)
+        
           if (response.status != 200) {
             dispatch(ApiCallErrorAction(response.data));
           } else {
