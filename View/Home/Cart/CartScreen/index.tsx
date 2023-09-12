@@ -17,7 +17,7 @@ const CartIndex = ({setStep,CartItemAction,data,defaultProductData,updateState,o
     // Action call
    CartItemAction(defaultProductData);
 
-  },[CartItemAction]))
+  },[defaultProductData]))
   
   useFocusEffect(React.useCallback(() => {
     if (data) {
@@ -78,10 +78,11 @@ const CartIndex = ({setStep,CartItemAction,data,defaultProductData,updateState,o
             CART
           </Text>
         </LinearGradient>
-        <View>{data ? ( // Check if data is defined before rendering the child component
+        <View>
+          {data ? ( // Check if data is defined before rendering the child component
           <CartMain data={data}  incrementQuantity={incrementQuantity} decrementQuantity={decrementQuantity}/>
         ) : (
-          <Text>Loading data...</Text> // Or display a loading message or handle this case as needed
+          <Text>Add items to cart</Text> // Or display a loading message or handle this case as needed
         )}</View>
         
     <View>
