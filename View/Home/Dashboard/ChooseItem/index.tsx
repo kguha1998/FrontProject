@@ -31,8 +31,10 @@ const ChooseItem = ({navigation, route,productDetails,CommodityListAction,AddToC
           quantity:1,
          }]}
       AddToCartAction(myObject) 
-      // console.log('RANDOMMMMMMM', myObject) 
+      console.log('RANDOMMMMMMM', myObject) 
     };
+
+    console.log(StoreProduct,'StoreLog.........')
   return (
     <View style={{flex: 1}}>
     {/* <ChooseItemView  navigation={navigation} route={route}  productDetails={productDetails}/> */}
@@ -42,9 +44,11 @@ const ChooseItem = ({navigation, route,productDetails,CommodityListAction,AddToC
   )
 }
 const mapStateToProps = (state: StoreState, ownProps: any) => {
+
   return {
     productDetails: state.product.commodity_detail, 
     StoreProduct:state.product.Store_Product
+
     
   };
 

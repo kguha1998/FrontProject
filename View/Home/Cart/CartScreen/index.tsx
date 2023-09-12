@@ -27,8 +27,10 @@ const CartIndex = ({setStep,CartItemAction,data,defaultProductData,updateState,o
   }, [data, updateState]));
  
   const incrementQuantity = (item: any) => {
-    const newQuantity = item.quantity + 1;
+   // console.log("this is item",item)
+    const newQuantity = item.quantity +1 ;
     const product_id =item.product_id;
+    //console.log("increment of newqty....",newQuantity)
   // Create the updated products array
   const updatedProducts = defaultProductData.products.map((product:any) =>
     product.product_id === product_id ? { ...product, quantity: newQuantity } : product
@@ -42,18 +44,27 @@ const CartIndex = ({setStep,CartItemAction,data,defaultProductData,updateState,o
   };
 
   const decrementQuantity = (item: any) => {
-    //if (item.quantity > 1) {
+    if (item.quantity > 1) {
       const newQuantity = item.quantity - 1;
-      const product_id =item.product_id;
-      const updatedProducts = defaultProductData.products.map((product:any)=>
-        product_id.product_id == product_id ? {...product, quantity:newQuantity} :product
-        );
-        const updatedData ={
-          "products": updatedProducts,
-        };
-        CartItemAction(updatedData);
-  //  }
+      const product_id = item.product_id;
+      const id = item.id;
+      const updatedProducts = defaultProductData.products.map((product: any) =>
+        product.product_id === product_id ? { ...product, quantity: newQuantity} : product
+      );
+  
+      const updatedData = {
+        products: updatedProducts,
+      };
+
+      // Assuming CartItemAction is a function to update the cart data
+      CartItemAction(updatedData);
+    }
   };
+  
+
+  function removeItem(item: any): void {
+    throw new Error('Function not implemented.')
+  }
 
   return (
     <ScrollView>
@@ -78,11 +89,18 @@ const CartIndex = ({setStep,CartItemAction,data,defaultProductData,updateState,o
             CART
           </Text>
         </LinearGradient>
+<<<<<<< HEAD
         <View>
           {data ? ( // Check if data is defined before rendering the child component
           <CartMain data={data}  incrementQuantity={incrementQuantity} decrementQuantity={decrementQuantity}/>
         ) : (
           <Text>Add items to cart</Text> // Or display a loading message or handle this case as needed
+=======
+        <View>{data ? ( // Check if data is defined before rendering the child component
+          <CartMain data={data}  incrementQuantity={incrementQuantity} decrementQuantity={decrementQuantity} removeItem={removeItem}/>
+        ) : (
+          <Text>ADD Items To Cart...</Text> // Or display a loading message or handle this case as needed
+>>>>>>> cbda9a195c37f71254bda6f6b218dfb747e4fbea
         )}</View>
         
     <View>
