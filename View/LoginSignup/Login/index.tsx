@@ -10,13 +10,11 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Login = ({ navigation, route, LoginAction, user }: LoginPorps) => {
   useEffect(() => {
-    // Function to load user details from AsyncStorage
     const loadUserDetailsFromStorage = async () => {
       try {
-        const userJSON = await AsyncStorage.getItem('user_details');
-        if (userJSON) {
-          const userData = JSON.parse(userJSON);
-          // Dispatch an action to set user details from AsyncStorage
+        const Async = await AsyncStorage.getItem('user_details');
+        if (Async) {
+          const userData = JSON.parse(Async);
           LoginAction(userData);
         }
       } catch (error) {
@@ -24,9 +22,8 @@ const Login = ({ navigation, route, LoginAction, user }: LoginPorps) => {
       }
     };
 
-    // Call the function to load user details when the component mounts
     loadUserDetailsFromStorage();
-  }, []); // Empty dependency array ensures this effect runs once on mount
+  }, []); 
 
   const handleLogin = (data: any) => {
     LoginAction(data);
