@@ -10,7 +10,7 @@ const CartMain = ({ data, incrementQuantity, decrementQuantity  }: CartMainProps
   useFocusEffect(
     React.useCallback(() => {
       if (data) {
-        // console.log('Data received:', data); // Ensure you're receiving the data correctly
+        
       } // For example, log a message when the screen is focused
     }, [data])
   );
