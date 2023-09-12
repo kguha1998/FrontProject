@@ -28,7 +28,7 @@ const CartIndex = ({setStep,CartItemAction,data,defaultProductData,updateState,o
  
   const incrementQuantity = (item: any) => {
    // console.log("this is item",item)
-    const newQuantity = item.quantity ;
+    const newQuantity = item.quantity +1 ;
     const product_id =item.product_id;
     //console.log("increment of newqty....",newQuantity)
   // Create the updated products array
@@ -44,18 +44,23 @@ const CartIndex = ({setStep,CartItemAction,data,defaultProductData,updateState,o
   };
 
   const decrementQuantity = (item: any) => {
-    //if (item.quantity > 1) {
+    if (item.quantity > 1) {
       const newQuantity = item.quantity - 1;
-      const product_id =item.product_id;
-      const updatedProducts = defaultProductData.products.map((product:any)=>
-        product_id.product_id == product_id ? {...product, quantity:newQuantity} :product
-        );
-        const updatedData ={
-          "products": updatedProducts,
-        };
-        CartItemAction(updatedData);
-  //  }
+      const product_id = item.product_id;
+      const id = item.id;
+      const updatedProducts = defaultProductData.products.map((product: any) =>
+        product.product_id === product_id ? { ...product, quantity: newQuantity} : product
+      );
+  
+      const updatedData = {
+        products: updatedProducts,
+      };
+
+      // Assuming CartItemAction is a function to update the cart data
+      CartItemAction(updatedData);
+    }
   };
+  
 
   return (
     <ScrollView>
