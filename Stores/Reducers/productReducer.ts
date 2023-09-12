@@ -26,6 +26,9 @@ export default function ProductReducer(
           },
           
         };
+        case CartItemsActionTypes.Order_Complete_Action:
+      console.log("i am in reducer ")
+      return {  ...state , Store_Product: null };
       
         
     default:

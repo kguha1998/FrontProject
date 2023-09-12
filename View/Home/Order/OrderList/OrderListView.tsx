@@ -7,20 +7,21 @@ import axios from 'axios';
 const OrderListView = ({navigation,order_detail_list, route}: OrderListViewProps) => {
   const [veg, setVeg] = useState<any>([]);
   useEffect(() => {
-    try {
-      axios
-        .get('https://testenvironemet.free.beeceptor.com/vegetable')
-        .then((response: {data: any}) => {
-          setVeg(response.data);
-        })
-        .catch((err: any) => {
-          console.log(err);
-        });
-    } catch (err) {
-      console.log(err);
-    }
-  }, []);
-  console.log("i am coming from child ",order_detail_list)
+  //   try {
+  //      axios
+  //        .get('https://mocki.io/v1/45905a5c-396e-4d8c-aaff-5570fa7e26bb')
+        
+  //       .then((response: {data: any}) => {
+  //         setVeg(response.data);
+  //       })
+  //       .catch((err: any) => {
+  //         console.log(err);
+  //       });
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+   }, []);
+  // console.log("i am coming from child ",order_detail_list)
   return (
     <View>
       <LinearGradient
@@ -50,29 +51,43 @@ const OrderListView = ({navigation,order_detail_list, route}: OrderListViewProps
 };
 
 const OrderDetailChild = ({navigation, route, item}: any) => {
+
+  const formatDate = (timestamp: string | number | Date) => {
+    const date = new Date(timestamp);
+    const day = date.getDate();
+    const month = date.getMonth() + 1; // Months are 0-based, so add 1
+    const year = date.getFullYear();
+    return `${day}-${month}-${year}`;
+  };
+  
   return (
 <TouchableOpacity
         onPress={() => navigation.navigate('OrderDetail')}>
     <View
       style={styles.CardStyle}>
         <View style={{padding:10}}>
+        <View>
+        <Text style={styles.TextStyle}>Product_Name : {item.product_name}</Text>
+      </View>
+
       <View>
-        <Text style={styles.TextStyle}>Order ID : {item.Items_Details}</Text>
+        <Text style={styles.TextStyle}>Order_ID: {item.order_code}</Text>
+      </View>
+      {/* <View>
+        <Text style={styles.TextStyle}>Order_Placed_on :{item.created_on}</Text>
+      </View> */}
+      <View>
+        <Text style={styles.TextStyle}>Delivery_Date : {formatDate(item.expected_delivery_date)}</Text>
       </View>
       <View>
-        <Text style={styles.TextStyle}>Product Name :{item.Tracking_No}</Text>
+        <Text style={styles.TextStyle}>Quantity : {item.quantity}</Text>
       </View>
-      <View>
-        <Text style={styles.TextStyle}>Qty : {item.Items_Quantity}</Text>
-      </View>
-      <View>
-        <Text style={styles.TextStyle}>Price : {item.order_total}</Text>
-      </View>
+     
       </View>
       
-          <View style={styles.button}>
+          {/* <View style={styles.button}>
         <Text>Go to Order Detail Page</Text>
-        </View>
+        </View> */}
       
     </View>
     </TouchableOpacity>
@@ -112,6 +127,15 @@ const styles = StyleSheet.create({
     elevation: 10,
     backgroundColor: 'white',
   },
+  new:{
+      elevation: 10,
+      backgroundColor: 'white',
+      borderRadius: 10,
+      margin: 20,
+      marginTop: -20,
+      paddingVertical: 20,
+      paddingHorizontal: 15,
+  }
 });
 interface OrderListViewProps {
   navigation?: any;
