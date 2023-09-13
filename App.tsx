@@ -10,7 +10,8 @@ import MainRoute from './View';
 import { NavigationContainer } from '@react-navigation/native';
 import{Provider as StoreProvider} from 'react-redux';
 import ConfigureStore from './Stores/configureStore';
-import messaging from '@react-native-firebase/messaging';
+
+
 function App(): JSX.Element {
  
   const store = ConfigureStore()
@@ -19,6 +20,7 @@ function App(): JSX.Element {
     <StoreProvider store={store}>
     <NavigationContainer>
       <MainRoute />
+    
     </NavigationContainer>
     </StoreProvider>
 

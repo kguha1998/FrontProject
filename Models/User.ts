@@ -7,7 +7,6 @@ export interface UserMain {
 }
 
 
-
 export interface userDetail {
   customer_id: number;
   customer_email: string;

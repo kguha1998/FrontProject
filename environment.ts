@@ -19,5 +19,7 @@ export const environment = {
     addressDeleteUrl:'/addresses/delete',
     userDetailFetch:'/customer/cust',
     userDetailEdit:'/customer/cust',
+    placeorderurl:'/order/CreateOrder',
+    orderlist:'/order/cust',
   },
 };

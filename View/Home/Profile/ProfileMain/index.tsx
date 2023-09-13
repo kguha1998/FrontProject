@@ -1,55 +1,46 @@
 import { View, Text } from 'react-native'
-import React, { useEffect } from 'react'
-import ProfileView from './ProfileMainView'
+import React from 'react'
 import ProfileMainView from './ProfileMainView'
 import { connect } from 'react-redux'
 import { StoreState } from '../../../../Models/reduxModel'
-import { UserDetailEditAction, UserDetailEditSuccessAction, UserLogoutSuccess } from '../../../../Stores/Actions/userAction'
+import { UserLogoutSuccess } from '../../../../Stores/Actions/userAction'
 import { userDetail } from '../../../../Models/User'
-import { useFocusEffect } from '@react-navigation/native'
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const ProfileMain = ({navigation,user,UserLogoutSuccess,UserDetailEditAction}:ProfileMainProps) => {
-  // useFocusEffect(
-  //   React.useCallback(() => {
-  //     UserDetailEditAction(user)
-  //  }, [])
-  //  );
-
-  //  useEffect(() => {
-  //   UserDetailEditAction(user);
-   
-    
-  //  }, []);
-  console.log(user?.customer_name)
- // UserDetailEditAction(user);
- 
-//console.log(user?.customer_name)
+const ProfileMain = ({ navigation, user, UserLogoutSuccess }: ProfileMainProps) => {
   const Logout = (data: any) => {
+    
+    AsyncStorage.removeItem('user_details')
+      .then(() => {
+        console.log('User details removed from AsyncStorage');
+      })
+      .catch((error) => {
+        console.error('Error removing user details from AsyncStorage:', error);
+      });
+
+  
     UserLogoutSuccess(user?.customer_id);
   }
-    
-   
 
   return (
     <ProfileMainView navigation={navigation} Logout={Logout} user={user} />
   )
-  }
+}
+
 const mapStateToProps = (state: StoreState, ownProps: any) => {
   return {
     user: state.user.user_detail,
-   
   };
 };
+
 const mapDispatchToProps = {
   UserLogoutSuccess,
-  UserDetailEditAction
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProfileMain);
 
-interface ProfileMainProps{
+interface ProfileMainProps {
   navigation?: any;
-  user?:userDetail;
-  UserLogoutSuccess?:any
-  UserDetailEditAction?:any
+  user?: userDetail;
+  UserLogoutSuccess?: any;
 }

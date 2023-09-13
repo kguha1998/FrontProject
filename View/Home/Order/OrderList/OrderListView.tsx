@@ -4,22 +4,20 @@ import {TouchableOpacity} from 'react-native-gesture-handler';
 import LinearGradient from 'react-native-linear-gradient';
 import axios from 'axios';
 
-const OrderListView = ({navigation, route}: OrderListViewProps) => {
-  const [veg, setVeg] = useState<any>([]);
+const OrderListView = ({navigation, route,orderData}: OrderListViewProps) => {
+  console.log("orderData.........",orderData)
+  const [veg, setVeg] = useState<any>(orderData);
   useEffect(() => {
-    try {
-      axios
-        .get('https://testenvironemet.free.beeceptor.com/vegetable')
-        .then((response: {data: any}) => {
-          setVeg(response.data);
-        })
-        .catch((err: any) => {
-          console.log(err);
-        });
-    } catch (err) {
-      console.log(err);
-    }
-  }, []);
+   }, []);
+  // console.log("i am coming from child ",order_detail_list)
+  const formatDate = (timestamp: string | number | Date) => {
+    const date = new Date(timestamp);
+    const day = date.getDate();
+    const month = date.getMonth() + 1; // Months are 0-based, so add 1
+    const year = date.getFullYear();
+    return `${day}-${month}-${year}`;
+  };
+
   return (
     <View>
       <LinearGradient
@@ -34,7 +32,7 @@ const OrderListView = ({navigation, route}: OrderListViewProps) => {
       <ScrollView>
         <View style={{paddingBottom: 350}}>
           <View>
-            {veg.map((m: any) => (
+          {orderData.map((m: any) => (
               <OrderDetailChild
                 navigation={navigation}
                 key={m.order_id}
@@ -49,29 +47,43 @@ const OrderListView = ({navigation, route}: OrderListViewProps) => {
 };
 
 const OrderDetailChild = ({navigation, route, item}: any) => {
+
+  const formatDate = (timestamp: string | number | Date) => {
+    const date = new Date(timestamp);
+    const day = date.getDate();
+    const month = date.getMonth() + 1; // Months are 0-based, so add 1
+    const year = date.getFullYear();
+    return `${day}-${month}-${year}`;
+  };
+  
   return (
 <TouchableOpacity
         onPress={() => navigation.navigate('OrderDetail')}>
     <View
       style={styles.CardStyle}>
         <View style={{padding:10}}>
+        <View>
+        <Text style={styles.TextStyle}>Product_Name : {item.product_name}</Text>
+      </View>
+
       <View>
-        <Text style={styles.TextStyle}>ItemName : {item.Items_Details}</Text>
+        <Text style={styles.TextStyle}>Order_ID: {item.order_code}</Text>
+      </View>
+      {/* <View>
+        <Text style={styles.TextStyle}>Order_Placed_on :{item.created_on}</Text>
+      </View> */}
+      <View>
+        <Text style={styles.TextStyle}>Delivery_Date : {formatDate(item.expected_delivery_date)}</Text>
       </View>
       <View>
-        <Text style={styles.TextStyle}>Traking Id:{item.Tracking_No}</Text>
+        <Text style={styles.TextStyle}>Quantity : {item.quantity}</Text>
       </View>
-      <View>
-        <Text style={styles.TextStyle}>Qty:{item.Items_Quantity}</Text>
-      </View>
-      <View>
-        <Text style={styles.TextStyle}>Total Order:{item.order_total}</Text>
-      </View>
+     
       </View>
       
-          <View style={styles.button}>
+          {/* <View style={styles.button}>
         <Text>Go to Order Detail Page</Text>
-        </View>
+        </View> */}
       
     </View>
     </TouchableOpacity>
@@ -111,8 +123,20 @@ const styles = StyleSheet.create({
     elevation: 10,
     backgroundColor: 'white',
   },
+  new:{
+      elevation: 10,
+      backgroundColor: 'white',
+      borderRadius: 10,
+      margin: 20,
+      marginTop: -20,
+      paddingVertical: 20,
+      paddingHorizontal: 15,
+  }
 });
 interface OrderListViewProps {
   navigation?: any;
   route?: any;
+  order_detail_list?:any;
+  orderData?:any;
+  OrderAction?:any;
 }

@@ -6,6 +6,7 @@ import { AddToCartAction, CommodityListAction} from '../../../../Stores/Actions/
 import ChooseItemView1 from './ChooseItemView1';
 
 
+
 const ChooseItem = ({navigation, route,productDetails,CommodityListAction,AddToCartAction,StoreProduct}:ChooseItemProps) => {
   
   const { product_id } = route.params;
@@ -16,16 +17,24 @@ const ChooseItem = ({navigation, route,productDetails,CommodityListAction,AddToC
     CommodityListAction(product_id)
     }, []);
 
+    const generateRandomId = () => {
+      return Math.random().toString(36).substr(2, 10); // Generates a random alphanumeric ID
+    };
+
     const AddToCart = (data:any) => {
-     
+      const randomId = generateRandomId();
       const myObject={
         'products':[{
-        product_id:product_id,
-        commodities: data,
-        quantity:1,
-      }]}
-      AddToCartAction(myObject)  
+          id: randomId,
+          product_id:product_id,
+          commodities: data,
+          quantity:1,
+         }]}
+      AddToCartAction(myObject) 
+      console.log('RANDOMMMMMMM', myObject) 
     };
+
+    console.log(StoreProduct,'StoreLog.........')
   return (
     <View style={{flex: 1}}>
     {/* <ChooseItemView  navigation={navigation} route={route}  productDetails={productDetails}/> */}
@@ -35,9 +44,11 @@ const ChooseItem = ({navigation, route,productDetails,CommodityListAction,AddToC
   )
 }
 const mapStateToProps = (state: StoreState, ownProps: any) => {
+
   return {
     productDetails: state.product.commodity_detail, 
     StoreProduct:state.product.Store_Product
+
     
   };
 
