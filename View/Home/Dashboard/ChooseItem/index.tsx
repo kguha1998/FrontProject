@@ -10,6 +10,7 @@ import ChooseItemView1 from './ChooseItemView1';
 const ChooseItem = ({navigation, route,productDetails,CommodityListAction,AddToCartAction,StoreProduct}:ChooseItemProps) => {
   
   const { product_id } = route.params;
+  console.log(route.params,'param...................')
 
   const [childData, setChildData] = useState(null);
 
