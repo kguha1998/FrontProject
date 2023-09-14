@@ -21,13 +21,13 @@ const ChooseItemView1 = ({
   
 }: ChooseItemView1porps) => {
   
-  const [expandedCommodityTypeIndex, setExpandedCommodityTypeIndex] =
-    useState(null);
+  // const [expandedCommodityTypeIndex, setExpandedCommodityTypeIndex] =
+  //   useState(null);
     const [cart, setCart] = useState<any>([]); 
 
     // const [buttonColor, setButtonColor] = useState('white'); // State for button color
     const [buttonColors, setButtonColors] = useState<Record<string, string>>({}); // State for button colors
-    const [selectedItemCount, setSelectedItemCount] = useState(0);
+    // const [selectedItemCount, setSelectedItemCount] = useState(0);
 
     const handleAddToCart = ( Add: any) => {
       const newCart = [...cart]; 
@@ -47,21 +47,31 @@ const ChooseItemView1 = ({
         [itemToRemove]: 'white',
       }));
     };
-
+    const [selectedItemCounts, setSelectedItemCounts] = useState<{ [key: string]: number }>({});
+    
     const handleToggleCartItem = (commodityId: any,commodityType: any) => {
+      const categoryItemId = commodityType.commodity_type_id;
+      if (!selectedItemCounts[categoryItemId]) {
+        selectedItemCounts[categoryItemId] = 0;
+      }
       if (cart.includes(commodityId)) {
-        console.log(`Removing item ${commodityId} from the cart`);
         handleRemoveItemFromCart(commodityId);
-        setSelectedItemCount(selectedItemCount - 1);
+        // setSelectedItemCount(selectedItemCount - 1);
+        setSelectedItemCounts({
+          ...selectedItemCounts,
+          [categoryItemId]: selectedItemCounts[categoryItemId] - 1,
+        });
       } else {
         // console.log(`Adding item ${commodityId} to the cart`);
         // handleAddToCart(commodityId);
-        if (selectedItemCount < commodityType.allowed_items) {
-          console.log(`Adding item ${commodityId} to the cart`);
+        if (selectedItemCounts[categoryItemId] < commodityType.allowed_items) {
           handleAddToCart(commodityId);
-          setSelectedItemCount(selectedItemCount + 1);
+          // setSelectedItemCount(selectedItemCount + 1);
+          setSelectedItemCounts({
+            ...selectedItemCounts,
+            [categoryItemId]: selectedItemCounts[categoryItemId] + 1,
+          });
         } else {
-          console.log(`Cannot add item ${commodityId}. Max Allowed Items reached.`);
         }
       }
     };
@@ -79,20 +89,19 @@ const ChooseItemView1 = ({
         style={{
           borderBottomLeftRadius: 20,
           borderBottomRightRadius: 20,
-          marginBottom: 30,
           height: Dimensions.get('window').height * 0.2,
           width: '100%',
           alignItems: 'center',
-          paddingTop: 20,
+          paddingTop: 40,
         }}>
-        <View style={{flexDirection: 'row', marginTop: 40, paddingRight: 70}}>
+        <View style={{flexDirection: 'row', marginTop: 35, paddingRight: 70}}>
           <View style={{marginRight: 50}}>
             <TouchableOpacity onPress={() => navigation.navigate('ChooseBox')}>
               <Icon name="arrow-back-circle" size={50} color={'white'} />
             </TouchableOpacity>
           </View>
-
-          <View style={{}}>
+            <View>         
+          <View style={{marginBottom:8}}>
             <Text
               style={{
                 color: 'white',
@@ -103,17 +112,31 @@ const ChooseItemView1 = ({
               Choose Items
             </Text>
           </View>
+          <View style={{alignItems:'center',backgroundColor:'white',borderWidth:1,borderColor:'#Ff8f00',height:30,width:140}}>
+          <Text style={{
+                alignItems:'baseline',
+                fontSize: 15,
+                color:'#Ff8f00',
+                fontWeight: '500',
+                textAlign: 'center',
+                marginTop:5
+              }}>
+           {productDetails && productDetails.product_name}
+            </Text>
+          </View>
+          </View>
         </View>
       </LinearGradient>
-      <ScrollView >
-         <View style={{paddingBottom:170}}>  
+      <View style={{paddingBottom:400}}>
+      <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+         <View style={{paddingBottom:20,marginTop:-30}}>  
             <View style={styles.container}>
              {productDetails && (
               <View>
                  {productDetails.comodity_item.map(
                      (commodityType: any, index: any): any => (
                      <View key={index} >
-                      <TouchableOpacity
+                      {/* <TouchableOpacity
                         style={styles.commodityTypeButton}
                          onPress={() => {
                       if (expandedCommodityTypeIndex === index) {
@@ -128,17 +151,22 @@ const ChooseItemView1 = ({
                       {commodityType.commodity_type_name}
                       </Text>
                     </View>
-                  </TouchableOpacity>
-                  <Collapsible collapsed={expandedCommodityTypeIndex !== index}>
+                  </TouchableOpacity> */}
+                  <View style={styles.commodityTypeButton}> 
+                      <Text style={styles.commodityTypeName}>
+                      {commodityType.commodity_type_name}
+                      </Text>
+                    </View>
+                  {/* <Collapsible collapsed={expandedCommodityTypeIndex !== index}> */}
                     
                    <View >
                     <Text style={styles.maxItem}>Max Allowed Items : {commodityType.allowed_items}
-                    {selectedItemCount >= commodityType.allowed_items
+                    {selectedItemCounts[commodityType.commodity_type_id]  >= commodityType.allowed_items
                     ? " (Max items reached)"
-                    : ` (Selected items: ${selectedItemCount})`}
+                    : ` (Selected items: ${selectedItemCounts[commodityType.commodity_type_id]})`}
                     </Text>
                     <View style={{flexDirection:'column' }}>
-                     
+                    
                     {commodityType.commodities.map(
                       (commodity: any, cIndex: any) => (
                         <View key={cIndex} style={styles.commoditiesStyle}>
@@ -156,9 +184,9 @@ const ChooseItemView1 = ({
                               )}
                             />
                           </View>
-                          <View style={{marginBottom:10,marginLeft:20,marginTop:20}}>
+                          <View style={{marginBottom:5,marginLeft:10,marginTop:10}}>
                           <Text style={styles.commodityDescription}>{commodity.commodity_name}</Text>
-                          <Text style={{fontSize:13,color:'#Ff8f00'}}>Quantity: {commodity.quantity}{commodity.measurement_unit}</Text>
+                          <Text style={{fontSize:13,color:'#Ff8f00'}}>Quantity: {commodity.quantity} {commodity.measurement_unit}</Text>
                           </View>
                           </View>
                           
@@ -171,7 +199,7 @@ const ChooseItemView1 = ({
                             }}>
                             <Text style={styles.buttonText}>
                           {/* Add */}
-                              {cart.includes(commodity.commodity_id) ? <Icon name="trash-outline" size={25} color={'orange'} /> : <Icon name="add-outline" size={25} color={'orange'}/>}
+                              {cart.includes(commodity.commodity_id) ? <Icon name="trash-sharp" size={30} color={'orange'} /> : <Icon name="add-circle-sharp" size={35} color={'orange'}/>}
                            </Text>
                           </TouchableOpacity>
                           </View>
@@ -194,12 +222,12 @@ const ChooseItemView1 = ({
                     )}
                     </View>
                     </View>
-                  </Collapsible>
+                  {/* </Collapsible> */}
                   
                      </View>
               ),
             )}
-                     
+{/*                      
                             <TouchableOpacity
                             style={styles.Cartbutton}
                             onPress={() => {navigation.navigate('Cart')
@@ -207,13 +235,34 @@ const ChooseItemView1 = ({
                             ;
                             }}>
                             <Text style={styles.buttonText}>Go To Cart</Text>
-                          </TouchableOpacity>
+                          </TouchableOpacity> */}
                          
               </View>
         )}
             </View>
          </View>
       </ScrollView>
+      <View style={{alignItems:'center'}}>
+      <TouchableOpacity
+                            style={styles.Cartbutton}
+                            onPress={() => {navigation.navigate('Cart')
+                              GoToCart() 
+                            ;
+                            }}>
+                            <Text style={styles.buttonText}>Go To Cart<Icon name="cart-sharp" size={30} color={'#Ff8f00'} /></Text>
+                          </TouchableOpacity>
+    </View>
+      </View>
+      <View>
+      {/* <TouchableOpacity
+                            style={styles.Cartbutton}
+                            onPress={() => {navigation.navigate('Cart')
+                              GoToCart() 
+                            ;
+                            }}>
+                            <Text style={styles.buttonText}>Go To Cart</Text>
+                          </TouchableOpacity> */}
+    </View>
     </View>
   );
 };
@@ -232,13 +281,14 @@ const styles = StyleSheet.create({
   commodityTypeButton: {
     backgroundColor: 'orange',
     elevation: 10,
-    borderRadius: 15,
-    padding: 20,
+    borderRadius: 5,
+    padding: 10,
     marginVertical:20,
+    marginHorizontal:10
     
   },
   commodityTypeName: {
-    fontSize: 18,
+    fontSize: 20,
     fontWeight: 'bold',
     textAlign:'center',
     color:'white',
@@ -250,10 +300,9 @@ const styles = StyleSheet.create({
     color:'#Ff8f00', 
   },
   commoditiesStyle:{
-    padding: 15,
+    padding: 5,
     marginHorizontal: 10,
-    marginVertical: 20,
-    elevation: 15,
+    marginVertical: 5,
     backgroundColor: 'white',
   },
   commodityDescription:{
@@ -262,28 +311,33 @@ const styles = StyleSheet.create({
     fontWeight:'500'
   },
   button: {
-    backgroundColor: 'white',
+    // backgroundColor: 'white',
     // borderRadius: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+    // borderColor: 'orange',
+    // borderWidth: 1.5,
+    // elevation:5,
+    // width:70
+  },
+  buttonText: {
+    color: '#Ff8f00',
+    fontWeight: '700',
+    fontSize:18,
+    alignSelf:'center',
+    
+  
+  },
+  Cartbutton: {
+    backgroundColor: 'white',
+    borderRadius: 5,
+     width: 250, // Adjust the width and height as needed
+  // height: 50,
     padding: 2,
     alignItems: 'center',
     justifyContent: 'center',
     borderColor: 'orange',
     borderWidth: 1.5,
-    elevation:5,
-    width:70
-  },
-  buttonText: {
-    color: '#Ff8f00',
-    fontWeight: '600',
-  },
-  Cartbutton: {
-    backgroundColor: 'white',
-    borderRadius: 100,
-    padding: 2,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderColor: 'orange',
-    borderWidth: 1,
     elevation:5
   }
 });
