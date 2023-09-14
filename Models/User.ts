@@ -2,6 +2,8 @@ export interface UserMain {
   user_detail?: userDetail;
   address_list: addressList[];
   single_address?: SingleAddress;
+  user_edit?:UserEdit
+ 
 }
 
 
@@ -37,6 +39,14 @@ export interface SingleAddress{
   pin: number;
   status: number;
   customer_id: number;
+}
+export interface UserEdit{
+  customer_id: number;
+  customer_email: string;
+  customer_name: string;
+  customer_phone: string;
+  reset_flag: number;
+  status: number;
 }
 
 

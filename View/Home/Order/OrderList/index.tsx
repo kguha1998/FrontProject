@@ -8,7 +8,7 @@ import { userDetail } from '../../../../Models/User';
 import { useFocusEffect } from '@react-navigation/native';
 
 const OrderList = ({ navigation, Order_listAction,updateState,Order_listSuccessAction,OrderAction,user,orderData, route ,order_detail_list}: OrderListProps) => {
- console.log("orderData from parents",orderData)
+ console.log("orderData from parents***",orderData)
   useEffect(() =>{
     // will make the action call here to fetch order list 
     Order_listAction(user?.customer_id);

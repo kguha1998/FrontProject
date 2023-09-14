@@ -1,21 +1,23 @@
 import { View, Text } from 'react-native'
-import React from 'react'
+import React, { useEffect } from 'react'
 
 import EditProfileView from './EditProfileView'
 import { StoreState } from '../../../../Models/reduxModel'
 import { connect } from 'react-redux'
-import { userDetail } from '../../../../Models/User'
-import { UserDetailEditAction } from '../../../../Stores/Actions/userAction'
+import { UserEdit, userDetail } from '../../../../Models/User'
+import { UserDetailEditAction, UserDetailFetchAction } from '../../../../Stores/Actions/userAction'
 import { useFocusEffect } from '@react-navigation/native'
 
-const EditProfile = ({navigation,route,user,UserDetailEditAction}:EditProfileProps) => {
+const EditProfile = ({navigation,route,user,UserDetailFetchAction,UserDetailEditAction,useredit}:EditProfileProps) => {
 
+  useEffect(()=>{
+    UserDetailFetchAction(user?.customer_id) 
+   
+},[])
   const EditUserDetail = (data: any) => {
       const id =user?.customer_id
       console.log("Component",id)
     data.customer_id= user?.customer_id
-    // console.log("Component",user?.customer_id)
-    // console.log("Data",data),
     const payload={
       id:id,
       data:data,
@@ -24,7 +26,7 @@ const EditProfile = ({navigation,route,user,UserDetailEditAction}:EditProfilePro
     UserDetailEditAction(payload);
 };
   return (
-    <EditProfileView navigation={navigation} EditUserDetail={EditUserDetail} />
+    <EditProfileView navigation={navigation} EditUserDetail={EditUserDetail} user={user}  />
   )
 }
 const mapStateToProps = (state: StoreState, ownProps: any) => {
@@ -33,6 +35,7 @@ const mapStateToProps = (state: StoreState, ownProps: any) => {
   };
 };
 const mapDispatchToProps = {
+  UserDetailFetchAction,
   UserDetailEditAction
 };
 
@@ -42,5 +45,7 @@ interface EditProfileProps{
     navigation?:any;
     route?:any;
     user?: userDetail;
+    useredit?:UserEdit;
+    UserDetailFetchAction?:any;
     UserDetailEditAction?:any
   }
