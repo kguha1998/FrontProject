@@ -26,7 +26,9 @@ export const LoginAction = (payload: any) => {
       .then(response => {
         if (response.status != 200) {
           dispatch(ApiCallErrorAction(response.data));
-        } else {
+        }
+         else {
+          ToastAndroid.show('Login Successfull!', ToastAndroid.LONG);
           dispatch(LoginSuccess(response.data));
         }
       })
@@ -41,6 +43,7 @@ export const LoginAction = (payload: any) => {
           AsyncStorage.multiRemove(['token'])
           dispatch(UserLogoutSuccess());
         } else if (error?.response?.status === 500) {
+          ToastAndroid.show('Invaild User!', ToastAndroid.LONG);
           dispatch(
             ApiCallErrorAction({
               errorCode: '',
