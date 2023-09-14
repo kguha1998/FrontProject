@@ -24,16 +24,16 @@ export default function UserReducer(
     //     customer_phone: action.payload.customer_phone || state.user_detail?.customer_phone,
     //   };
     
-    //   return {
-    //     ...state,
-    //     user_detail: {
-    //       ...state.user_detail,
-    //       ...updatedUserDetail,
-    //     },
-    //   };
+      // return {
+      //   ...state,
+      //   user_detail: {
+      //     ...state.user_detail,
+      //     ...updatedUserDetail,
+      //   },
+      // };
     
      
-     // return {...state, user_detail:action.payload};   
+     return {...state, user_detail:action.payload};   
     case UserActionTypes.Logout_Success_Action:
         return InitialState;
     default:

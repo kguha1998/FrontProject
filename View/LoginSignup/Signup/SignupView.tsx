@@ -58,7 +58,7 @@ const SignupView = ({navigation,Signup}:SignupViewProps) => {
     }
     
   }
-  
+  const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
  return (
   <ScrollView>
   <LinearGradient
@@ -114,13 +114,17 @@ const SignupView = ({navigation,Signup}:SignupViewProps) => {
         )}
         name="customer_name"
       />
-      {errors.Name && <Text>This is required.</Text>}
+      {errors.customer_name && <Text style={{ color: 'red' }}>This field is required</Text>}
 
    
 <Controller
       control={control}
       rules={{
         required: true,
+        pattern: {
+          value: emailRegex,
+          message: 'Invalid email address',
+        },
       }}
       render={({ field: { onChange, onBlur, value } }) => (
         <View style={{borderBottomWidth:1, margin: 10,marginTop:20,borderColor:'#fa8b0c'}}>
@@ -134,6 +138,7 @@ const SignupView = ({navigation,Signup}:SignupViewProps) => {
       )}
       name="customer_email"
     />
+    
     
     <Controller
         control={control}
@@ -153,7 +158,7 @@ const SignupView = ({navigation,Signup}:SignupViewProps) => {
         )}
         name="customer_password"
       />
-      {errors.password && <Text>This is required.</Text>}
+      {errors.customer_password && <Text style={{ color: 'red' }}>This field is required</Text>}
     <Controller
         control={control}
         rules={{
@@ -174,7 +179,7 @@ const SignupView = ({navigation,Signup}:SignupViewProps) => {
         )}
         name="customer_phone"
       />
-      {errors.mobile_Number && <Text>This is required.</Text>}
+      {errors.customer_phone && <Text style={{ color: 'red' }}>Invalid mobile number (10 digits required)</Text>}
 
 
       {/* <Controller

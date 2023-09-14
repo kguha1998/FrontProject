@@ -327,4 +327,5 @@ export interface CartMainProps {
   data?: any;
   incrementQuantity: (item: any) => void;
   decrementQuantity: (item: any) => void;
+  removeItem: (item: any) => any;
 }

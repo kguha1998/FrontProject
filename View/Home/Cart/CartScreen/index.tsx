@@ -13,8 +13,10 @@ import { useFocusEffect } from '@react-navigation/native'
 
 const CartIndex = ({setStep,CartItemAction,data,defaultProductData,updateState,orderdata  }: CartIndexProps) => {
   //const [fetchedData, setFetchedData] = useState({});
-  useFocusEffect(React.useCallback(()=>{
+   useFocusEffect(React.useCallback(()=>{
     // Action call
+  
+
    CartItemAction(defaultProductData);
 
   },[defaultProductData]))

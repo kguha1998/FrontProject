@@ -5,6 +5,7 @@ import { StoreState } from '../../../../Models/reduxModel'
 import {AddressDeleteAction, AddressListAction } from '../../../../Stores/Actions/userAction'
 import { connect } from 'react-redux'
 import { addressList, userDetail } from '../../../../Models/User'
+import { MenuProvider } from 'react-native-popup-menu'
 
 const AddressList = ({navigation,user,address,AddressListAction,AddressDeleteAction}:AddressListProps) => {
 
@@ -22,9 +23,11 @@ const AddressList = ({navigation,user,address,AddressListAction,AddressDeleteAct
    }
    
   return (
+    <MenuProvider>
     <View>
      <AddressListView AddressDelete={AddressDelete} navigation={navigation} address={address}  />
     </View>
+    </MenuProvider> 
   )
 }
 const mapStateToProps = (state: StoreState, ownProps: any) => {

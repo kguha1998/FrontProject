@@ -1,7 +1,10 @@
-import { View, Text, TouchableOpacity, Dimensions, ScrollView, Modal, Alert, StyleSheet, Pressable } from 'react-native'
+import { View, Text, TouchableOpacity, Dimensions, ScrollView, Modal,  StyleSheet, Pressable, TouchableWithoutFeedback } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import LinearGradient from 'react-native-linear-gradient'
 import Icon from 'react-native-vector-icons/Ionicons'
+import { Menu, MenuOptions, MenuOption, MenuTrigger } from 'react-native-popup-menu';
+
+
 
 
 
@@ -71,72 +74,71 @@ interface AddressListViewProps{
   }
   
 
-  const AddressNew =({item,navigation,AddressDelete}: AddressNewProps )=>{ 
+  const AddressNew = ({ item, navigation, AddressDelete }: AddressNewProps) => {
     const [isPopoverVisible, setPopoverVisible] = useState(false);
+    const [isRemoveModalVisible, setRemoveModalVisible] = useState(false);
+    
 
+const togglePopover = () => {
+  
+  setPopoverVisible(!isPopoverVisible);
+};
+
+const toggleRemoveModal = () => {
+  setRemoveModalVisible(!isRemoveModalVisible);
+};
+
+const handleRemovePress = () => {
+  togglePopover();
+  toggleRemoveModal(); // Show the Remove modal when "Remove" is pressed
+};
+
+const handleCancel = () => {
+  toggleRemoveModal(); // Close the Remove modal when "Cancel" is pressed
+};
+
+const handleConfirm = () => {
+  console.log('i am in handlefunction of child', item.address_id);
+  AddressDelete(item.address_id);
+  togglePopover();
+  toggleRemoveModal(); 
+};
+
+
+ 
+    return (
    
-
-    const handleRemovePress = () => {
-      setPopoverVisible(true);
-    };
-  
-    const handleCancel = () => {
-      setPopoverVisible(false);
-    };
-  
-    const handleConfirm = () => {
-      console.log('i am in handlefunction of child',item.address_id)
-      AddressDelete(item.address_id);
-     // setPopoverVisible(false);
-    };
-
-    return(
       <View
-   style={{
-     elevation: 10,
-     backgroundColor: 'white',
-     borderRadius: 10,
-     margin: 20,
-     marginTop: 10,
-     paddingVertical: 20,
-     paddingHorizontal: 15,}}>
-
-        <View>
-         <Text style={{fontWeight: '500', fontSize: 18}}>House No: {item.house_no}</Text>
-       </View>
-       <View>
-         <Text style={{fontWeight: '500', fontSize: 18}}>Address : {item.address_line1}</Text>
-       </View>
-       <View>
-         <Text style={{fontWeight: '500', fontSize: 18}}>Society Name: {item.address_line2}</Text>
-       </View>
-       <View>
-         <Text style={{fontWeight: '500', fontSize: 18}}>City : {item.city}</Text>
-       </View>
-       <View>
-         <Text style={{fontWeight: '500', fontSize: 18}}>State : {item.state}</Text>
-       </View>
-       <View>
-         <Text style={{fontWeight: '500', fontSize: 18}}>Country : {item.country}</Text>
-       </View>
-       <View>
-         <Text style={{fontWeight: '500', fontSize: 18}}>Pincode : {item.pin}</Text>
-       </View>
-       <View style={{flexDirection:'row',justifyContent:'center',alignItems:'center',marginTop:20}}>
-       <TouchableOpacity style={{width:'30%',height:30,backgroundColor:'#fa8b0c', borderRadius: 20,marginRight:10}}
-       onPress={() => navigation.navigate('AddressEdit',{ address_id: item.address_id })}>
-       <Text style={{textAlign:'center',marginTop:5}}>Edit</Text>
-       </TouchableOpacity>
-
-       <TouchableOpacity
-        style={styles.button}
-        onPress={handleRemovePress}>
-       <Text style={{textAlign:'center',marginTop:5}}>Remove</Text>
-       </TouchableOpacity>
-       <Modal
+      style={{
+        elevation: 10,
+        backgroundColor: 'white',
+        borderRadius: 10,
+        margin: 20,
+        marginTop: 10,
+        paddingVertical: 20,
+        paddingHorizontal: 15,
+      }}>
+      
+      
+        <Menu style={{ position: 'absolute', top: 10, right: 10 }}>
+          <MenuTrigger>
+            <Icon name="ellipsis-vertical-outline" size={20} color="#fa8b0c" />
+          </MenuTrigger>
+          <MenuOptions optionsContainerStyle={popupStyles.optionsContainer}>
+            <MenuOption onSelect={() => navigation.navigate('AddressEdit', { address_id: item.address_id })}>
+              <Text style={styles.menuText}>Edit</Text>
+            </MenuOption>
+            <MenuOption onSelect={handleRemovePress}>
+              <Text style={styles.menuText}>Remove</Text>
+            </MenuOption>
+          </MenuOptions>
+        </Menu>
+      
+    {/* </View> */}
+          <Modal
         animationType="slide"
         transparent={true}
-        visible={isPopoverVisible}>
+        visible={isRemoveModalVisible}>
         <View style={styles.modalContainer}>
           <View style={styles.modalContent}>
             <Text>Are you sure you want to delete?</Text>
@@ -156,13 +158,51 @@ interface AddressListViewProps{
           </View>
         </View>
       </Modal>
-    
-      </View> 
+      
+   
+          <View>
+            <Text style={{ fontWeight: '500', fontSize: 18 }}>House No: {item.house_no}</Text>
+          </View>
+          <View>
+            <Text style={{ fontWeight: '500', fontSize: 18 }}>Address : {item.address_line1}</Text>
+          </View>
+          <View>
+            <Text style={{ fontWeight: '500', fontSize: 18 }}>Society Name: {item.address_line2}</Text>
+          </View>
+          <View>
+            <Text style={{ fontWeight: '500', fontSize: 18 }}>City : {item.city}</Text>
+          </View>
+          <View>
+            <Text style={{ fontWeight: '500', fontSize: 18 }}>State : {item.state}</Text>
+          </View>
+          <View>
+            <Text style={{ fontWeight: '500', fontSize: 18 }}>Country : {item.country}</Text>
+          </View>
+          <View>
+            <Text style={{ fontWeight: '500', fontSize: 18 }}>Pincode : {item.pin}</Text>
+          </View>
+        </View>
+      
+    );
+  };
+  const popupStyles = {
+    optionsContainer: {
+      backgroundColor: 'white', 
+      borderRadius: 5, 
+      padding: 10, 
+      width: 150, 
   
-     </View>
-    )
-  }
- 
+      
+    },
+    
+    optionText: {
+      fontSize: 16, 
+      color: 'black', 
+      paddingVertical: 10, 
+      paddingHorizontal: 20,
+    },
+  };
+
   const styles = StyleSheet.create({
     button: {
       width: '30%', 
@@ -206,23 +246,17 @@ interface AddressListViewProps{
     modalButtonText: {
       color: 'white',
     },
+    menuText: {
+      fontSize: 16,
+      color: 'black',
+    },
+
+   
   });
-  
-
-
   interface AddressNewProps{ 
     navigation?:any;
     item?:any;
     AddressDelete?: any;
  
   }
-
-
-
- 
-
-
-
-
-
-   
+  
