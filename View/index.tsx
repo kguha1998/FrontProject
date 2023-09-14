@@ -6,9 +6,13 @@ import Home from './Home';
 import {connect} from 'react-redux';
 import {StoreState} from '../Models/reduxModel';
 import {userDetail} from '../Models/User';
+import ReactLoading from 'react-loading';
 
 const MainRoute = ({user}: MainProps) => {
- 
+
+ const Example = () => (
+    <ReactLoading type={'spin'} color={'#ffffff'} height={667} width={375} />
+);
   const Stack = createStackNavigator();
   return (
     <Stack.Navigator screenOptions={{headerShown: false}}>

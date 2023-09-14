@@ -4,24 +4,20 @@ import {TouchableOpacity} from 'react-native-gesture-handler';
 import LinearGradient from 'react-native-linear-gradient';
 import axios from 'axios';
 
-const OrderListView = ({navigation,order_detail_list, route}: OrderListViewProps) => {
-  const [veg, setVeg] = useState<any>([]);
+const OrderListView = ({navigation, route,orderData}: OrderListViewProps) => {
+  console.log("orderData.........",orderData)
+  const [veg, setVeg] = useState<any>(orderData);
   useEffect(() => {
-  //   try {
-  //      axios
-  //        .get('https://mocki.io/v1/45905a5c-396e-4d8c-aaff-5570fa7e26bb')
-        
-  //       .then((response: {data: any}) => {
-  //         setVeg(response.data);
-  //       })
-  //       .catch((err: any) => {
-  //         console.log(err);
-  //       });
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
    }, []);
   // console.log("i am coming from child ",order_detail_list)
+  const formatDate = (timestamp: string | number | Date) => {
+    const date = new Date(timestamp);
+    const day = date.getDate();
+    const month = date.getMonth() + 1; // Months are 0-based, so add 1
+    const year = date.getFullYear();
+    return `${day}-${month}-${year}`;
+  };
+
   return (
     <View>
       <LinearGradient
@@ -36,7 +32,7 @@ const OrderListView = ({navigation,order_detail_list, route}: OrderListViewProps
       <ScrollView>
         <View style={{paddingBottom: 350}}>
           <View>
-            {veg.map((m: any) => (
+          {orderData.map((m: any) => (
               <OrderDetailChild
                 navigation={navigation}
                 key={m.order_id}
@@ -141,4 +137,6 @@ interface OrderListViewProps {
   navigation?: any;
   route?: any;
   order_detail_list?:any;
+  orderData?:any;
+  OrderAction?:any;
 }

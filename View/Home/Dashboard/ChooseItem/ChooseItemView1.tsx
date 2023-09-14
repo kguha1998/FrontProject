@@ -27,6 +27,7 @@ const ChooseItemView1 = ({
 
     // const [buttonColor, setButtonColor] = useState('white'); // State for button color
     const [buttonColors, setButtonColors] = useState<Record<string, string>>({}); // State for button colors
+    const [selectedItemCount, setSelectedItemCount] = useState(0);
 
     const handleAddToCart = ( Add: any) => {
       const newCart = [...cart]; 
@@ -35,7 +36,7 @@ const ChooseItemView1 = ({
       // Set the button color for the specific commodity item
     setButtonColors(prevColors => ({
       ...prevColors,
-      [Add]: 'green',
+      [Add]: 'white',
     })); 
     };
 
@@ -47,13 +48,21 @@ const ChooseItemView1 = ({
       }));
     };
 
-    const handleToggleCartItem = (commodityId: any) => {
+    const handleToggleCartItem = (commodityId: any,commodityType: any) => {
       if (cart.includes(commodityId)) {
         console.log(`Removing item ${commodityId} from the cart`);
         handleRemoveItemFromCart(commodityId);
+        setSelectedItemCount(selectedItemCount - 1);
       } else {
-        console.log(`Adding item ${commodityId} to the cart`);
-        handleAddToCart(commodityId);
+        // console.log(`Adding item ${commodityId} to the cart`);
+        // handleAddToCart(commodityId);
+        if (selectedItemCount < commodityType.allowed_items) {
+          console.log(`Adding item ${commodityId} to the cart`);
+          handleAddToCart(commodityId);
+          setSelectedItemCount(selectedItemCount + 1);
+        } else {
+          console.log(`Cannot add item ${commodityId}. Max Allowed Items reached.`);
+        }
       }
     };
 
@@ -123,7 +132,11 @@ const ChooseItemView1 = ({
                   <Collapsible collapsed={expandedCommodityTypeIndex !== index}>
                     
                    <View >
-                    <Text style={styles.maxItem}>Max Allowed Items : {commodityType.allowed_items}</Text>
+                    <Text style={styles.maxItem}>Max Allowed Items : {commodityType.allowed_items}
+                    {selectedItemCount >= commodityType.allowed_items
+                    ? " (Max items reached)"
+                    : ` (Selected items: ${selectedItemCount})`}
+                    </Text>
                     <View style={{flexDirection:'column' }}>
                      
                     {commodityType.commodities.map(
@@ -135,6 +148,12 @@ const ChooseItemView1 = ({
                               //  source={{uri: 'https://cdn3.iconfinder.com/data/icons/salad/512/vegetable-healthy-vitamins-food-512.png'}}
                               source={{uri: `http://192.168.1.13:3000/api/v1/image/${commodity.commodity_id}`}}
                               style={{width: 100, height: 100, resizeMode: 'contain', }}
+                              onError={() => (
+                                <Image
+                                  source={{ uri: `https://cdn3.iconfinder.com/data/icons/salad/512/vegetable-healthy-vitamins-food-512.png` }}
+                                  style={{ width: 100, height: 100, resizeMode: 'contain' }}
+                                />
+                              )}
                             />
                           </View>
                           <View style={{marginBottom:10,marginLeft:20,marginTop:20}}>
@@ -143,17 +162,16 @@ const ChooseItemView1 = ({
                           </View>
                           </View>
                           
-                          <View style={{flexDirection:'row',}}>
-                            <View style={{}}>
+                            <View style={{alignItems:'flex-end'}}>
                           <TouchableOpacity
                             style={[styles.button,{ backgroundColor: buttonColors[commodity.commodity_id] || 'white' }]}
                             onPress={() => {
                               // handleAddToCart(commodity.commodity_id);
-                              handleToggleCartItem (commodity.commodity_id);
+                              handleToggleCartItem (commodity.commodity_id,commodityType);
                             }}>
                             <Text style={styles.buttonText}>
                           {/* Add */}
-                              {cart.includes(commodity.commodity_id) ? 'Remove' : 'Add'}
+                              {cart.includes(commodity.commodity_id) ? <Icon name="trash-outline" size={25} color={'orange'} /> : <Icon name="add-outline" size={25} color={'orange'}/>}
                            </Text>
                           </TouchableOpacity>
                           </View>
@@ -169,7 +187,7 @@ const ChooseItemView1 = ({
                             </Text>
                           </TouchableOpacity>
                           </View> */}
-                          </View>
+                          
                         </View>
                         
                       ),
@@ -188,7 +206,7 @@ const ChooseItemView1 = ({
                               GoToCart() 
                             ;
                             }}>
-                            <Text style={styles.buttonText}>Add To Cart</Text>
+                            <Text style={styles.buttonText}>Go To Cart</Text>
                           </TouchableOpacity>
                          
               </View>
@@ -250,12 +268,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderColor: 'orange',
-    borderWidth: 1,
-    elevation:5
+    borderWidth: 1.5,
+    elevation:5,
+    width:70
   },
   buttonText: {
     color: '#Ff8f00',
-    fontWeight: '400',
+    fontWeight: '600',
   },
   Cartbutton: {
     backgroundColor: 'white',

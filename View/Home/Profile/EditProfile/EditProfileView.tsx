@@ -1,5 +1,5 @@
 import { View, Text, Dimensions, TextInput, TouchableOpacity, ToastAndroid } from 'react-native'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
 
 import LinearGradient from 'react-native-linear-gradient'
@@ -7,13 +7,14 @@ import { Controller, useForm } from 'react-hook-form';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { ScrollView } from 'react-native-gesture-handler';
 
-const EditProfileView = ({navigation,route,EditUserDetail}:EditProfileViewProps) => {
+const EditProfileView = ({navigation,route,EditUserDetail,user}:EditProfileViewProps) => {
+  const [isEditMode, setIsEditMode] = useState(false);
   const {
     control,
     handleSubmit,
     setValue,
     getValues,
-    formState: {errors},
+    formState: {errors,isValid },
   } = useForm();
 
   const onSubmit=(data: any)=>{
@@ -21,6 +22,16 @@ const EditProfileView = ({navigation,route,EditUserDetail}:EditProfileViewProps)
   //   ToastAndroid.show('Details Updated!', ToastAndroid.LONG);
   //  navigation.navigate('ProfileMain');
   }
+  useEffect(()=>{
+    if(!!user){
+      setValue('customer_name',user.customer_name)
+      setValue('customer_email',user.customer_email)
+      setValue('customer_phone',user.customer_phone)
+ 
+    
+  
+    }
+  })
   return (
     <View>
         <ScrollView>
@@ -67,7 +78,15 @@ const EditProfileView = ({navigation,route,EditUserDetail}:EditProfileViewProps)
           Profile Details
         </Text>
       
-    
+        <TouchableOpacity
+              onPress={() => setIsEditMode(true)} 
+              style={{
+                position: 'absolute',
+                 top: 60, 
+                 right: 30,
+              }}>
+             <Icon name="create-outline" size={(30)} color="#fa8b0c" />
+        </TouchableOpacity>
     <Controller
         control={control}
         rules={{
@@ -80,6 +99,7 @@ const EditProfileView = ({navigation,route,EditUserDetail}:EditProfileViewProps)
               onBlur={onBlur}
               onChangeText={onChange}
               value={value}
+              editable={isEditMode}
             />
           </View>
         )}
@@ -100,6 +120,7 @@ const EditProfileView = ({navigation,route,EditUserDetail}:EditProfileViewProps)
           onBlur={onBlur}
           onChangeText={onChange}
           value={value}
+          editable={isEditMode}
         />
         </View>
       )}
@@ -121,6 +142,7 @@ const EditProfileView = ({navigation,route,EditUserDetail}:EditProfileViewProps)
               onBlur={onBlur}
               onChangeText={onChange}
               value={value}
+              editable={isEditMode}
             />
           </View>
         )}
@@ -129,20 +151,26 @@ const EditProfileView = ({navigation,route,EditUserDetail}:EditProfileViewProps)
       {errors.mobile_Number && <Text>This is required.</Text>}
 
 
-      <TouchableOpacity
-          onPress={handleSubmit(onSubmit)}
-          style={{
-            borderRadius: 100,
-            width: 150,
-            alignSelf: 'center',
-            alignItems: 'center',
-            paddingVertical: 5,
-            marginTop: 50,
-            marginBottom: 10,
-            backgroundColor:'#fa8b0c'
-          }}>
-          <Text style={{color: 'white', fontSize: 19}}>Edit</Text>
-        </TouchableOpacity>
+    
+           
+
+  {isEditMode && (
+  <TouchableOpacity
+    onPress={handleSubmit(onSubmit)}
+    style={{
+      borderRadius: 100,
+      width: 150,
+      alignSelf: 'center',
+      alignItems: 'center',
+      paddingVertical: 5,
+      marginTop: 50,
+      marginBottom: 10,
+      backgroundColor: '#fa8b0c',
+    }}>
+    <Text style={{ color: 'white', fontSize: 19 }}>Save</Text>
+  </TouchableOpacity>
+)}
+          
     </View>
     </ScrollView>
 
@@ -155,5 +183,6 @@ export default EditProfileView
 interface EditProfileViewProps{ 
   navigation?:any;
   route?:any;
+  user?:any;
   EditUserDetail?:any
 }

@@ -9,7 +9,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const ProfileMain = ({ navigation, user, UserLogoutSuccess }: ProfileMainProps) => {
   const Logout = (data: any) => {
-    // Remove user details from AsyncStorage when logging out
+    
     AsyncStorage.removeItem('user_details')
       .then(() => {
         console.log('User details removed from AsyncStorage');
@@ -18,7 +18,7 @@ const ProfileMain = ({ navigation, user, UserLogoutSuccess }: ProfileMainProps) 
         console.error('Error removing user details from AsyncStorage:', error);
       });
 
-    // Call the UserLogoutSuccess action
+  
     UserLogoutSuccess(user?.customer_id);
   }
 

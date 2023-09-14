@@ -1,5 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {AddressAdd, AddressDelete, AddressEdit, AddressFetch, AddressList, UserDetailEdit, UserLogin, UserSignup} from '../../Service/userService';
+import {AddressAdd, AddressDelete, AddressEdit, AddressFetch, AddressList, UserDetailEdit, UserDetailFetch, UserLogin, UserSignup} from '../../Service/userService';
 import {ApiCallErrorAction, BeginApiCallAction} from './apiStatusActions';
 import { ErrorModel } from '../../Models/errorModels';
 import { ToastAndroid } from 'react-native';
@@ -13,6 +13,7 @@ export enum UserActionTypes {
   Address_Edit_Success_Action = '[USER] Address Edit Success Action',
   Address_Fetch_Success_Action = '[USER] Address Fetch Success Action',
   Address_Delete_Success_Action = '[USER] Address Delete Success Action',
+  User_Detail_Fetch_Success_Action = '[USER] User Detail Fetch Success Action',
   User_Detail_Edit_Success_Action = '[USER] User Detail Edit Success Action'
 
 }
@@ -383,6 +384,57 @@ export const AddressDeleteSuccessAction = () => {
   };
 };
 
+export const UserDetailFetchAction = (payload: any) => {
+  return (dispatch: any, getState: any) => {
+    dispatch(BeginApiCallAction({
+      count: 1,
+      message: 'Please Wait...'}))
+    return UserDetailFetch(payload)
+   
+      .then(response => {
+       // console.log(response.data)
+        if (response.status != 200) {
+          dispatch(ApiCallErrorAction(response.data));
+        } else {
+          dispatch(UserDetailFetchSuccessAction(response.data));
+        }
+      })
+      .catch(error => {
+        if (error?.response?.status === 403) {
+          dispatch(
+            ApiCallErrorAction({
+              errorCode: '',
+              message: 'Please Login again to continue.',
+            }),
+          );
+          AsyncStorage.multiRemove(['token'])
+          dispatch(UserLogoutSuccess());
+        } else if (error?.response?.status === 500) {
+          dispatch(
+            ApiCallErrorAction({
+              errorCode: '',
+              message: error?.response?.data?.message,
+            }),
+          );
+        } else {
+          dispatch(
+            ApiCallErrorAction({
+              errorCode: '',
+              message: 'Error encountered please try again later',
+            }),
+          );
+        }
+      });
+  };
+};
+export const UserDetailFetchSuccessAction = (payload: any) => {
+  return {
+    type: UserActionTypes.User_Detail_Fetch_Success_Action,
+    payload: payload,
+
+  };
+};
+
 export const UserDetailEditAction = (payload: any) => {
    const{id,data}=payload;
    
@@ -402,7 +454,7 @@ export const UserDetailEditAction = (payload: any) => {
         
         dispatch(UserDetailEditSuccessAction(payload));
         ToastAndroid.show('Details Updated!', ToastAndroid.LONG);
-       payload.navigation.navigate('ProfileMain')
+        payload.navigation.navigate('ProfileMain')
         // setTimeout(() => {
         //  payload.navigation.navigate('ProfileMain');
         //  }, 5000); // Change the delay time (in milliseconds) as needed
