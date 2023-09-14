@@ -90,7 +90,7 @@ const CartIndex = ({setStep,CartItemAction,data,defaultProductData,updateState,o
           </Text>
         </LinearGradient>
         <View>{data ? ( // Check if data is defined before rendering the child component
-          <CartMain data={data}  incrementQuantity={incrementQuantity} decrementQuantity={decrementQuantity} removeItem={removeItem}/>
+          <CartMain data={data}  incrementQuantity={incrementQuantity} decrementQuantity={decrementQuantity} />
         ) : (
           <Text>ADD Items To Cart...</Text> // Or display a loading message or handle this case as needed
         )}</View>

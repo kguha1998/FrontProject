@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "280273060722",
+    "project_id": "frontproject-3bd2b",
+    "storage_bucket": "frontproject-3bd2b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:280273060722:android:14d96de47ccc2dde6993eb",
+        "android_client_info": {
+          "package_name": "com.frontproject"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBGYKpCJxW387Pob35mDK8OybiG_8Dyojs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

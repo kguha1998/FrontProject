@@ -230,6 +230,6 @@ export default AddressEditView
 interface AddressEditViewProps{ 
   navigation?:any;
   route?:any;
-  singleaddress?:SingleAddress;
+  singleaddress?:any;
   AddressEdit?:any
 }
