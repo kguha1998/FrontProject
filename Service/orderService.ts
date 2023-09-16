@@ -11,4 +11,9 @@ export const Orderlist = (data: any) => {
   return serviceClient.get(environment.url.orderlist+'/'+data);
 };
 
+export const OrderDetails = (data: any) => {
+ 
+  return serviceClient.get(environment.url.OrderDetails+'/'+data);
+};
+
 

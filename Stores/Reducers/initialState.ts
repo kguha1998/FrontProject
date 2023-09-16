@@ -30,7 +30,8 @@ const InitialState: StoreState = {
     cartItems: undefined
   },
   OrderMain:{
-    order_list:[]
+    order_list:[],
+    order_detail:[]
   }
   
 };

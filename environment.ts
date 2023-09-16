@@ -21,5 +21,6 @@ export const environment = {
     userDetailEdit:'/customer/cust',
     placeorderurl:'/order/CreateOrder',
     orderlist:'/order/cust',
+    OrderDetails:'/order',
   },
 };

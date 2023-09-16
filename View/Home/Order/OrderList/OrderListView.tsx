@@ -1,4 +1,4 @@
-import {View, Text, Dimensions, StyleSheet, ScrollView} from 'react-native';
+import {View, Text, Dimensions, StyleSheet, ScrollView, Image} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import LinearGradient from 'react-native-linear-gradient';
@@ -58,17 +58,25 @@ const OrderDetailChild = ({navigation, route, item}: any) => {
   
   return (
 <TouchableOpacity
-        onPress={() => navigation.navigate('OrderDetail')}>
+        onPress={() => navigation.navigate('OrderDetail',{order_id:item.order_id})}>
     <View
       style={styles.CardStyle}>
+         
         <View style={{padding:10}}>
+          
         <View>
-        <Text style={styles.TextStyle}>Product_Name : {item.product_name}</Text>
+        <Text style={styles.new}>Product_Name : {item.product_name} </Text>
       </View>
+      
 
       <View>
-        <Text style={styles.TextStyle}>Order_ID: {item.order_code}</Text>
+        <Text style={styles.TextStyle}>Order_code: {item.order_code}</Text>
       </View>
+      <View>
+        <Text style={styles.TextStyle}>Order_id: {item.order_id}</Text>
+      </View>
+
+      
       {/* <View>
         <Text style={styles.TextStyle}>Order_Placed_on :{item.created_on}</Text>
       </View> */}
@@ -80,6 +88,10 @@ const OrderDetailChild = ({navigation, route, item}: any) => {
       </View>
      
       </View>
+      <Image
+                 source={{uri: 'https://www.cayennediane.com/wp-content/uploads/2017/08/Chile-Pepper-Fruit-or-Vegetable.jpg'}}
+                 style={{ width: 300, height: 150, marginLeft:10,padding:0,marginBottom:10}}
+                 />
       
           {/* <View style={styles.button}>
         <Text>Go to Order Detail Page</Text>
@@ -112,7 +124,7 @@ const styles = StyleSheet.create({
     paddingTop: 40,
   },
   TextStyle: {
-    fontSize: 18,
+    fontSize: 15,
     
   },
   CardStyle: {
@@ -131,6 +143,8 @@ const styles = StyleSheet.create({
       marginTop: -20,
       paddingVertical: 20,
       paddingHorizontal: 15,
+      fontSize:18,
+      color:'#FFA000'
   }
 });
 interface OrderListViewProps {
