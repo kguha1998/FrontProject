@@ -17,9 +17,9 @@ const Cart = ({navigation}:any) => {
   const updateState = (data: any) => {
     setorderdata(data);
   };
-
+//this is attaching the customer_id and address_id with my cart data and atching it to my orderdata 
   const updateAddressId = (data: { customer_id: number; address_id: number }) => {
-    // Assuming orderdata is an object, update both customer_id and address_id fields
+    // updateing both customer_id and address_id fields
     setorderdata((prevOrderData: any) => ({
       ...prevOrderData,
       ...data,
@@ -59,7 +59,7 @@ const Cart = ({navigation}:any) => {
         onPress={val => setStep(val)}
       />
       {step == 0 ? (
-        <CartIndex setStep={setStep} updateState={updateState} />
+        <CartIndex setStep={setStep} updateState={updateState}/>
       ) : step == 1 ? (
         <Address setStep={setStep} navigation={navigation} updateAddressId={updateAddressId}/>
       ) : (
