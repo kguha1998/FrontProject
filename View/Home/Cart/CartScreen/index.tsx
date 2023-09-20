@@ -62,9 +62,7 @@ const CartIndex = ({setStep,CartItemAction,data,defaultProductData,updateState,o
   };
   
 
-  function removeItem(item: any): void {
-    throw new Error('Function not implemented.')
-  }
+
 
   return (
     <ScrollView>
