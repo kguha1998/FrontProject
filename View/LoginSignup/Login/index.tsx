@@ -1,5 +1,5 @@
 import { View, Text } from 'react-native';
-import React, { useEffect } from 'react'; // Import useEffect
+import React, { useEffect } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import LoginView from './LoginView';
 import { connect } from 'react-redux';
@@ -30,7 +30,6 @@ const Login = ({ navigation, route, LoginAction, user }: LoginPorps) => {
 
     AsyncStorage.setItem('user_details', JSON.stringify(data))
       .then(() => {
-        console.log('Login details saved in AsyncStorage');
       })
       .catch((error) => {
         console.error('Error saving login details:', error);

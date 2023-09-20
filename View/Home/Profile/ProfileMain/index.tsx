@@ -12,7 +12,6 @@ const ProfileMain = ({ navigation, user, UserLogoutSuccess }: ProfileMainProps) 
     
     AsyncStorage.removeItem('user_details')
       .then(() => {
-        console.log('User details removed from AsyncStorage');
       })
       .catch((error) => {
         console.error('Error removing user details from AsyncStorage:', error);

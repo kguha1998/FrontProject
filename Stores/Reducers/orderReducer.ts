@@ -11,6 +11,12 @@ export default function OrderReducer(
    
   case OrderItemsActionTypes.order_list_Success_Action:
     return {...state, order_list : action.payload};
+
+  case OrderItemsActionTypes.order_detail_Success_Action:
+    return {...state, order_detail : action.payload};
+
+
+
    default:
      return state;
     

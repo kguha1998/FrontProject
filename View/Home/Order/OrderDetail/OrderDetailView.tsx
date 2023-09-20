@@ -11,63 +11,27 @@ import {
 import LinearGradient from 'react-native-linear-gradient';
 import Icon from 'react-native-vector-icons/Ionicons'; // Import Ionicons from react-native-vector-icons
 
-const OrderDetailView = ({ navigation, route }: OrderDetailViewProps) => {
-  const [orderData, setOrderData] = useState<any>({
-    order_id: 9,
-    order_code: "BPK9QQIT904056",
-    created_on: "2023-09-10T06:05:04.000Z",
-    expected_delivery_date: "2023-09-11T06:05:04.000Z",
-    products: [
-      {
-        product_name: "KWS Small Box",
-        product_id: 66,
-        commodities: [
-          {
-            commodity_name: "CAPSICUM GREEN",
-            measurement_unit: "gm",
-            quantity: 250
-          },
-          {
-            commodity_name: "MUSROOM PC (Oyester Only)",
-            measurement_unit: "gm",
-            quantity: 200
-          },
-          {
-            commodity_name: "LEMON LOOSE",
-            measurement_unit: "pcs",
-            quantity: 2
-          },
-          {
-            commodity_name: "CHILLI LIGHT GREEN",
-            measurement_unit: "gm",
-            quantity: 150
-          },
-          {
-            commodity_name: "CORIANDER",
-            measurement_unit: "bundle",
-            quantity: 1
-          }
-        ]
-      }
-    ],
-    address: {
-      house_no: "s524",
-      address_line1: "NewTown",
-      address_line2: "Kolkata",
-      city: "Kolkata",
-      state: "West Bengal",
-      country: "India",
-      pin: "700000"
-    },
-    showCommodities: false, // Track whether to show commodities
-  });
+const OrderDetailView = ({ navigation, route,orderData,order_id }: OrderDetailViewProps) => {
+  console.log("order data in child....0000....",orderData[0]?.order_code)
+
 
   const toggleCommodities = () => {
-    setOrderData((prevData: any) => ({
+    orderData((prevData: any) => ({
       ...prevData,
       showCommodities: !prevData.showCommodities,
     }));
   };
+
+
+  
+  const formatDate = (timestamp: string | number | Date) => {
+    const date = new Date(timestamp);
+    const day = date.getDate();
+    const month = date.getMonth() + 1; // Months are 0-based, so add 1
+    const year = date.getFullYear();
+    return `${day}-${month}-${year}`;
+  };
+  
 
   return (
     <ScrollView>
@@ -83,7 +47,7 @@ const OrderDetailView = ({ navigation, route }: OrderDetailViewProps) => {
         </TouchableOpacity>
         <Text style={styles.headerText}>Order Details</Text>
       </LinearGradient>
-
+      {orderData && (
       <View style={styles.container}>
         <View style={styles.card}>
           <Image
@@ -94,12 +58,12 @@ const OrderDetailView = ({ navigation, route }: OrderDetailViewProps) => {
             style={styles.image}
           />
           <View style={styles.orderDetails}>
-            <OrderDetailItem label="Order ID:" value={orderData.order_id} />
-            <OrderDetailItem label="Order Code:" value={orderData.order_code} />
-            <OrderDetailItem label="Created On:" value={orderData.created_on} />
+            <OrderDetailItem label="Order ID:" value={orderData[0]?.order_id} />
+            <OrderDetailItem label="Order Code:" value={orderData[0]?.order_code} />
+            <OrderDetailItem label="Created On:" value={formatDate(orderData[0]?.created_on)} />
             <OrderDetailItem
               label="Expected Delivery Date:"
-              value={orderData.expected_delivery_date}
+              value={formatDate(orderData[0]?.expected_delivery_date)}
             />
           </View>
           <TouchableOpacity
@@ -124,7 +88,7 @@ const OrderDetailView = ({ navigation, route }: OrderDetailViewProps) => {
               color="blue"
             />
           </TouchableOpacity>
-          {orderData.showCommodities && (
+          {orderData[0]?.showCommodities && (
             <View style={styles.commoditiesContainer}>
               <Text style={styles.commodityHeader}>Order Products:</Text>
               {orderData.products.map((product:any, index:any) => (
@@ -149,6 +113,7 @@ const OrderDetailView = ({ navigation, route }: OrderDetailViewProps) => {
           </TouchableOpacity>
         </View>
       </View>
+      )}
     </ScrollView>
   );
 };
@@ -328,6 +293,8 @@ interface OrderDetailViewProps {
   navigation?: any;
   route?: any;
   OrderDetailViewProps?: any;
+  orderData?:any;
+  order_id?:any
 }
 
 export default OrderDetailView;
