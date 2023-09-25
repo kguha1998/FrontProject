@@ -18,6 +18,7 @@ const OrderDetailView = ({ navigation, route, orderData, order_id }: OrderDetail
  const [commodityInfo, setCommodityInfo] = useState<{ name: string; weight: number ;measurement_unit:string}[]>([]);
 
 
+
   const toggleModal = () => {
     if (!isModalVisible) {
       const firstOrder = orderData[0];
