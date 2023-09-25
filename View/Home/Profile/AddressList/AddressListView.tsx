@@ -43,13 +43,14 @@ const AddressListView = ({navigation,address,AddressDelete}:AddressListViewProps
      elevation: 10,
      backgroundColor: '#e2e82c',
      borderRadius: 10,
-     height:70,
+     height:50,
      margin: 20,
      marginTop: 30,
-     paddingVertical: 20,
-     paddingHorizontal: 15,}}>
+     paddingVertical: 10,
+     paddingHorizontal: 10,
+  }}>
       <TouchableOpacity onPress={() => navigation.navigate('AddressAdd')}>
-        <Text style={{textAlign:"center",fontSize:18}}>+Add Address</Text>
+        <Text style={{textAlign:"center",fontSize:20,fontWeight:'bold'}}>+Add Address</Text>
       </TouchableOpacity>
       </View> 
         {
@@ -110,11 +111,10 @@ const handleConfirm = () => {
    
       <View
       style={{
-        elevation: 10,
+        elevation: 5,
         backgroundColor: 'white',
         borderRadius: 10,
-        margin: 20,
-        marginTop: 10,
+        margin: 10,
         paddingVertical: 20,
         paddingHorizontal: 15,
       }}>
@@ -161,13 +161,17 @@ const handleConfirm = () => {
       
    
           <View>
-            <Text style={{ fontWeight: '500', fontSize: 18 }}>House No: {item.house_no}</Text>
+            <Text style={{ fontWeight: '500', fontSize: 18 }}>{item.house_no}, {item.address_line1},</Text>
+            <Text style={{ fontWeight: '500', fontSize: 18 }}>{item.address_line2}, {item.city}, {item.state},</Text>
+            <Text style={{ fontWeight: '500', fontSize: 18 }}>{item.country}, {item.pin} </Text>
+          </View>
+
+
+          {/* <View>
+            <Text style={{ fontWeight: '500', fontSize: 18 }}>Society Name: {item.address_line1}</Text>
           </View>
           <View>
-            <Text style={{ fontWeight: '500', fontSize: 18 }}>Address : {item.address_line1}</Text>
-          </View>
-          <View>
-            <Text style={{ fontWeight: '500', fontSize: 18 }}>Society Name: {item.address_line2}</Text>
+            <Text style={{ fontWeight: '500', fontSize: 18 }}>Address: {item.address_line2}</Text>
           </View>
           <View>
             <Text style={{ fontWeight: '500', fontSize: 18 }}>City : {item.city}</Text>
@@ -180,7 +184,7 @@ const handleConfirm = () => {
           </View>
           <View>
             <Text style={{ fontWeight: '500', fontSize: 18 }}>Pincode : {item.pin}</Text>
-          </View>
+          </View> */}
         </View>
       
     );
