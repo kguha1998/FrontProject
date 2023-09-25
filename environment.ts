@@ -1,7 +1,7 @@
 
 //export const BaseUrl = 'http://192.168.1.40:3000/api/v1';
 
-export const BaseUrl = 'http://192.168.1.6:3000/api/v1';
+export const BaseUrl = 'http://192.168.1.17:3000/api/v1';
 
 
 export const environment = {
@@ -21,5 +21,6 @@ export const environment = {
     userDetailEdit:'/customer/cust',
     placeorderurl:'/order/CreateOrder',
     orderlist:'/order/cust',
+    OrderDetails:'/order',
   },
 };

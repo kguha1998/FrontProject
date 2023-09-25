@@ -21,15 +21,7 @@ const InitialState: StoreState = {
   product: {
     product_detail: [],
     commodity_detail: undefined,
-    Store_Product:{
-      products:[{
-        id:"",
-        quantity:1,
-        product_id:0,
-        commodities:[]
-
-      }],
-    },
+    Store_Product:undefined
   },
   CartMain: {
     cartdata: undefined,
@@ -38,7 +30,8 @@ const InitialState: StoreState = {
     cartItems: undefined
   },
   OrderMain:{
-    order_list:[]
+    order_list:[],
+    order_detail:[]
   }
   
 };

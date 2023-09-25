@@ -6,6 +6,15 @@ import Icon from 'react-native-vector-icons/Ionicons';
 
 
 const CartMain = ({ data, incrementQuantity, decrementQuantity  }: CartMainProps) => {
+ // console.log(JSON.stringify(data))
+ // Calculate today's date + 1 day
+ const currentDate = new Date();
+ currentDate.setDate(currentDate.getDate() + 1);
+ const deliveryDate = currentDate.toLocaleDateString('en-US', {
+   year: 'numeric',
+   month: 'long',
+   day: 'numeric',
+ });
   const [collapsed, setCollapsed] = useState(true);
   useFocusEffect(
     React.useCallback(() => {
@@ -26,7 +35,7 @@ const CartMain = ({ data, incrementQuantity, decrementQuantity  }: CartMainProps
     <ScrollView>
       <View>
         <View style={{ flexDirection: 'row', alignItems: 'center', marginLeft: 7 }}>
-          <View style={{ marginTop: 22 }}>
+          <View style={{ marginTop: 22 , marginLeft: 2}}>
             <Icon name="timer-outline" style={{ color: 'black' }} size={20} />
           </View>
           <View style={{ marginLeft: 5 }}>
@@ -53,7 +62,7 @@ const CartMain = ({ data, incrementQuantity, decrementQuantity  }: CartMainProps
                 fontFamily: 'oswald',
                 color: 'black',
               }}>
-              15-20 Mins
+              {deliveryDate}
             </Text>
           </View>
         </View>
@@ -99,14 +108,11 @@ const CartMain = ({ data, incrementQuantity, decrementQuantity  }: CartMainProps
               <View style={styles.priceContainer}>
                 <Text style={styles.priceLabel}>Box Price: ₹{item.mrp}</Text>
                 <Text style={styles.priceLabel}>
-                  Total Price: ₹{item.quantity * item.selling_price}
+                  Total Price: ₹{item.selling_price}
                 </Text>
               </View>
-            </View>
-          ))}
-      </View>
-      <TouchableOpacity onPress={toggleExpand} style={styles.showItemsContainer}>
-        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+              <TouchableOpacity onPress={toggleExpand} style={styles.showItemsContainer}>
+        <View style={{ flexDirection: 'row', alignItems: 'center'}}>
           <Text style={styles.showItemsText}>Show Items</Text>
           <Icon
             name={collapsed ? 'chevron-down-outline' : 'chevron-up-outline'} // Replace with appropriate icons
@@ -116,31 +122,40 @@ const CartMain = ({ data, incrementQuantity, decrementQuantity  }: CartMainProps
         </View>
       </TouchableOpacity>
       <Collapsible collapsed={collapsed}>
-        <View style={styles.collapsibleContent}>
-          {data &&
-            data.product &&
-            data.product.length > 0 &&
-            data.product.map((item: any) => (
-              <View key={item.product_id}>
-                {item.commodities.map((commodity: any) => (
-                  <Text key={commodity.commodity_id} style={styles.selectedItemText}>
-                    {commodity.commodity_name}
-                  </Text>
-                ))}
-              </View>
-            ))}
+  <View style={styles.collapsibleContent}>
+    {item.commodities.map((commodity: any) => (
+      <View key={commodity.commodity_id} style={styles.commodityItem}>
+        <Text style={styles.commodityName}>
+          {commodity.commodity_name}
+        </Text>
+        <View style={styles.quantityUnitContainer}>
+          <Text style={styles.commodityQuantity}>
+            ({commodity.quantity}
+          </Text>
+          <Text style={styles.commodityUnit}>
+            {commodity.unit_name})
+          </Text>
         </View>
-      </Collapsible>
+      </View>
+    ))}
+  </View>
+</Collapsible>
+            </View>
+            
+          ))}
+      </View>
+
       <View style={{ alignItems: 'center' }}>
-        <View style={{ flexDirection: 'column', width: '95%' }}>
+        <View style={{ flexDirection: 'column', width: '100%' , marginBottom:10 }}>
           <View
             style={{
               flexDirection: 'row',
               alignItems: 'center',
               justifyContent: 'center',
-              padding: 10,
+              padding: 5,
               borderRadius: 8,
-              margin: 10,
+              margin: 5,
+              marginTop:-10
             }}>
             <Text
               style={{
@@ -161,23 +176,26 @@ const CartMain = ({ data, incrementQuantity, decrementQuantity  }: CartMainProps
               width: '95%',
               margin: 10,
               flexDirection: 'column',
+              borderRadius:2,
             }}>
             <View style={{ flexDirection: 'row' }}>
-              <Text style={{ fontWeight: 'bold', fontSize: 15, marginLeft: 12, marginTop: 5 }}>
+              <Text style={{ fontWeight: 'bold', fontSize: 15, marginLeft: 12, marginTop: 5, marginRight:250 }}>
                 Save 10%
               </Text>
               <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                <Icon name="gift" size={18} color="#f72d48" />
+                <Icon name="gift" size={18} color="#dba614" />
+                <TouchableOpacity>
                 <Text
                   style={{
                     fontWeight: 'bold',
                     fontSize: 15,
-                    marginLeft: 10,
-                    marginTop: 5,
-                    color: '#f72d48',
+                    marginLeft: 2,
+                    marginTop: 1,
+                    color: '#dba614',
                   }}>
                   Apply
                 </Text>
+                </TouchableOpacity>
               </View>
             </View>
             <View>
@@ -191,10 +209,10 @@ const CartMain = ({ data, incrementQuantity, decrementQuantity  }: CartMainProps
               flexDirection: 'row',
               alignItems: 'center',
               justifyContent: 'center',
-             
-              padding: 10,
+              padding: 5,
               borderRadius: 8,
-              margin: 10,
+              margin: 5,
+              marginTop:0
             }}>
             <Text
               style={{
@@ -248,7 +266,7 @@ const CartMain = ({ data, incrementQuantity, decrementQuantity  }: CartMainProps
             <View style={{ flexDirection: 'row' }}>
               <Text
                 style={{ marginTop: 7, color: 'black', fontSize: 15, marginLeft: 10 }}>
-                Final Price:
+                Final Price
               </Text>
               <Text
                 style={{
@@ -298,9 +316,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: 'white',
-    padding: 10,
+    paddingTop:2,
     borderRadius: 8,
-    margin: 10,
+    margin: 5,
   },
   showItemsText: {
     fontWeight: 'bold',
@@ -311,13 +329,32 @@ const styles = StyleSheet.create({
   },
   collapsibleContent: {
     margin: 10,
-    padding: 10,
+    padding: 5,
     backgroundColor: 'white',
     borderRadius: 8,
   },
-  selectedItemText: {
-    fontSize: 16,
-    marginBottom: 5, // Add margin between commodities
+  commodityContainer: {
+    flexDirection: 'column', // Display commodities vertically
+  },
+  commodityItem: {
+    flexDirection: 'row', // Display commodity name, quantity, and unit horizontally
+    alignItems: 'center', // Center items vertically
+    marginBottom: 10, // Add space between each commodity
+  },
+  commodityName: {
+    fontSize: 12,
+    marginRight: 15, // Add space between commodity name and quantity/unit
+  },
+  quantityUnitContainer: {
+    flexDirection: 'row', // Display quantity and unit horizontally
+    alignItems: 'center', // Center items vertically
+  },
+  commodityQuantity: {
+    fontSize: 12,
+    marginRight: 4, // Add space between quantity and unit
+  },
+  commodityUnit: {
+    fontSize: 12,
   },
 });
 

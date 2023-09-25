@@ -13,8 +13,10 @@ import { useFocusEffect } from '@react-navigation/native'
 
 const CartIndex = ({setStep,CartItemAction,data,defaultProductData,updateState,orderdata  }: CartIndexProps) => {
   //const [fetchedData, setFetchedData] = useState({});
-  useFocusEffect(React.useCallback(()=>{
+   useFocusEffect(React.useCallback(()=>{
     // Action call
+  
+
    CartItemAction(defaultProductData);
 
   },[defaultProductData]))
@@ -62,9 +64,7 @@ const CartIndex = ({setStep,CartItemAction,data,defaultProductData,updateState,o
   };
   
 
-  function removeItem(item: any): void {
-    throw new Error('Function not implemented.')
-  }
+
 
   return (
     <ScrollView>

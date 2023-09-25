@@ -7,66 +7,43 @@ import {
   Image,
   TouchableOpacity,
   ScrollView,
+  Modal,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-import Icon from 'react-native-vector-icons/Ionicons'; // Import Ionicons from react-native-vector-icons
+import Icon from 'react-native-vector-icons/Ionicons';
 
-const OrderDetailView = ({ navigation, route }: OrderDetailViewProps) => {
-  const [orderData, setOrderData] = useState<any>({
-    order_id: 9,
-    order_code: "BPK9QQIT904056",
-    created_on: "2023-09-10T06:05:04.000Z",
-    expected_delivery_date: "2023-09-11T06:05:04.000Z",
-    products: [
-      {
-        product_name: "KWS Small Box",
-        product_id: 66,
-        commodities: [
-          {
-            commodity_name: "CAPSICUM GREEN",
-            measurement_unit: "gm",
-            quantity: 250
-          },
-          {
-            commodity_name: "MUSROOM PC (Oyester Only)",
-            measurement_unit: "gm",
-            quantity: 200
-          },
-          {
-            commodity_name: "LEMON LOOSE",
-            measurement_unit: "pcs",
-            quantity: 2
-          },
-          {
-            commodity_name: "CHILLI LIGHT GREEN",
-            measurement_unit: "gm",
-            quantity: 150
-          },
-          {
-            commodity_name: "CORIANDER",
-            measurement_unit: "bundle",
-            quantity: 1
-          }
-        ]
+const OrderDetailView = ({ navigation, route, orderData, order_id }: OrderDetailViewProps) => {
+  const [isModalVisible, setModalVisible] = useState(false);
+ // const [commodityNames, setCommodityNames] = useState<{ name: string; weight: number }[]>([]);
+ const [commodityInfo, setCommodityInfo] = useState<{ name: string; weight: number ;measurement_unit:string}[]>([]);
+
+
+
+  const toggleModal = () => {
+    if (!isModalVisible) {
+      const firstOrder = orderData[0];
+      if (firstOrder && firstOrder.products && firstOrder.products.length > 0) {
+        const firstProduct = firstOrder.products[0];
+        if (firstProduct && firstProduct.commodities && firstProduct.commodities.length > 0) {
+          const commodityInfo = firstProduct.commodities.map(commodity => ({
+            name: commodity.commodity_name,
+            weight: commodity.quantity, // Replace 'weight' with the actual property name in your data
+            measurement_unit: commodity.measurement_unit, // Replace 'weight' with the actual property name in your data
+          }));
+          setCommodityInfo(commodityInfo);
+        }
       }
-    ],
-    address: {
-      house_no: "s524",
-      address_line1: "NewTown",
-      address_line2: "Kolkata",
-      city: "Kolkata",
-      state: "West Bengal",
-      country: "India",
-      pin: "700000"
-    },
-    showCommodities: false, // Track whether to show commodities
-  });
+    }
+    setModalVisible(!isModalVisible);
+  };
+  
 
-  const toggleCommodities = () => {
-    setOrderData((prevData: any) => ({
-      ...prevData,
-      showCommodities: !prevData.showCommodities,
-    }));
+  const formatDate = (timestamp: string | number | Date) => {
+    const date = new Date(timestamp);
+    const day = date.getDate();
+    const month = date.getMonth() + 1;
+    const year = date.getFullYear();
+    return `${day}-${month}-${year}`;
   };
 
   return (
@@ -83,72 +60,79 @@ const OrderDetailView = ({ navigation, route }: OrderDetailViewProps) => {
         </TouchableOpacity>
         <Text style={styles.headerText}>Order Details</Text>
       </LinearGradient>
-
-      <View style={styles.container}>
-        <View style={styles.card}>
-          <Image
-            source={{
-              uri:
-                'https://cdn4.iconfinder.com/data/icons/e-commerce-and-online-shopping-flat/512/delivery_hand_product_order_courier_box_service_shipping-512.png',
-            }}
-            style={styles.image}
-          />
-          <View style={styles.orderDetails}>
-            <OrderDetailItem label="Order ID:" value={orderData.order_id} />
-            <OrderDetailItem label="Order Code:" value={orderData.order_code} />
-            <OrderDetailItem label="Created On:" value={orderData.created_on} />
-            <OrderDetailItem
-              label="Expected Delivery Date:"
-              value={orderData.expected_delivery_date}
+      {orderData && (
+        <View style={styles.container}>
+          <View style={styles.card}>
+            <Image
+              source={{
+                uri:
+                  'https://cdn4.iconfinder.com/data/icons/e-commerce-and-online-shopping-flat/512/delivery_hand_product_order_courier_box_service_shipping-512.png',
+              }}
+              style={styles.image}
             />
-          </View>
-          <TouchableOpacity
-            onPress={toggleCommodities}
-            style={[
-              styles.commoditiesButton,
-              {
-                backgroundColor: orderData.showCommodities
-                  ? 'lightgray'
-                  : 'transparent',
-                borderColor: orderData.showCommodities
-                  ? 'transparent'
-                  : 'lightcoral',
-              },
-            ]}>
-            <Text style={styles.commoditiesButtonText}>
-              {orderData.showCommodities ? 'Hide Commodities' : 'Show Commodities'}
-            </Text>
-            <Icon
-              name={orderData.showCommodities ? 'chevron-up' : 'chevron-down'} // Use chevron-up or chevron-down based on showCommodities
-              size={20}
-              color="blue"
-            />
-          </TouchableOpacity>
-          {orderData.showCommodities && (
-            <View style={styles.commoditiesContainer}>
-              <Text style={styles.commodityHeader}>Order Products:</Text>
-              {orderData.products.map((product:any, index:any) => (
-                <View key={index} style={styles.productItem}>
-                  <Text style={styles.productName}>{product.product_name}</Text>
-                  <Text style={styles.productName}>
-            Quantity: {product.commodities.length}
-          </Text>
-                  <Accordion items={product.commodities} />
-                </View>
-              ))}
+            <View style={styles.orderDetails}>
+              <OrderDetailItem label="Order ID:" value={orderData[0]?.order_id} />
+              <OrderDetailItem label="Order Code:" value={orderData[0]?.order_code} />
+              <OrderDetailItem label="Created On:" value={formatDate(orderData[0]?.created_on)} />
+              <OrderDetailItem
+                label="Expected Delivery Date:"
+                value={formatDate(orderData[0]?.expected_delivery_date)}
+              />
             </View>
-          )}
-        </View>
-
-        <View style={styles.buttonContainer}>
-          <TouchableOpacity style={styles.button}>
-            <Text style={styles.buttonText}>Reorder</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.button}>
-            <Text style={styles.buttonText}>Track Order</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
+            <TouchableOpacity
+              onPress={toggleModal}
+              style={[
+                styles.commoditiesButton,
+                {
+                  backgroundColor: orderData.showCommodities
+                    ? 'lightgray'
+                    : 'transparent',
+                  borderColor: orderData.showCommodities
+                    ? 'transparent'
+                    : 'lightcoral',
+                },
+              ]}>
+              <Text style={styles.commoditiesButtonText}>
+                {orderData.showCommodities ? 'Hide Commodities' : 'Show Commodities'}
+              </Text>
+              <Icon
+                name={orderData.showCommodities ? 'chevron-up' : 'chevron-down'}
+                size={20}
+                color="blue"
+              />
+            </TouchableOpacity>
+            <Modal visible={isModalVisible} animationIn="slideInUp" animationOut="slideOutDown">
+  <View style={styles.modalContainer}>
+    <View style={styles.modalContent}>
+      <Text style={styles.modalTitle}>Commodities</Text>
+      {commodityInfo.map((info, index) => (
+        <Text key={index} style={styles.modalItem}>
+          {info.name} - Weight: {info.weight} {info.measurement_unit}
+        </Text>
+      ))}
+                  <TouchableOpacity onPress={toggleModal} style={styles.button}>
+                    <Text style={styles.buttonText}>Close</Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
+            </Modal>
+            {orderData[0]?.showCommodities && (
+              <View style={styles.commoditiesContainer}>
+                <Text style={styles.commodityHeader}>Order Products:</Text>
+                {orderData[0]?.products.map((product: any, index: any) => (
+                  <View key={index} style={styles.productItem}>
+                    <Text style={styles.productName}>{product.product_name}</Text>
+                    <Text style={styles.productName}>
+                      Quantity: {product.commodities.length}
+                    </Text>
+                    <Accordion items={product.commodities} />
+                  </View>
+                ))}
+              </View>
+            )}
+          </View>
+              </View>
+      )}
     </ScrollView>
   );
 };
@@ -167,7 +151,7 @@ const OrderDetailItem = ({
     </View>
   );
 };
-//displays the commodity 
+
 const Accordion = ({
   items,
 }: {
@@ -182,7 +166,6 @@ const Accordion = ({
             {item.quantity} {item.measurement_unit}
           </Text>
         </View>
-        
       ))}
     </View>
   );
@@ -302,8 +285,8 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     bottom: 0,
-    height: 1, // Adjust the height as needed
-    backgroundColor: 'lightcoral', // Add your desired underline color
+    height: 1,
+    backgroundColor: 'lightcoral',
   },
   commodityInfo: {
     flex: 1,
@@ -321,13 +304,37 @@ const styles = StyleSheet.create({
   },
   commodityIcon: {
     marginLeft: 10,
-  }
+  },
+  modalContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  },
+  modalContent: {
+    backgroundColor: 'white',
+    borderRadius: 10,
+    padding: 20,
+    width: Dimensions.get('window').width * 0.8,
+  },
+  modalTitle: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginBottom: 10,
+  },
+  modalItem: {
+    fontSize: 16,
+    marginBottom: 5,
+  },
 });
+
 
 interface OrderDetailViewProps {
   navigation?: any;
   route?: any;
   OrderDetailViewProps?: any;
+  orderData?:any;
+  order_id?:any
 }
 
 export default OrderDetailView;
